@@ -47,8 +47,13 @@ stop.
 
 ## Environment
 
-Windows, never used Linux. Every command PowerShell-first. No `make`, no POSIX shell
-assumptions, no WSL requirement. Docker optional, never the only path.
+macOS, Apple Silicon, zsh. New to the shell — every command copy-pasteable, run from the
+repo root, no `make`, no Docker requirement, no assumed global installs. One Python venv
+at `.venv/` for backend and scripts; `nvm`/`node` for the frontend.
+
+Torch resolves to `mps` here, not `cuda`. Device selection must be
+`cuda → mps → cpu` and must never assume the GPU path exists — the demo machine is this
+Mac.
 
 Models run locally via transformers + torch, cached in `backend/.cache/`. Local-first
 is deliberate: venue Wi-Fi will fail, and rate limits during judging would be fatal.

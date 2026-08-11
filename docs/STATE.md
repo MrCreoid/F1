@@ -5,13 +5,13 @@ Last updated: 2026-08-11 · after Phase 0 (bootstrap)
 ## Position
 - Phases complete: 0 (scaffold + feasibility probe)
 - Next phase: 1 — Backbone (FastAPI, config, Pydantic schemas, SQLite, CLIP zero-shot, OpenCV extraction, /api/health)
-- Blockers: none technical. One open question: BUILD.md/CLAUDE.md declare a Windows/PowerShell environment, but this repo is being built on macOS (Darwin arm64). Confirm which machine ships the demo before Phase 1 fixes commands and device handling.
+- Blockers: none.
 
 ## Hard measurements
-- Device: mps (Apple Silicon, torch 2.13.0). No CUDA on this host.
+- Device: mps (Apple Silicon, torch 2.13.0). No CUDA on this host. This Mac is the demo machine — decided 2026-08-11.
 - Single-frame classification: 18.5 ms median, full pipeline (preprocess + text encode + image encode + softmax), 10 runs after warmup. Forward-only on 640px Commons images: 27.6 ms.
 - Model cold load: 43.0 s first time (download + init); weights now cached in `backend/.cache/`.
-- Realtime viable (Phase 4): yes — 18.5 ms is ~13x under the 250 ms cutoff. Caveat: measured on mps, not on the Windows CPU box.
+- Realtime viable (Phase 4): yes — 18.5 ms is ~13x under the 250 ms cutoff, measured on the machine that will run the demo.
 
 ## Decisions made and why
 - CLIP loaded with `cache_dir=backend/.cache` — matches CLAUDE.md local-first rule, survives venue Wi-Fi failure.
@@ -24,14 +24,14 @@ Last updated: 2026-08-11 · after Phase 0 (bootstrap)
 - COCO cats as the probe image — measures latency fine, proves nothing about the four prompts. Any future sanity check uses real road imagery.
 
 ## Known broken / deferred
+- Target platform is macOS/zsh, Apple Silicon, `mps`. CLAUDE.md's Environment section was rewritten to match (2026-08-11); BUILD.md still contains the original Windows wording and is historical — CLAUDE.md wins.
 - Zero-shot dry-vs-damp separation is weak: a clean dry asphalt texture scored dry=0.305 / damp=0.406 (argmax wrong). Wet (0.857) and standing_water (0.783) were confident and correct. This is the exact weakness PHASES.md warns about — Phase 2's temporal layer and Phase 9's linear probe exist to cover it. Do not demo a single frame's label.
-- No backend/frontend code exists yet. Nothing to run.
-- Windows/PowerShell command paths untested — see blocker above.
+- No backend or frontend code exists yet — nothing to run.
 
 ## Run it
 
-```powershell
+```bash
 # Nothing to run yet — Phase 1 has not been built.
-# Probe reproduction (macOS shell used for the numbers above):
-#   .venv/bin/python scratchpad/clip_probe.py
+# The venv that produced the measurements above:
+#   .venv/bin/python -c "import torch; print(torch.backends.mps.is_available())"
 ```

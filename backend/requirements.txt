@@ -1,0 +1,13 @@
+# Weather Whiplash backend. Install into the repo-root venv:
+#   .venv/bin/pip install -r backend/requirements.txt
+fastapi>=0.115
+uvicorn[standard]>=0.32
+pydantic>=2.9
+sqlalchemy>=2.0
+opencv-python>=4.10
+pillow>=11
+torch>=2.5
+transformers>=4.45
+python-multipart>=0.0.12   # FastAPI multipart uploads (video, frame batches)
+httpx2>=0.1               # fastapi.testclient transport; starlette deprecated plain httpx
+pytest>=8.3

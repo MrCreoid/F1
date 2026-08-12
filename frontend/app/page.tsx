@@ -179,7 +179,7 @@ export default function Workstation() {
         className="ww-rise grid min-h-0 grid-rows-[auto_auto_auto_minmax(0,1fr)] border-l border-black/60 bg-mat-panel"
         style={{ gridArea: "c", animationDelay: ".13s", boxShadow: "inset 1px 0 0 var(--edge-hi)" }}
       >
-        <PitCall state={current} />
+        <PitCall state={current} history={upTo} />
         <WeatherPanel weather={weather} />
         <RateFusion state={current} />
         <EventLog entries={events} />

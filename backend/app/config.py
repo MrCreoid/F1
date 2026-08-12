@@ -24,6 +24,11 @@ CACHE_DIR = Path(os.getenv("WW_CACHE_DIR", BACKEND_ROOT / ".cache"))
 DATA_DIR = Path(os.getenv("WW_DATA_DIR", BACKEND_ROOT / "data"))
 UPLOAD_DIR = DATA_DIR / "uploads"
 
+# Per-frame thumbnails, one directory per session, served read-only at /media. This is
+# also the substrate Phase 9's build_dataset.py extracts from — the frames are already
+# decoded and downscaled here, so nothing has to re-open the video.
+FRAMES_DIR = DATA_DIR / "frames"
+
 # Bundled demo footage. Committed, not generated at runtime: the demo must not depend on
 # anything being downloaded or produced on the night.
 SAMPLES_DIR = BACKEND_ROOT / "samples"
@@ -76,6 +81,16 @@ MAX_FRAMES_PER_VIDEO = 900
 # Upload size limit at the trust boundary. 200MB comfortably holds a few minutes of
 # 1080p while refusing anything that would exhaust disk during judging.
 MAX_UPLOAD_MB = 200
+
+# Thumbnail width. The camera monitor is ~326 CSS px wide, so 480 stays sharp on a
+# retina panel without storing the full 640 the analysis ran on. One size serves both
+# the monitor and the timeline filmstrip — two sizes would double the writes to save
+# bandwidth that does not exist over localhost.
+THUMB_WIDTH = 480
+
+# JPEG quality. 80 is the knee: visually indistinguishable from 95 at this size, and
+# roughly a third of the bytes. ~30KB a frame, ~8MB for a 70s clip.
+THUMB_QUALITY = 80
 
 # ---------------------------------------------------------------- B.1 wetness index
 

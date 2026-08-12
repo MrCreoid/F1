@@ -8,15 +8,23 @@
  * element in the module.
  */
 
-import { COMPOUND_LABEL, clock, type TrackState, type WeatherResponse } from "@/lib/api";
+import { COMPOUND_LABEL, DEGRADED_BELOW, clock, type TrackState, type WeatherResponse } from "@/lib/api";
 
 /* ─────────────────────────────────────── pit call ───────────────────────────────── */
 
-export function PitCall({ state }: { state: TrackState }) {
+export function PitCall({ state, history }: { state: TrackState; history: TrackState[] }) {
   const rec = state.recommendation;
   const arming = rec.state === "ARMING";
   const boxing = rec.state === "BOX";
-  const target = rec.next ?? rec.current;
+
+  /* On BOX the change has already happened: `current` is the new compound and `next` is
+     null, so the schema alone cannot say what was left behind — and the instant the call
+     fires is the one moment the transition matters most. The compound being left is in
+     the previous frame's state. Reading it from history keeps this a drawing decision
+     rather than a new analysis field. */
+  const left = boxing ? history.at(-2)?.recommendation.current : undefined;
+  const from = left && left !== rec.current ? left : rec.current;
+  const to = boxing ? (from === rec.current ? null : rec.current) : rec.next;
 
   const accent = boxing
     ? "var(--color-sodium)"
@@ -66,18 +74,24 @@ export function PitCall({ state }: { state: TrackState }) {
               className="flex items-center gap-[11px] font-display uppercase leading-none"
               style={{ fontSize: 27, fontVariationSettings: '"wdth" 112', fontWeight: 800 }}
             >
-              <span style={{ color: "#8D969E" }}>{COMPOUND_LABEL[rec.current]}</span>
-              {rec.next && (
+              <span style={{ color: "#8D969E" }}>{COMPOUND_LABEL[from]}</span>
+              {to && (
                 <>
                   <span className="relative h-px w-[22px] bg-sodium">
                     <span className="absolute -top-[3.5px] right-0 border-y-[3.5px] border-l-[6px] border-y-transparent" style={{ borderLeftColor: "var(--color-sodium)" }} />
                   </span>
-                  <span style={{ color: "var(--color-state-dry)", textShadow: "0 0 16px rgba(201,209,217,.3)" }}>
-                    {COMPOUND_LABEL[target]}
+                  <span
+                    style={
+                      boxing
+                        ? { color: "var(--color-sodium)", textShadow: "0 0 18px rgba(255,122,26,.45)" }
+                        : { color: "var(--color-state-dry)", textShadow: "0 0 16px rgba(201,209,217,.3)" }
+                    }
+                  >
+                    {COMPOUND_LABEL[to]}
                   </span>
                 </>
               )}
-              {!rec.next && <span className="tag ml-2">held</span>}
+              {!to && <span className="tag ml-2">{boxing ? "now" : "held"}</span>}
             </div>
 
             {/* windows held — the call arming before it fires */}
@@ -303,7 +317,7 @@ export function deriveEvents(history: TrackState[], sourceName: string): LogEntr
       const level = s.recommendation.state === "BOX" ? "act" : s.recommendation.state === "ARMING" ? "act" : "info";
       const label =
         s.recommendation.state === "BOX"
-          ? `Box · ${COMPOUND_LABEL[s.recommendation.current].toLowerCase()}`
+          ? `Box · ${COMPOUND_LABEL[prev.recommendation.current].toLowerCase()} → ${COMPOUND_LABEL[s.recommendation.current].toLowerCase()}`
           : s.recommendation.state === "ARMING"
             ? `Arming · ${COMPOUND_LABEL[s.recommendation.next ?? s.recommendation.current].toLowerCase()} · window ${s.recommendation.windows_held}/${s.recommendation.windows_required}`
             : "Call disarmed · margin lost";
@@ -319,8 +333,8 @@ export function deriveEvents(history: TrackState[], sourceName: string): LogEntr
         level: s.trend.direction === "STABLE" ? "info" : "good",
       });
     }
-    const wasDegraded = prev.frame_quality.score < 0.25;
-    const isDegraded = s.frame_quality.score < 0.25;
+    const wasDegraded = prev.frame_quality.score < DEGRADED_BELOW;
+    const isDegraded = s.frame_quality.score < DEGRADED_BELOW;
     if (isDegraded && !wasDegraded) {
       out.push({ t: hhmmss(s.timestamp), text: "Signal degraded · frame distrusted", level: "warn" });
     }

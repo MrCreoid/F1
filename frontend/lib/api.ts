@@ -146,6 +146,13 @@ export function trendColor(direction: Trend["direction"]): string {
   return "var(--color-text-muted)";
 }
 
+/**
+ * Frame quality below which the backend flags a frame as degraded — the mirror of
+ * `config.QUALITY_FLAG_THRESHOLD`. The gate itself lives server-side; this is only the
+ * value the UI draws the warning at, and it must not drift from it.
+ */
+export const DEGRADED_BELOW = 0.25;
+
 /** Colour the index by the band it sits in — the same scale the chart uses. */
 export function twiColor(twi: number): string {
   if (twi < 25) return "var(--color-state-dry)";

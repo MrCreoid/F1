@@ -39,10 +39,10 @@ export function CameraMonitor({
             className="h-full w-full object-cover"
           />
         ) : (
-          /* Phase 7 writes per-frame thumbnails. Until then the monitor reports the
-             signal it does have rather than showing a decorative placeholder. */
+          /* Sessions analysed before the frame store existed carry no image. The monitor
+             says so rather than filling the space with a decorative placeholder. */
           <div className="flex h-full w-full items-center justify-center">
-            <span className="tag">Frame store offline · Phase 7</span>
+            <span className="tag">No frame stored · reload the clip</span>
           </div>
         )}
 

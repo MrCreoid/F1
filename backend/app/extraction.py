@@ -105,6 +105,31 @@ def load_image_sequence(paths: Sequence[Path | str]) -> list[ExtractedFrame]:
     return frames
 
 
+def write_thumbnail(image: np.ndarray, path: Path) -> None:
+    """Write one RGB frame as a JPEG for the UI to display.
+
+    The image arrives RGB from extraction and cv2 writes BGR, so the conversion back is
+    mandatory — skip it and every thumbnail is blue, which is exactly the tint the
+    classifier calls wet.
+    """
+    path.parent.mkdir(parents=True, exist_ok=True)
+    scale = config.THUMB_WIDTH / image.shape[1]
+    small = (
+        image
+        if scale >= 1.0
+        else cv2.resize(
+            image,
+            (config.THUMB_WIDTH, max(1, round(image.shape[0] * scale))),
+            interpolation=cv2.INTER_AREA,
+        )
+    )
+    cv2.imwrite(
+        str(path),
+        cv2.cvtColor(small, cv2.COLOR_RGB2BGR),
+        [cv2.IMWRITE_JPEG_QUALITY, config.THUMB_QUALITY],
+    )
+
+
 def decode_image_bytes(data: bytes, name: str) -> np.ndarray:
     """Decode an uploaded image. Raises ValueError naming the file if it isn't one."""
     bgr = cv2.imdecode(np.frombuffer(data, dtype=np.uint8), cv2.IMREAD_COLOR)

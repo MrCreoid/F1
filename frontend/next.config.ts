@@ -15,7 +15,12 @@ const nextConfig: NextConfig = {
   allowedDevOrigins: ["127.0.0.1", "localhost"],
 
   async rewrites() {
-    return [{ source: "/api/:path*", destination: `${BACKEND}/api/:path*` }];
+    return [
+      { source: "/api/:path*", destination: `${BACKEND}/api/:path*` },
+      // Per-frame thumbnails. Same reasoning as /api: the browser stays on one origin,
+      // and `thumbnail_url` arrives from the backend as a path, never an absolute URL.
+      { source: "/media/:path*", destination: `${BACKEND}/media/:path*` },
+    ];
   },
 };
 

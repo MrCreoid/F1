@@ -5,20 +5,23 @@ The frontend never runs inference; it renders what this returns.
 
 from __future__ import annotations
 
+import shutil
 import uuid
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import AsyncIterator
 
+import numpy as np
 from fastapi import Depends, FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session as OrmSession
 
 from app import config, db
 from app.analysis.pipeline import analyse_frames
 from app.analysis.weather import cache_age_s, drying_rate_prior, get_weather
 from app.classifier import ZeroShotClassifier, dominant_class
-from app.extraction import decode_image_bytes, extract_frames
+from app.extraction import decode_image_bytes, extract_frames, write_thumbnail
 from app.schemas import (
     FrameClassification,
     HealthResponse,
@@ -61,6 +64,7 @@ SAMPLES: list[dict[str, object]] = [
 async def lifespan(application: FastAPI) -> AsyncIterator[None]:
     db.init_db()
     config.UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+    config.FRAMES_DIR.mkdir(parents=True, exist_ok=True)
     classifier = ZeroShotClassifier.load()
     application.state.warmup_ms = classifier.warmup()
     application.state.classifier = classifier
@@ -77,6 +81,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Per-frame thumbnails, read-only. check_dir=False because the directory is created in
+# the lifespan, which runs after this module is imported — a cold checkout would
+# otherwise fail to start rather than simply having nothing to serve yet.
+app.mount("/media", StaticFiles(directory=config.FRAMES_DIR, check_dir=False), name="media")
 
 
 def get_db() -> OrmSession:
@@ -160,16 +169,20 @@ def _latest_state(record: db.Session) -> TrackState | None:
 def _analyse_and_store(
     record: db.Session,
     database: OrmSession,
-    frames: list[tuple[int, float, object]],
+    frames: list[tuple[int, float, np.ndarray]],
     probabilities: list[dict[str, float]],
 ) -> list[db.Frame]:
-    """Run the temporal stack over a batch and persist a TrackState per frame.
+    """Run the temporal stack over a batch, write its thumbnails, persist a state per frame.
 
     Each upload is analysed as its own run: the Kalman filter starts fresh rather than
     resuming from the session's stored history, because the earlier frames' images are
     gone by then and quality-weighted filtering needs them. Single-upload sessions —
     every demo path — are unaffected. Phase 4 holds a live filter per session and
     removes the limitation.
+
+    Thumbnails are written here rather than in the pipeline because the pipeline is pure
+    and tested as such. This is the one place that already holds both the decoded images
+    and the session they belong to.
     """
     states = analyse_frames(
         session_id=record.id,
@@ -177,6 +190,10 @@ def _analyse_and_store(
         probabilities=probabilities,
         weather=get_weather(),
     )
+    for state, (frame_index, _, image) in zip(states, frames):
+        write_thumbnail(image, config.FRAMES_DIR / record.id / f"{frame_index}.jpg")
+        state.thumbnail_url = f"/media/{record.id}/{frame_index}.jpg"
+
     stored = [
         db.Frame(
             session_id=record.id,
@@ -208,6 +225,8 @@ def get_states(session_id: str, database: OrmSession = Depends(get_db)) -> list[
 def delete_session(session_id: str, database: OrmSession = Depends(get_db)) -> None:
     database.delete(_load_session(session_id, database))
     database.commit()
+    # The frame store is not in the database, so the cascade does not reach it.
+    shutil.rmtree(config.FRAMES_DIR / session_id, ignore_errors=True)
 
 
 @app.post("/api/sessions/{session_id}/frames", response_model=list[FrameClassification])

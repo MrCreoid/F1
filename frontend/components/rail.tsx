@@ -7,7 +7,22 @@
  * states. Micro-neumorphism is used here and nowhere else in the app.
  */
 
-import { clock, twiColor, type HealthResponse, type TrackState, type WeatherResponse } from "@/lib/api";
+import { useEffect, useMemo, useRef, useState } from "react";
+import {
+  DEGRADED_BELOW,
+  clock,
+  twiColor,
+  type HealthResponse,
+  type TrackState,
+  type WeatherResponse,
+} from "@/lib/api";
+
+/**
+ * Target width of one filmstrip cell. At the rail's ~64px height a 16:9 frame is 114px
+ * wide, so 104 crops a sliver off each side rather than letterboxing — an editor's
+ * filmstrip is contiguous footage, not a row of thumbnails floating in gutters.
+ */
+const CELL_W = 104;
 
 /* ─────────────────────────────────────── status bar ─────────────────────────────── */
 
@@ -112,6 +127,39 @@ export function TimelineRail({
   const position = total > 1 ? index / (total - 1) : 0;
   const duration = total ? (new Date(history[total - 1].timestamp).getTime() - new Date(history[0].timestamp).getTime()) / 1000 : 0;
 
+  /* How many frames fit as legible thumbnails is a question only the rendered width can
+     answer, and the answer changes with the viewport. Measure it rather than assume. */
+  const strip = useRef<HTMLDivElement>(null);
+  const [capacity, setCapacity] = useState(12);
+  useEffect(() => {
+    const element = strip.current;
+    if (!element) return;
+    const observer = new ResizeObserver(([entry]) => {
+      setCapacity(Math.max(1, Math.floor(entry.contentRect.width / CELL_W)));
+    });
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
+
+  /* Each cell stands for a contiguous run of frames and shows that run's middle frame.
+     Ranges rather than samples, so the cell under the playhead is always well defined —
+     and so a degraded frame anywhere inside a cell still marks it. A warning must not be
+     averaged away by the frames either side of it. */
+  const cells = useMemo(() => {
+    const count = Math.min(Math.max(1, capacity), Math.max(1, total));
+    return Array.from({ length: count }, (_, c) => {
+      const from = Math.floor((c * total) / count);
+      const to = Math.max(from + 1, Math.floor(((c + 1) * total) / count));
+      const run = history.slice(from, to);
+      return {
+        from,
+        frame: run[Math.floor(run.length / 2)] ?? history[from],
+        degraded: run.some((s) => s.frame_quality.score < DEGRADED_BELOW),
+        current: index >= from && index < to,
+      };
+    });
+  }, [history, total, capacity, index]);
+
   /* The wetness ribbon is a continuous read of the index, so it is drawn as a gradient
      rather than discrete blocks. Every stop is a real frame. */
   const ribbon =
@@ -174,7 +222,7 @@ export function TimelineRail({
 
           {/* Event markers: degraded frames and the moment the call armed. */}
           {history.map((s, i) =>
-            s.frame_quality.score < 0.25 || s.recommendation.state !== "HOLD" ? (
+            s.frame_quality.score < DEGRADED_BELOW || s.recommendation.state !== "HOLD" ? (
               <span
                 key={i}
                 className="absolute bottom-0 h-[9px] w-px"
@@ -188,20 +236,63 @@ export function TimelineRail({
           )}
         </div>
 
-        {/* Frame strip. Phase 7 writes real thumbnails; until then each cell shows the
-            frame's own wetness so the strip carries data rather than decoration. */}
-        <div className="well cursor-pointer p-0.5" onClick={handleScrub} role="presentation">
-          <div className="flex h-full min-w-0 gap-px">
-            {history.map((s, i) => (
+        {/* The filmstrip. Click anywhere to scrub — the cell is the picture, but the
+            landing frame is read continuously from the x position, so scrubbing is as
+            fine-grained as the footage rather than as coarse as the thumbnails. */}
+        <div
+          ref={strip}
+          className="well cursor-pointer p-0.5 outline-sodium focus-visible:outline-2 focus-visible:outline-offset-2"
+          onClick={handleScrub}
+          role="slider"
+          tabIndex={0}
+          aria-label="Frame timeline"
+          aria-valuemin={0}
+          aria-valuemax={Math.max(0, total - 1)}
+          aria-valuenow={index}
+          aria-valuetext={`Frame ${index + 1} of ${total} · ${clock((duration * position) || 0)}`}
+        >
+          <div className="flex h-full min-w-0">
+            {cells.map((cell) => (
               <span
-                key={i}
-                className="min-w-0 flex-1"
-                style={{
-                  background: twiColor(s.twi),
-                  opacity: s.frame_quality.score < 0.25 ? 0.28 : 0.55 + 0.45 * s.frame_quality.score,
-                  boxShadow: i === index ? "inset 0 0 0 2px var(--color-sodium)" : undefined,
-                }}
-              />
+                key={cell.from}
+                className="relative block min-w-0 flex-1 overflow-hidden border-r border-black/70 last:border-r-0"
+                /* The wetness colour sits under the image, so a cell reads as data from
+                   the first paint and resolves into footage as the JPEG lands. */
+                style={{ background: twiColor(cell.frame.twi) }}
+              >
+                {cell.frame.thumbnail_url && (
+                  // eslint-disable-next-line @next/next/no-img-element -- backend-served frame, not a static asset
+                  <img
+                    src={cell.frame.thumbnail_url}
+                    alt=""
+                    draggable={false}
+                    className="h-full w-full object-cover"
+                    /* Suppressed, not hidden. A distrusted frame still has to be
+                       readable — the user is being told the system doubts it, not
+                       that it is gone. */
+                    style={cell.degraded ? { opacity: 0.5 } : undefined}
+                  />
+                )}
+                {cell.degraded && (
+                  /* Hatched, the drafting mark for a region that does not count. It
+                     has to survive being 100px wide over bright spray, so the lines
+                     carry weight rather than a tint. */
+                  <span
+                    className="absolute inset-0"
+                    style={{
+                      backgroundImage:
+                        "repeating-linear-gradient(45deg, rgba(224,163,62,.85) 0 1.5px, transparent 1.5px 6px)",
+                      boxShadow: "inset 0 0 0 1px rgba(224,163,62,.55)",
+                    }}
+                  />
+                )}
+                {cell.current && (
+                  <span
+                    className="absolute inset-0"
+                    style={{ boxShadow: "inset 0 0 0 2px var(--color-sodium)" }}
+                  />
+                )}
+              </span>
             ))}
           </div>
         </div>

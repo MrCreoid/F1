@@ -118,7 +118,9 @@ def analyse_frames(
                     weather_rate_prior=rate_prior,
                 ),
                 frame_index=frame_index,
-                thumbnail_url=None,  # written in Phase 7, when the timeline needs it
+                # Filled in by main.py once the frame is written to the store. The
+                # pipeline stays pure — it never touches the filesystem.
+                thumbnail_url=None,
             )
         )
 

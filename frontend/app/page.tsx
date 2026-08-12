@@ -118,7 +118,13 @@ export default function Workstation() {
       if (history.length === 0) return;
       if (e.key === "ArrowLeft") { e.preventDefault(); step(-1); }
       if (e.key === "ArrowRight") { e.preventDefault(); step(1); }
-      if (e.key === " ") { e.preventDefault(); setPlaying((p) => !p); }
+      // Space on a focused button already activates it. Handling it here as well
+      // toggled twice and cancelled out, so a keyboard user could not start playback
+      // with the one control they can reach. Let the button own its own key.
+      if (e.key === " " && !(e.target as HTMLElement)?.closest("button")) {
+        e.preventDefault();
+        setPlaying((p) => !p);
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);

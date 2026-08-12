@@ -8,7 +8,7 @@
 
 import { strict as assert } from "node:assert";
 import test from "node:test";
-import { bandColor, conditionStops, interpolateEta, projectionGap, TWI_THRESHOLDS } from "./chart.ts";
+import { bandColor, conditionStops, interpolateEta, projectionGap, ratePerMin, TWI_THRESHOLDS } from "./chart.ts";
 
 const DRY = bandColor(10);
 const DAMP = bandColor(45);
@@ -132,4 +132,18 @@ test("the null-state reason names the gate that actually failed", () => {
     projectionGap({ twi: 45, ratePerMin: -2, rSquared: 0.9, sufficientSignal: true }),
     /horizon/,
   );
+});
+
+/* The rate readout is gated on the same signal the projection is gated on. Without it
+   the hero printed "STABLE -64.0/min" — an instrument contradicting itself — on 80 of
+   the 300 frames of the wetting sample. */
+
+test("a rate the backend does not stand behind is not printed", () => {
+  assert.equal(ratePerMin(-64.0, false), "\u2014");
+  assert.equal(ratePerMin(0.2, false), "\u2014");
+});
+
+test("a supported rate is printed with sign and one decimal", () => {
+  assert.equal(ratePerMin(-3.24, true), "\u22123.2");
+  assert.equal(ratePerMin(3.24, true), "+3.2");
 });

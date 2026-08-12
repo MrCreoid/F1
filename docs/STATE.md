@@ -1,12 +1,11 @@
 # STATE
 
-Last updated: 2026-08-12 · after Phase 9a
+Last updated: 2026-08-12 · after Phase 10
 
 ## Position
-- Phases complete: 0 (scaffold + probe), 1 (backbone), 2 (intelligence layer), 3 (design proof), 5 (frontend shell), 6 (signature element), 7 (pit call + timeline), **9a (dataset pipeline — built, not yet published)**
-- Next phase: 10 — hardening and `docs/DEMO.md`, then `/hostile`.
+- Phases complete: 0 (scaffold + probe), 1 (backbone), 2 (intelligence layer), 3 (design proof), 5 (frontend shell), 6 (signature element), 7 (pit call + timeline), **9a (dataset pipeline — built, not yet published)**, **10 (hardening + DEMO.md + hostile pass)**
+- Next phase: 8 — motion, trimmed. Spring numerals and 400ms colour cross-fades only.
 - Phase 4 (WebSocket realtime) is **skipped**, per the cut list.
-- Phase 8 (motion, trimmed) is last.
 - **Blocker on Rule 3: two things only a human can supply.** See below.
 
 ## Rule 3 — what is left, precisely
@@ -31,13 +30,71 @@ generated card, and 37 tests over the licensing and review gates.
   only network consumers and none of them runs during a demo.
 
 ## Hard measurements
-- Device: mps. Single-frame classification 18.5 ms. Full 70s clip: 263 frames in 2.0 s.
+- Device: mps. `/api/health` reports the real per-frame cost each start; **15.6 ms** on
+  the last measured run. (The 18.5 ms in earlier revisions of this file was stale — the
+  status bar now shows the live figure rather than a number anybody has to maintain.)
+- Sample analysis, measured through the API: **drying 300 frames in 3.0 s**, wetting 300
+  in 2.0 s, ambiguous 280 in 1.9 s.
 - Kalman Q = 0.05 — settles a 10-point step in 3.0 s, holds plateau noise at 0.9.
-- Backend suite: **98 passed in 19.9 s**. Frontend: 8 chart tests, `tsc`, `eslint`,
+- Backend suite: **113 passed in 25.6 s**. Frontend: 10 tests, `tsc`, `eslint`,
   `next build` all clean.
+- No horizontal overflow at 375, 1000 or 1440 px: `scrollWidth === clientWidth`, zero
+  overflowing elements.
 - Thumbnails 480px q80; a 300-frame clip writes ~300 files under `backend/data/frames/`.
 - **Retrieval precision, measured:** free-text Commons search put a road word in only
   **36% of 288 titles**. Curated categories are near 100% on inspection of the first 20.
+
+## Demo beats, measured — see docs/DEMO.md
+| clip | frames | BOX events |
+|---|---|---|
+| drying | 300 / 75s | frame 224 (56.0s) → INTERMEDIATE · frame 258 (64.5s) → SLICK |
+| wetting | 300 / 75s | frame 102 (25.5s) → FULL_WET |
+| ambiguous | 280 / 70s | none; only 19/280 frames yield a projection, 54 degraded |
+
+**ARMING lasts two frames — 0.5 s of footage.** D.5 calls it the emotional beat of the
+product and the pulse cannot complete one cycle at replay speed. Step through it with the
+arrow keys; do not play it.
+
+## Phase 10 — hardening, and what the hostile pass found
+
+Nine findings, ranked by how badly they would embarrass us on stage. **1–4 are fixed.**
+
+1. **The instrument contradicted itself.** The hero rendered `STABLE` next to
+   `−64.0/min` on **80 of 300 frames** of the wetting clip and 12/300 of drying. When the
+   fit fails its gates the backend forces direction to STABLE but still reports the slope
+   it computed, and the UI printed it to one decimal as though it were a fact. Null-state
+   discipline had been applied to the projection and never to the readout beside it.
+   `chart.ts:ratePerMin()` now returns an em dash when `sufficient_signal` is false.
+   Re-measured across 40 frames of the worst clip: **zero contradictions**, 20 dashes.
+2. **A keyboard user could not start playback.** Space on the focused play button was
+   handled by the window listener *and* by native button activation — two toggles, net
+   no-op. The window handler now ignores space inside a button. D.7 wants full keyboard
+   reach; the primary transport control had none.
+3. **The upload size guard was decorative.** `await file.read()` ran before the length
+   check, so a 2GB drop exhausted memory before producing the 413 it existed to produce.
+   Now streamed in 1MB chunks and checked as it goes, with the partial file removed on
+   refusal.
+4. **Uploads were never cleaned up.** Phase 7 added an `rmtree` for the frame store and
+   covered only half the problem; `data/uploads/` had reached 22MB. `delete_session` now
+   removes both.
+
+Deferred, with reasons:
+
+5. **Backend tunables are re-typed in the frontend** — `25`/`65` in `decision.tsx` (four
+   places) and `chart.ts:TWI_THRESHOLDS`; `150` and `0.15` in `observation.tsx`. Retune
+   `COMPOUND_THRESHOLDS` and the chart silently disagrees with the pit call. The honest
+   fix is serving them from `/api/health` or a `/api/config`, which is a schema change
+   plus a regeneration — worth doing, too large to bolt onto this phase.
+6. **A flat signal reports perfect confidence.** `trend.py:79` returns `R² = 1.0` on zero
+   variance and `sufficient_signal` True; 0.001 of noise drops it to 0.004. **Not
+   reachable end-to-end** — CLIP is not bit-identical across a batch on mps, so a frozen
+   feed lands at R² 0.11 and correctly reads *Insufficient*. Latent, not live, but it is a
+   public tested function whose comment argues the behaviour is correct.
+7. **`weather.py:96` catches `Exception` and never logs.** An Open-Meteo field rename
+   becomes a permanent silent fallback. The UI does say `offline-fallback`, so it is
+   honest on screen and invisible in the logs.
+8. Doc drift — fixed in this rewrite; the status bar now shows the live `warmup_ms`.
+9. **`Lighthouse accessibility ≥ 95` (D.7) has never been run.**
 
 ## Phase 9a — the dataset pipeline
 - **Categories, not free-text search.** Commons search matches the description page, not
@@ -153,12 +210,16 @@ generated card, and 37 tests over the licensing and review gates.
 
 ## Known broken / deferred
 - **Rule 3 is not closed.** Labelling and `HF_TOKEN` outstanding — see the top.
+- **Hostile findings 5–7 and 9 are open.** See the Phase 10 section for each.
+- Pressing play with the playhead at the end does nothing and says nothing. A clip opens
+  at its last frame, so this is the first thing a new user tries. Stopping rather than
+  looping is deliberate; the silence is not.
+- The layout stacks below 1024px but the three-column instrument is the version worth
+  showing. Demo at 1440×860 or wider.
 - **Commons categories contain near-duplicate photo series** (the same driveway seconds
   apart). Phase 9b's train/test split **must split by source photo**, or duplicates leak
   across the split and the reported accuracy is fiction.
-- **The layout does not stack below 1024px.** SPEC-DESIGN D.3 asks for it, D.7 wants
-  375px. The grid is a fixed `348px 1fr 324px` with no breakpoint; at 800px the
-  projection panel is clipped. A layout pass, not a filmstrip change.
+
 - **The sample clips are one unlicensed photograph with its exposure ramped.** Measured:
   structural correlation against frame 0 falls to −0.005 by frame 599 — the picture is
   gone, leaving flat noise. Provenance was never recorded and `scripts/build_samples.py`

@@ -10,7 +10,7 @@
 
 import { useEffect, useState } from "react";
 import { clock, trendColor, type TrackState } from "@/lib/api";
-import { conditionStops, interpolateEta, projectionGap } from "@/lib/chart";
+import { conditionStops, interpolateEta, projectionGap, ratePerMin } from "@/lib/chart";
 
 /**
  * A countdown that ticks between server updates.
@@ -151,9 +151,15 @@ export function HeroInstrument({ state, history }: { state: TrackState; history:
                   {state.trend.direction}
                 </span>
               </span>
-              <span className="tnum text-t15" style={{ color: trendColor(state.trend.direction) }}>
-                {state.trend.rate_per_min > 0 ? "+" : "−"}
-                {Math.abs(state.trend.rate_per_min).toFixed(1)}
+              <span
+                className="tnum text-t15"
+                style={{
+                  color: state.trend.sufficient_signal
+                    ? trendColor(state.trend.direction)
+                    : "var(--color-text-muted)",
+                }}
+              >
+                {ratePerMin(state.trend.rate_per_min, state.trend.sufficient_signal)}
                 <span className="text-[.78em] text-text-muted">/min</span>
               </span>
             </div>

@@ -113,3 +113,19 @@ export function projectionGap(args: {
   }
   return "Crossing beyond the 30 minute horizon";
 }
+
+/**
+ * The rate, or an em dash when the backend does not stand behind it.
+ *
+ * When the fit fails its gates the backend forces the direction to STABLE but still
+ * reports the slope it computed. Printing that slope to one decimal put "STABLE" next
+ * to "-64.0/min" on 80 of the 300 frames of the wetting sample — an instrument
+ * contradicting itself in the same breath. The projection panel has always refused to
+ * draw an unsupported number; this is the same discipline applied to the readout
+ * beside it. Takes primitives rather than the Trend type so it stays testable without
+ * pulling in the API client.
+ */
+export function ratePerMin(ratePerMinute: number, sufficientSignal: boolean): string {
+  if (!sufficientSignal) return "\u2014";
+  return `${ratePerMinute > 0 ? "+" : "\u2212"}${Math.abs(ratePerMinute).toFixed(1)}`;
+}

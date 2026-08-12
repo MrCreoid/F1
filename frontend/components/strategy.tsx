@@ -8,7 +8,15 @@
  * element in the module.
  */
 
-import { COMPOUND_LABEL, DEGRADED_BELOW, clock, type TrackState, type WeatherResponse } from "@/lib/api";
+import {
+  COMPOUND_LABEL,
+  DEGRADED_BELOW,
+  clock,
+  trendColor,
+  type TrackState,
+  type WeatherResponse,
+} from "@/lib/api";
+import { ratePerMin } from "@/lib/chart";
 
 /* ─────────────────────────────────────── pit call ───────────────────────────────── */
 
@@ -243,9 +251,17 @@ export function RateFusion({ state }: { state: TrackState }) {
 
       <div className="mt-2 flex items-baseline justify-between border-t border-black/50 pt-2">
         <span className="tag">Fused rate</span>
-        <span className="tnum text-t15" style={{ color: "var(--color-trend-improving)" }}>
-          {state.trend.rate_per_min > 0 ? "+" : "−"}
-          {Math.abs(state.trend.rate_per_min).toFixed(1)}
+        {/* Also gated: the colour said "improving" regardless of sign, and the number was
+            printed even when the fit behind it had already failed. */}
+        <span
+          className="tnum text-t15"
+          style={{
+            color: state.trend.sufficient_signal
+              ? trendColor(state.trend.direction)
+              : "var(--color-text-muted)",
+          }}
+        >
+          {ratePerMin(state.trend.rate_per_min, state.trend.sufficient_signal)}
           <span className="text-[.78em] text-text-muted">/min</span>
         </span>
       </div>

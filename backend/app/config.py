@@ -82,6 +82,11 @@ MAX_FRAMES_PER_VIDEO = 900
 # 1080p while refusing anything that would exhaust disk during judging.
 MAX_UPLOAD_MB = 200
 
+# Read size for streaming an upload to disk. 1MB is large enough that the syscall
+# overhead is irrelevant and small enough that the limit above is enforced within a
+# megabyte of where it should be, rather than after the whole body is in memory.
+UPLOAD_CHUNK_BYTES = 1024 * 1024
+
 # Thumbnail width. The camera monitor is ~326 CSS px wide, so 480 stays sharp on a
 # retina panel without storing the full 640 the analysis ran on. One size serves both
 # the monitor and the timeline filmstrip — two sizes would double the writes to save

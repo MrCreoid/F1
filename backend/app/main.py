@@ -226,8 +226,10 @@ def get_states(session_id: str, database: OrmSession = Depends(get_db)) -> list[
 def delete_session(session_id: str, database: OrmSession = Depends(get_db)) -> None:
     database.delete(_load_session(session_id, database))
     database.commit()
-    # The frame store is not in the database, so the cascade does not reach it.
+    # Neither the frame store nor the saved upload is in the database, so the cascade
+    # reaches neither. Phase 7 cleaned up only the first of the two.
     shutil.rmtree(config.FRAMES_DIR / session_id, ignore_errors=True)
+    shutil.rmtree(config.UPLOAD_DIR / session_id, ignore_errors=True)
 
 
 @app.post("/api/sessions/{session_id}/frames", response_model=list[FrameClassification])
@@ -292,15 +294,29 @@ async def upload_video(
     """Extract and classify synchronously. Phase 4 makes this a real background job."""
     record = _load_session(session_id, database)
 
-    payload = await file.read()
-    if len(payload) > config.MAX_UPLOAD_MB * 1024 * 1024:
-        raise HTTPException(status_code=413, detail=f"Video exceeds {config.MAX_UPLOAD_MB}MB")
-
     job_id = str(uuid.uuid4())
     destination = config.UPLOAD_DIR / record.id
     destination.mkdir(parents=True, exist_ok=True)
     video_path = destination / f"{job_id}-{file.filename or 'clip.mp4'}"
-    video_path.write_bytes(payload)
+
+    # Streamed in chunks and checked as it goes. Reading the whole body first and then
+    # measuring it made the limit decorative: a 2GB drop exhausted memory before the
+    # 413 it was supposed to produce.
+    limit = config.MAX_UPLOAD_MB * 1024 * 1024
+    written = 0
+    try:
+        with video_path.open("wb") as sink:
+            while chunk := await file.read(config.UPLOAD_CHUNK_BYTES):
+                written += len(chunk)
+                if written > limit:
+                    raise HTTPException(
+                        status_code=413, detail=f"Video exceeds {config.MAX_UPLOAD_MB}MB"
+                    )
+                sink.write(chunk)
+    except BaseException:
+        # Never leave a partial file behind for the extractor to choke on later.
+        video_path.unlink(missing_ok=True)
+        raise
 
     return _run_video(record, database, video_path, job_id=job_id)
 

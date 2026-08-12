@@ -14,6 +14,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session as OrmSession
 
 from app import config, db
+from app.analysis.pipeline import analyse_frames
+from app.analysis.weather import cache_age_s, drying_rate_prior, get_weather
 from app.classifier import ZeroShotClassifier, dominant_class
 from app.extraction import decode_image_bytes, extract_frames
 from app.schemas import (
@@ -22,7 +24,9 @@ from app.schemas import (
     SessionCreate,
     SessionDetail,
     SessionSummary,
+    TrackState,
     VideoUploadResponse,
+    WeatherResponse,
 )
 
 
@@ -64,11 +68,14 @@ def _load_session(session_id: str, database: OrmSession) -> db.Session:
 
 
 def _to_classification(frame: db.Frame) -> FrameClassification:
+    state = frame.state or {}
     return FrameClassification(
         frame_index=frame.frame_index,
         t_s=frame.t_s,
         probabilities=frame.probabilities,
         dominant_class=dominant_class(frame.probabilities),
+        twi=state.get("twi"),
+        quality_score=(state.get("frame_quality") or {}).get("score"),
     )
 
 
@@ -80,7 +87,17 @@ def health() -> HealthResponse:
         mode="zero-shot",
         device=classifier.device,
         warm=classifier.warm,
-        weather_cache_age_s=None,  # weather fusion lands in Phase 2
+        weather_cache_age_s=cache_age_s(),
+    )
+
+
+@app.get("/api/weather", response_model=WeatherResponse)
+def weather(lat: float = config.DEFAULT_LAT, lon: float = config.DEFAULT_LON) -> WeatherResponse:
+    snapshot = get_weather(lat, lon)
+    return WeatherResponse(
+        **vars(snapshot),
+        drying_rate_prior=drying_rate_prior(snapshot),
+        cache_age_s=cache_age_s(),
     )
 
 
@@ -101,8 +118,51 @@ def get_session(session_id: str, database: OrmSession = Depends(get_db)) -> Sess
         name=record.name,
         source=record.source,
         frames=[_to_classification(f) for f in record.frames],
-        state=None,  # TrackState arrives in Phase 2
+        state=_latest_state(record),
     )
+
+
+def _latest_state(record: db.Session) -> TrackState | None:
+    """The most recent analysed frame is the session's current state."""
+    for frame in reversed(record.frames):
+        if frame.state is not None:
+            return TrackState.model_validate(frame.state)
+    return None
+
+
+def _analyse_and_store(
+    record: db.Session,
+    database: OrmSession,
+    frames: list[tuple[int, float, object]],
+    probabilities: list[dict[str, float]],
+) -> list[db.Frame]:
+    """Run the temporal stack over a batch and persist a TrackState per frame.
+
+    Each upload is analysed as its own run: the Kalman filter starts fresh rather than
+    resuming from the session's stored history, because the earlier frames' images are
+    gone by then and quality-weighted filtering needs them. Single-upload sessions —
+    every demo path — are unaffected. Phase 4 holds a live filter per session and
+    removes the limitation.
+    """
+    states = analyse_frames(
+        session_id=record.id,
+        frames=frames,
+        probabilities=probabilities,
+        weather=get_weather(),
+    )
+    stored = [
+        db.Frame(
+            session_id=record.id,
+            frame_index=state.frame_index,
+            t_s=t_s,
+            probabilities=probs,
+            state=state.model_dump(mode="json"),
+        )
+        for state, (_, t_s, _), probs in zip(states, frames, probabilities)
+    ]
+    database.add_all(stored)
+    database.commit()
+    return stored
 
 
 @app.delete("/api/sessions/{session_id}", status_code=204)
@@ -128,18 +188,13 @@ async def upload_frames(
             raise HTTPException(status_code=400, detail=str(exc)) from exc
 
     classifier: ZeroShotClassifier = app.state.classifier
-    for offset, probabilities in enumerate(classifier.classify(images)):
-        database.add(
-            db.Frame(
-                session_id=record.id,
-                frame_index=start_index + offset,
-                t_s=(start_index + offset) / config.SAMPLE_FPS,
-                probabilities=probabilities,
-            )
-        )
-    database.commit()
-    database.refresh(record)
-    return [_to_classification(f) for f in record.frames[start_index:]]
+    probabilities = classifier.classify(images)
+    frames = [
+        (start_index + offset, (start_index + offset) / config.SAMPLE_FPS, image)
+        for offset, image in enumerate(images)
+    ]
+    stored = _analyse_and_store(record, database, frames, probabilities)
+    return [_to_classification(f) for f in stored]
 
 
 @app.post("/api/sessions/{session_id}/video", response_model=VideoUploadResponse)
@@ -168,11 +223,12 @@ async def upload_video(
 
     classifier: ZeroShotClassifier = app.state.classifier
     probabilities = classifier.classify([f.image for f in extraction.frames])
-    for frame, probs in zip(extraction.frames, probabilities):
-        database.add(
-            db.Frame(session_id=record.id, frame_index=frame.index, t_s=frame.t_s, probabilities=probs)
-        )
-    database.commit()
+    _analyse_and_store(
+        record,
+        database,
+        [(f.index, f.t_s, f.image) for f in extraction.frames],
+        probabilities,
+    )
 
     return VideoUploadResponse(
         job_id=job_id,

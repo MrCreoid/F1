@@ -1,55 +1,63 @@
 # STATE
 
-Last updated: 2026-08-11 · after Phase 1
+Last updated: 2026-08-12 · after Phase 2
 
 ## Position
-- Phases complete: 0 (scaffold + feasibility probe), 1 (backbone)
-- Next phase: 2 — Intelligence layer (SPEC-ANALYSIS B.1–B.7 as pure modules, synthetic-signal tests first)
+- Phases complete: 0 (scaffold + probe), 1 (backbone), 2 (intelligence layer)
+- Next phase: 3 — Static design proof, 90 minutes maximum. Invoke the UI/UX skill. Needs human approval of the direction before Phase 5.
 - Blockers: none
 
 ## Hard measurements
 - Device: mps (Apple Silicon, torch 2.13.0, transformers 5.15.0). This Mac is the demo machine.
-- Single-frame classification: 18.5 ms median (Step 0.3, standalone probe). Warmup path in `/api/health` reports the live per-frame figure each boot.
-- Model cold load: 43.0 s first ever; ~3 s from `backend/.cache/` since.
-- Realtime viable (Phase 4): yes — ~13x under the 250 ms cutoff, measured on the demo machine.
-- Phase 1 test suite: 19 passed in 12.9 s.
+- Single-frame classification: 18.5 ms median (Step 0.3 probe).
+- Full pipeline on a real 70s clip: 263 sampled frames extracted, classified, filtered, trended, projected and persisted in **2.0 s** end to end (~7.6 ms/frame).
+- Kalman settling on a synthetic 10-point step under 3.0 TWI noise, measured across Q: 0.005→4.75s, 0.02→3.50s, **0.05→3.00s (chosen)**, 0.3→1.50s, 1.0→1.00s. Plateau noise std 0.85–1.19 across the same range.
+- Realtime viable (Phase 4): yes, by a wide margin.
+- Test suite: 54 passed in 18.6 s (19 Phase 1 + 35 Phase 2).
 
 ## Decisions made and why
-- Text embeddings precomputed once at startup, image embeddings per frame — removes the text tower from per-frame cost. `test_classify_matches_clips_own_single_shot_path` pins the result against `processor(text=…, images=…)` to ±1e-3, because a miscalibration here would be invisible and would poison every downstream TWI.
-- `_features()` shim in `classifier.py`: transformers 4.x returned a tensor from `get_*_features`, 5.x returns `BaseModelOutputWithPooling` with the projection in `.pooler_output`. requirements.txt allows both, so both are handled rather than accidentally pinned.
-- SAMPLE_FPS 4.0 — track conditions move over tens of seconds, so 4 Hz is ample resolution and cuts inference ~7x versus 30fps source. Phase 2's Kalman assumes roughly this arrival rate.
-- FRAME_MAX_EDGE 640 — CLIP only sees 224px, but Phase 2's Laplacian blur metric needs more detail than 224 to tell defocus from motion blur, and 640 doubles as the UI thumbnail.
-- CLASSIFY_BATCH_SIZE 16 — amortises per-call overhead without a memory spike on an 8GB machine.
-- `WW_DEVICE` env override — mps is fast but the least battle-tested torch backend. `WW_DEVICE=cpu` is the mid-demo recovery lever, not a debugging session on stage.
-- `WW_DATA_DIR` env override — `backend/conftest.py` points it at a temp dir so tests never touch dev data.
-- Classifier tests assert the interface contract (valid distribution, determinism, batch-invariance, calibration), never which class wins. An accuracy assertion on zero-shot output would be a flaky test wearing a guarantee's clothes.
-- Video upload extracts and classifies synchronously and returns a `job_id`. Honest about it in the code comment: Phase 4 makes it a real background job.
-- httpx2 over httpx — starlette's TestClient deprecated plain httpx and warned on every run.
+- Kalman Q = 0.05 — every value tested clears the spec's ~15s target, so the binding constraint is noise, not speed. 0.05 is where settling stops improving much (3.0s) while still knocking 3.0 TWI of measurement noise down to 0.9.
+- Kalman R = 25.0 / max(quality, 0.02) — 25 is CLIP's observed ±5 TWI frame-to-frame scatter squared. The floor stops a zero-quality frame dividing by zero.
+- Rate is stored per second internally and exposed **only** as `rate_per_min`. A factor-of-60 error here is invisible in the UI, so a test asserts the unit directly on a known ramp.
+- Frame quality is a weighted **geometric** mean of focus/exposure/confidence (0.40/0.20/0.40). Arithmetic would let two good factors average away one catastrophic one; a sharp, well-exposed frame that yields a coin-flip distribution is not a good frame.
+- Trend cross-check: OLS is the authority (it has R²), but if the Kalman rate disagrees *in sign* and both exceed the threshold, the result is forced to STABLE / insufficient. Two estimators disagreeing means we do not know.
+- `analysis/` is 6 modules grouped by axis, not 7 files one per spec item. SPEC-ANALYSIS asks for separate pure *functions*, and each B-item is a distinctly named function; one-function files would have been worse to read.
+- `WW_OFFLINE=1` — keeps the test suite off the network, and is the lever for venue Wi-Fi that hangs rather than fails outright. A timeout costs seconds; a flag costs nothing.
+- `FrameClassification` gained `twi` and `quality_score`. The Phase 6 projection chart plots TWI history, and SPEC-API's rule is to extend the schema rather than compute analysis in the frontend.
+- Weather fusion uses mean frame quality over the trend window as the visual weight, and the blended rate feeds the projection. Direction is re-derived after fusion so the label always matches the number displayed beside it.
 
 ## Rejected, do not revisit
-- Wikimedia direct thumbnail URLs without a User-Agent header — HTTP 403. Use the Commons API (`action=query&generator=search`) with a UA.
-- COCO cats as a probe image — times the pipeline fine, proves nothing about the four prompts. Sanity checks use real road imagery.
-- A separate `/api/classify` endpoint for the single-image proof — `POST /api/sessions/{id}/frames` is already in SPEC-API and does the job. Don't invent endpoints the contract doesn't have.
+- Wikimedia direct thumbnail URLs without a User-Agent — HTTP 403. Use the Commons API with a UA.
+- COCO cats as a probe image — proves nothing about the four prompts.
+- A separate `/api/classify` endpoint — `POST /api/sessions/{id}/frames` is already in the contract.
+- Arithmetic mean for frame quality — see above.
 
 ## Known broken / deferred
-- Zero-shot dry-vs-damp is weak: clean dry asphalt scored dry=0.305 / damp=0.406 (argmax wrong). Wet and standing water are confident and correct — a real wet-road photo returns wet=0.894, a flooded road standing_water=0.640. Phase 2's temporal layer and Phase 9's probe exist to cover this. Never demo a single frame's label.
-- `TrackState` is fully defined in `schemas.py` but nothing populates it — `GET /api/sessions/{id}` returns `state: null` until Phase 2.
-- No thumbnails written yet; `thumbnail_url` stays null until the timeline needs it in Phase 7.
-- No weather layer, so `/api/health` reports `weather_cache_age_s: null`. Phase 2.
-- Target platform is macOS/zsh/`mps`. CLAUDE.md is correct; BUILD.md still carries the original Windows wording and is historical.
+- **The 30-minute crossover horizon gate is unreachable through config.** Widest band (40 TWI) at the minimum reportable rate (1.5/min) crosses in ~26.7 min, inside the 1800s limit. Kept as a guard against future threshold changes and tested via the function's `horizon_s` parameter, not pretended to be live.
+- Each upload is analysed as its own run — the Kalman filter restarts rather than resuming a session's stored history, because quality-weighted filtering needs the frame images and those are not persisted. Every demo path is a single upload, so nothing visible is affected. Phase 4's live per-session filter removes it.
+- Zero-shot still cannot separate dry from damp. On the 70s cross-fade clip the index held ~72 for the first 45s and only moved once the fade was well advanced — the transition is detected late. This is the known weakness; the temporal layer is what makes it survivable, and Phase 9's probe is the fix. Demo the trend, not the label.
+- No thumbnails written; `thumbnail_url` is null until Phase 7.
+- `next` is null on a BOX result. The compound has already changed by then, so there is nothing pending — but the UI may want the previous compound for the "INTERMEDIATE → SLICK" readout. Revisit in Phase 7.
+- BUILD.md still carries the original Windows wording and is historical. CLAUDE.md is correct: macOS/zsh/mps.
 
 ## Run it
 
 ```bash
-# one-time: install backend deps into the repo-root venv
+# one-time
 .venv/bin/pip install -r backend/requirements.txt
 
-# tests (run from backend/)
+# tests
 cd backend && ../.venv/bin/python -m pytest tests/ -q
 
-# server — http://127.0.0.1:8000/docs for the interactive API
+# server — http://127.0.0.1:8000/docs
 cd backend && ../.venv/bin/python -m uvicorn app.main:app --port 8000 --reload
 
-# health check, in a second terminal
-curl -s http://127.0.0.1:8000/api/health
+# live weather + drying prior
+curl -s "http://127.0.0.1:8000/api/weather" | python3 -m json.tool
+
+# analyse a clip end to end
+SID=$(curl -s -X POST http://127.0.0.1:8000/api/sessions -H "Content-Type: application/json" \
+  -d '{"name":"test"}' | python3 -c "import sys,json;print(json.load(sys.stdin)['session_id'])")
+curl -s -X POST "http://127.0.0.1:8000/api/sessions/$SID/video" -F "file=@yourclip.mp4"
+curl -s "http://127.0.0.1:8000/api/sessions/$SID" | python3 -m json.tool
 ```

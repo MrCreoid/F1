@@ -86,12 +86,18 @@ class TrackState(BaseModel):
 
 
 class FrameClassification(BaseModel):
-    """One analysed frame. Phase 1 fills the appearance half; Phase 2 adds twi/quality."""
+    """One analysed frame — the history the timeline and the projection chart plot.
+
+    `twi` and `quality_score` are null only for frames stored before the analysis layer
+    existed; every frame written since Phase 2 carries them.
+    """
 
     frame_index: int
     t_s: float
     probabilities: ClassProbabilities
     dominant_class: AppearanceClass
+    twi: float | None = None
+    quality_score: float | None = None
 
 
 class SessionCreate(BaseModel):
@@ -115,6 +121,19 @@ class VideoUploadResponse(BaseModel):
     job_id: str
     frame_count: int
     duration_s: float
+
+
+class WeatherResponse(BaseModel):
+    """Normalised conditions plus the drying prior derived from them (B.7)."""
+
+    temperature_c: float
+    wind_speed_kmh: float
+    relative_humidity: float = Field(ge=0.0, le=1.0)
+    cloud_cover: float = Field(ge=0.0, le=1.0)
+    precipitation_mm_h: float
+    source: Literal["open-meteo", "offline-fallback"]
+    drying_rate_prior: float
+    cache_age_s: float | None
 
 
 class HealthResponse(BaseModel):

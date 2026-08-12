@@ -202,7 +202,7 @@ def test_health_reports_the_pinned_model_and_resolved_device(client: TestClient)
     assert body["device"] in {"cuda", "mps", "cpu"}
     assert body["mode"] == "zero-shot"
     assert body["warm"] is True
-    assert body["weather_cache_age_s"] is None  # no weather layer until Phase 2
+    assert body["weather_cache_age_s"] is None  # nothing cached: the suite runs WW_OFFLINE=1
 
 
 def test_session_lifecycle_create_read_delete(client: TestClient) -> None:

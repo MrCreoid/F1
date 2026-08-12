@@ -15,10 +15,15 @@ because publishing needs two inputs that are not code:
 
 1. **~2 hours of labelling.** Run `scripts/build_dataset.py`, open the tool it writes,
    press 1–4 and 0 through the queue, save `labels.json` back into `data/dataset/`.
-2. **`HF_TOKEN` in the environment.** Not set on this machine. `push_to_hub.py` stops
-   and says how to make one rather than attempting an anonymous push.
+2. ~~**`HF_TOKEN` in the environment.**~~ **Done** — exported in the operator's shell on
+   2026-08-12. It is deliberately not visible to any tooling here; `push_to_hub.py` reads
+   it from the environment at run time and never writes, logs or prints it.
 
-Until both happen, **Rule 3 is still broken**. Everything else about it is done:
+So **the labelling pass is the only thing left**, and until it happens Rule 3 is still
+broken: `push_to_hub.py` exits with "No human labels found" rather than publishing a
+dataset of the model's own guesses. Partial is genuinely useful — 150 reviewed images
+publish a real dataset and the card counts whatever is actually there. Everything else
+about it is done:
 `fetch_sources.py`, `build_dataset.py`, `label_tool.html`, `push_to_hub.py`, an honest
 generated card, and 37 tests over the licensing and review gates.
 
@@ -36,8 +41,11 @@ generated card, and 37 tests over the licensing and review gates.
 - Sample analysis, measured through the API: **drying 300 frames in 3.0 s**, wetting 300
   in 2.0 s, ambiguous 280 in 1.9 s.
 - Kalman Q = 0.05 — settles a 10-point step in 3.0 s, holds plateau noise at 0.9.
-- Backend suite: **113 passed in 25.6 s**. Frontend: 10 tests, `tsc`, `eslint`,
+- Backend suite: **116 passed in 25.4 s**. Frontend: **18 tests**, `tsc`, `eslint`,
   `next build` all clean.
+- **Lighthouse accessibility: 100**, zero failing audits.
+- Spring numerals: land in 0.72 s with 1.12% overshoot; **0 animation frames requested
+  over 1.5 s of idle**.
 - No horizontal overflow at 375, 1000 or 1440 px: `scrollWidth === clientWidth`, zero
   overflowing elements.
 - Thumbnails 480px q80; a 300-frame clip writes ~300 files under `backend/data/frames/`.

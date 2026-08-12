@@ -158,16 +158,30 @@ export function trendColor(direction: Trend["direction"]): string {
   return "var(--color-text-muted)";
 }
 
+export type Thresholds = components["schemas"]["Thresholds"];
+
 /**
- * Frame quality below which the backend flags a frame as degraded — the mirror of
- * `config.QUALITY_FLAG_THRESHOLD`. The gate itself lives server-side; this is only the
- * value the UI draws the warning at, and it must not drift from it.
+ * The tuned constants, as the backend reports them.
+ *
+ * These values used to be re-typed here and in four other files. Retuning `config.py`
+ * left the chart silently disagreeing with the pit call beside it, which is worse than
+ * either being wrong alone. `/api/health` now serves them and this is only the shape to
+ * fall back on when health has not answered yet — the app cannot render a session
+ * without a backend, so in practice it is never the value on screen.
  */
-export const DEGRADED_BELOW = 0.25;
+export const FALLBACK_THRESHOLDS: Thresholds = {
+  compound_low: 25,
+  compound_high: 65,
+  quality_flag: 0.25,
+  blur_reference: 150,
+  clipping_tolerance: 0.15,
+  trend_r2_min: 0.4,
+  trend_rate_min: 1.5,
+};
 
 /** Colour the index by the band it sits in — the same scale the chart uses. */
-export function twiColor(twi: number): string {
-  if (twi < 25) return "var(--color-state-dry)";
-  if (twi < 65) return "var(--color-state-damp)";
+export function twiColor(twi: number, t: Thresholds = FALLBACK_THRESHOLDS): string {
+  if (twi < t.compound_low) return "var(--color-state-dry)";
+  if (twi < t.compound_high) return "var(--color-state-damp)";
   return "var(--color-state-wet)";
 }

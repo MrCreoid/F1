@@ -9,7 +9,7 @@
  */
 
 import { useEffect, useState } from "react";
-import { clock, trendColor, type TrackState } from "@/lib/api";
+import { FALLBACK_THRESHOLDS, clock, trendColor, type Thresholds, type TrackState } from "@/lib/api";
 import { conditionStops, interpolateEta, projectionGap, ratePerMin } from "@/lib/chart";
 
 /**
@@ -57,7 +57,17 @@ function preciseClock(seconds: number): string {
 
 /* ────────────────────────────────── hero instrument ─────────────────────────────── */
 
-export function HeroInstrument({ state, history }: { state: TrackState; history: TrackState[] }) {
+export function HeroInstrument({
+  state,
+  history,
+  thresholds = FALLBACK_THRESHOLDS,
+}: {
+  state: TrackState;
+  history: TrackState[];
+  thresholds?: Thresholds;
+}) {
+  /* The scale's majors are the compound boundaries the backend actually gates on. */
+  const majors = [0, thresholds.compound_low, thresholds.compound_high, 100];
   const whole = Math.floor(state.twi);
   const decimal = (state.twi - whole).toFixed(1).slice(1); // ".5"
 
@@ -105,7 +115,7 @@ export function HeroInstrument({ state, history }: { state: TrackState; history:
                 className="absolute inset-x-0 top-0 h-[7px]"
                 style={{ backgroundImage: "repeating-linear-gradient(90deg, #39414A 0 1px, transparent 1px 2.5%)" }}
               />
-              {[0, 25, 65, 100].map((v) => (
+              {majors.map((v) => (
                 <span key={v}>
                   <span className="absolute top-0 h-[11px] w-px bg-[#5C666F]" style={{ left: `calc(${v}% - ${v === 100 ? 1 : 0}px)` }} />
                   <span
@@ -208,11 +218,19 @@ export function CrossoverProjection({
   state,
   history,
   running = false,
+  thresholds = FALLBACK_THRESHOLDS,
 }: {
   state: TrackState;
   history: TrackState[];
   running?: boolean;
+  thresholds?: Thresholds;
 }) {
+  /* Every band, tick and label below is drawn at the boundary the backend reports, so
+     retuning config.py moves the picture with the analysis instead of against it. */
+  const low = thresholds.compound_low;
+  const high = thresholds.compound_high;
+  const bands = { slick: low, fullWet: high };
+  const majors = [0, low, high, 100];
   const now = new Date(state.timestamp).getTime();
   const elapsed = history.length ? (now - new Date(history[0].timestamp).getTime()) / 1000 : 0;
 
@@ -252,6 +270,7 @@ export function CrossoverProjection({
     [...points, { x: x(futureSpan), twi: projEnd }],
     X0,
     X1,
+    bands,
   );
 
   const liveEta = useLiveEta(cross ? cross.eta_s : null, running);
@@ -304,9 +323,9 @@ export function CrossoverProjection({
           </defs>
 
           {/* compound zones */}
-          <rect x={X0} y={y(100)} width={X1 - X0} height={y(65) - y(100)} fill="#3D7DBF" opacity={0.055} />
-          <rect x={X0} y={y(65)} width={X1 - X0} height={y(25) - y(65)} fill="#E0A33E" opacity={0.055} />
-          <rect x={X0} y={y(25)} width={X1 - X0} height={y(0) - y(25)} fill="#C9D1D9" opacity={0.055} />
+          <rect x={X0} y={y(100)} width={X1 - X0} height={y(high) - y(100)} fill="#3D7DBF" opacity={0.055} />
+          <rect x={X0} y={y(high)} width={X1 - X0} height={y(low) - y(high)} fill="#E0A33E" opacity={0.055} />
+          <rect x={X0} y={y(low)} width={X1 - X0} height={y(0) - y(low)} fill="#C9D1D9" opacity={0.055} />
 
           {/* fine grid */}
           <g stroke="#1D242B" strokeWidth={1}>
@@ -315,18 +334,18 @@ export function CrossoverProjection({
             ))}
           </g>
 
-          <line x1={X0} y1={y(65)} x2={X1} y2={y(65)} stroke="#39414A" strokeDasharray="4 3" />
-          <line x1={X0} y1={y(25)} x2={X1} y2={y(25)} stroke="#39414A" strokeDasharray="4 3" />
+          <line x1={X0} y1={y(high)} x2={X1} y2={y(high)} stroke="#39414A" strokeDasharray="4 3" />
+          <line x1={X0} y1={y(low)} x2={X1} y2={y(low)} stroke="#39414A" strokeDasharray="4 3" />
           <line x1={X0} y1={Y1} x2={X1} y2={Y1} stroke="#4A535C" />
           <line x1={X0} y1={Y0} x2={X0} y2={Y1} stroke="#4A535C" />
 
           <g stroke="#4A535C" strokeWidth={1}>
-            {[0, 25, 65, 100].map((v) => (
+            {majors.map((v) => (
               <line key={v} x1={X0 - 7} y1={y(v)} x2={X0} y2={y(v)} />
             ))}
           </g>
           <g fill="#7C8791" fontFamily="var(--font-mono)" fontSize="10" textAnchor="end">
-            {[0, 25, 65, 100].map((v) => (
+            {majors.map((v) => (
               <text key={v} x={X0 - 12} y={y(v) + 3}>
                 {v}
               </text>
@@ -334,8 +353,8 @@ export function CrossoverProjection({
           </g>
           <g fill="#7C8791" fontFamily="var(--font-mono)" fontSize="9" textAnchor="end" letterSpacing="0.14em">
             <text x={X1 - 5} y={y(100) + 14}>FULL WET</text>
-            <text x={X1 - 5} y={y(65) + 14}>INTERMEDIATE</text>
-            <text x={X1 - 5} y={y(25) + 14}>SLICK</text>
+            <text x={X1 - 5} y={y(high) + 14}>INTERMEDIATE</text>
+            <text x={X1 - 5} y={y(low) + 14}>SLICK</text>
           </g>
 
           {/* confidence envelope — only when the backend gave one */}
@@ -412,6 +431,9 @@ export function CrossoverProjection({
                   ratePerMin: rate,
                   rSquared: state.trend.r_squared,
                   sufficientSignal: state.trend.sufficient_signal,
+                  rateThreshold: thresholds.trend_rate_min,
+                  r2Min: thresholds.trend_r2_min,
+                  bands,
                 }).toUpperCase()}
               </text>
             </g>

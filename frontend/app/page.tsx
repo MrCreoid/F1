@@ -11,6 +11,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ApiError,
+  FALLBACK_THRESHOLDS,
   api,
   type HealthResponse,
   type Sample,
@@ -157,9 +158,16 @@ export default function Workstation() {
     [],
   );
 
+  /* The backend is authoritative on every tuned constant. Before health answers we
+     fall back to the same shape, but a session cannot render without a backend, so
+     in practice these are always the server's values. */
+  const thresholds = health?.thresholds ?? FALLBACK_THRESHOLDS;
   const current = history[Math.min(index, history.length - 1)] ?? null;
   const upTo = useMemo(() => history.slice(0, index + 1), [history, index]);
-  const events = useMemo(() => deriveEvents(upTo, sourceName), [upTo, sourceName]);
+  const events = useMemo(
+    () => deriveEvents(upTo, sourceName, thresholds),
+    [upTo, sourceName, thresholds],
+  );
   const elapsed = current && history.length
     ? (new Date(current.timestamp).getTime() - new Date(history[0].timestamp).getTime()) / 1000
     : 0;
@@ -205,15 +213,15 @@ export default function Workstation() {
       >
         <CameraMonitor state={current} sourceName={sourceName} />
         <SurfaceDistribution history={upTo} />
-        <FrameQualityPanel quality={current.frame_quality} />
+        <FrameQualityPanel quality={current.frame_quality} thresholds={thresholds} />
       </section>
 
       <section
         className="ww-rise grid min-h-0 min-w-0 grid-rows-[auto_minmax(0,1fr)]"
         style={{ gridArea: "b", animationDelay: ".09s" }}
       >
-        <HeroInstrument state={current} history={upTo} />
-        <CrossoverProjection state={current} history={upTo} running={playing} />
+        <HeroInstrument state={current} history={upTo} thresholds={thresholds} />
+        <CrossoverProjection state={current} history={upTo} running={playing} thresholds={thresholds} />
       </section>
 
       <section
@@ -234,6 +242,7 @@ export default function Workstation() {
           onScrub={(i) => { setPlaying(false); setIndex(i); }}
           onTogglePlay={() => setPlaying((p) => !p)}
           onStep={step}
+          thresholds={thresholds}
         />
       </div>
     </main>

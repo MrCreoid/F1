@@ -157,6 +157,55 @@ def test_deleting_a_session_removes_its_upload_too(client: TestClient, tmp_path)
     assert not (config.UPLOAD_DIR / session_id).exists()
 
 
+# ---------------------------------------------------------------- confidence floor
+
+
+def test_a_flat_signal_is_no_evidence_not_perfect_confidence() -> None:
+    """A frozen feed produces exactly this input. Returning R^2 1.0 would answer a dead
+    camera with maximum confidence, and it was discontinuous: 0.001 of noise on the same
+    signal scored 0.004."""
+    from app.analysis.trend import classify_trend
+
+    times = [i / 4 for i in range(180)]
+
+    flat = classify_trend(times, [55.0] * 180, kalman_rate_per_min=0.0)
+
+    assert flat.r_squared == 0.0
+    assert flat.sufficient_signal is False
+    assert flat.direction == "STABLE"
+
+
+def test_a_flat_signal_and_a_nearly_flat_one_agree() -> None:
+    """The discontinuity was the tell: the two must not land at opposite extremes."""
+    import random
+
+    from app.analysis.trend import classify_trend
+
+    random.seed(0)
+    times = [i / 4 for i in range(180)]
+
+    flat = classify_trend(times, [55.0] * 180, kalman_rate_per_min=0.0)
+    almost = classify_trend(
+        times, [55.0 + random.gauss(0, 0.001) for _ in range(180)], kalman_rate_per_min=0.0
+    )
+
+    assert flat.sufficient_signal == almost.sufficient_signal is False
+    assert abs(flat.r_squared - almost.r_squared) < 0.1
+
+
+def test_a_real_trend_still_passes_the_gate() -> None:
+    """The floor must not have made the whole gate unreachable."""
+    from app.analysis.trend import classify_trend
+
+    times = [i / 4 for i in range(180)]
+    ramp = [80.0 - 0.05 * i for i in range(180)]
+
+    trend = classify_trend(times, ramp, kalman_rate_per_min=-12.0)
+
+    assert trend.sufficient_signal is True
+    assert trend.direction == "DRYING"
+
+
 # ---------------------------------------------------------------- offline
 
 

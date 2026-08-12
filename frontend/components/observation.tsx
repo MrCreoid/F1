@@ -5,7 +5,14 @@
  * Camera monitor, surface distribution history, frame quality diagnostics.
  */
 
-import { CLASS_COLOR, CLASS_LABEL, CLASS_ORDER, type TrackState } from "@/lib/api";
+import {
+  CLASS_COLOR,
+  CLASS_LABEL,
+  CLASS_ORDER,
+  FALLBACK_THRESHOLDS,
+  type Thresholds,
+  type TrackState,
+} from "@/lib/api";
 
 /* ─────────────────────────────────── camera monitor ─────────────────────────────── */
 
@@ -176,11 +183,13 @@ function Gauge({
   label,
   fill,
   value,
+  flagAt,
   warn = false,
 }: {
   label: string;
   fill: number;
   value: string;
+  flagAt: number;
   warn?: boolean;
 }) {
   return (
@@ -204,15 +213,25 @@ function Gauge({
           className="pointer-events-none absolute inset-0"
           style={{ backgroundImage: "repeating-linear-gradient(90deg, rgba(0,0,0,.55) 0 1px, transparent 1px 10%)" }}
         />
-        {/* the quality flag threshold the backend actually gates on */}
-        <span className="absolute -top-0.5 -bottom-0.5 left-[25%] w-px bg-sodium opacity-80" />
+        {/* the quality flag threshold the backend actually gates on, at the position
+            the backend actually reports */}
+        <span
+          className="absolute -top-0.5 -bottom-0.5 w-px bg-sodium opacity-80"
+          style={{ left: `${flagAt * 100}%` }}
+        />
       </span>
       <span className="tnum text-right text-t11">{value}</span>
     </div>
   );
 }
 
-export function FrameQualityPanel({ quality }: { quality: TrackState["frame_quality"] }) {
+export function FrameQualityPanel({
+  quality,
+  thresholds = FALLBACK_THRESHOLDS,
+}: {
+  quality: TrackState["frame_quality"];
+  thresholds?: Thresholds;
+}) {
   return (
     <div>
       <div className="panel-head">
@@ -220,11 +239,27 @@ export function FrameQualityPanel({ quality }: { quality: TrackState["frame_qual
         <span className="font-mono text-[10px] tracking-[.06em] text-text-muted">GEOMETRIC MEAN</span>
       </div>
       <div className="flex flex-col gap-3 px-[13px] pt-3 pb-3.5">
-        {/* BLUR_REFERENCE is 150 in backend config; the bar shows the metric against it. */}
-        <Gauge label="Focus" fill={quality.blur / 150} value={quality.blur.toFixed(1)} />
-        {/* CLIPPING_TOLERANCE is 0.15; a full bar means no clipping at all. */}
-        <Gauge label="Exposure" fill={1 - quality.clipping / 0.15} value={quality.clipping.toFixed(2)} />
-        <Gauge label="Confidence" fill={1 - quality.entropy} value={quality.entropy.toFixed(2)} warn />
+        {/* Every reference below is the backend's own, served on /api/health. They were
+            re-typed here, so retuning config.py left these bars quietly misreporting. */}
+        <Gauge
+          label="Focus"
+          fill={quality.blur / thresholds.blur_reference}
+          value={quality.blur.toFixed(1)}
+          flagAt={thresholds.quality_flag}
+        />
+        <Gauge
+          label="Exposure"
+          fill={1 - quality.clipping / thresholds.clipping_tolerance}
+          value={quality.clipping.toFixed(2)}
+          flagAt={thresholds.quality_flag}
+        />
+        <Gauge
+          label="Confidence"
+          fill={1 - quality.entropy}
+          value={quality.entropy.toFixed(2)}
+          flagAt={thresholds.quality_flag}
+          warn
+        />
 
         <div
           className="mt-0.5 flex items-center justify-between px-[11px] py-[9px]"

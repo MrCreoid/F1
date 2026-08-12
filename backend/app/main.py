@@ -29,6 +29,7 @@ from app.schemas import (
     SessionCreate,
     SessionDetail,
     SessionSummary,
+    Thresholds,
     TrackState,
     VideoUploadResponse,
     WeatherResponse,
@@ -125,6 +126,15 @@ def health() -> HealthResponse:
         warm=classifier.warm,
         weather_cache_age_s=cache_age_s(),
         warmup_ms=getattr(app.state, "warmup_ms", None),
+        thresholds=Thresholds(
+            compound_low=config.COMPOUND_THRESHOLDS[0],
+            compound_high=config.COMPOUND_THRESHOLDS[1],
+            quality_flag=config.QUALITY_FLAG_THRESHOLD,
+            blur_reference=config.BLUR_REFERENCE,
+            clipping_tolerance=config.CLIPPING_TOLERANCE,
+            trend_r2_min=config.TREND_R2_MIN,
+            trend_rate_min=config.TREND_RATE_THRESHOLD,
+        ),
     )
 
 

@@ -10,9 +10,10 @@
 
 import {
   COMPOUND_LABEL,
-  DEGRADED_BELOW,
+  FALLBACK_THRESHOLDS,
   clock,
   trendColor,
+  type Thresholds,
   type TrackState,
   type WeatherResponse,
 } from "@/lib/api";
@@ -319,7 +320,11 @@ export function EventLog({ entries }: { entries: LogEntry[] }) {
  * Events are derived from the state history — every entry is a real transition the
  * backend reported, not a decorative feed.
  */
-export function deriveEvents(history: TrackState[], sourceName: string): LogEntry[] {
+export function deriveEvents(
+  history: TrackState[],
+  sourceName: string,
+  thresholds: Thresholds = FALLBACK_THRESHOLDS,
+): LogEntry[] {
   const out: LogEntry[] = [];
   const hhmmss = (iso: string) => new Date(iso).toISOString().slice(11, 19);
 
@@ -349,8 +354,8 @@ export function deriveEvents(history: TrackState[], sourceName: string): LogEntr
         level: s.trend.direction === "STABLE" ? "info" : "good",
       });
     }
-    const wasDegraded = prev.frame_quality.score < DEGRADED_BELOW;
-    const isDegraded = s.frame_quality.score < DEGRADED_BELOW;
+    const wasDegraded = prev.frame_quality.score < thresholds.quality_flag;
+    const isDegraded = s.frame_quality.score < thresholds.quality_flag;
     if (isDegraded && !wasDegraded) {
       out.push({ t: hhmmss(s.timestamp), text: "Signal degraded · frame distrusted", level: "warn" });
     }

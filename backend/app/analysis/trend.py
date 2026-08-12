@@ -74,9 +74,16 @@ def classify_trend(
     predicted = slope_per_s * times + intercept
     ss_res = float(np.sum((values - predicted) ** 2))
     ss_tot = float(np.sum((values - values.mean()) ** 2))
-    # A perfectly flat signal has no variance to explain. Calling that a perfect fit is
-    # correct: the line explains everything there is, and the slope is zero anyway.
-    r_squared = 1.0 if ss_tot == 0.0 else max(0.0, 1.0 - ss_res / ss_tot)
+
+    # A perfectly flat signal has no variance to explain, so R^2 is undefined rather
+    # than perfect. An earlier version returned 1.0 here and argued it was correct — but
+    # a frozen feed produces exactly that input, and the instrument would have answered
+    # a dead camera with maximum confidence. Worse, it was discontinuous: adding 0.001
+    # of noise dropped the same signal to R^2 0.004. Zero variance means no evidence of
+    # a trend, which is what 0.0 says.
+    if ss_tot == 0.0:
+        return TrendResult("STABLE", 0.0, 0.0, span_s, False, 0.0)
+    r_squared = max(0.0, 1.0 - ss_res / ss_tot)
 
     # Standard error of the OLS slope — the width of the uncertainty cone comes from here.
     residual_variance = ss_res / (times.size - 2)

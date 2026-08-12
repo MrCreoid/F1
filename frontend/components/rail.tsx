@@ -9,10 +9,11 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
-  DEGRADED_BELOW,
+  FALLBACK_THRESHOLDS,
   clock,
   twiColor,
   type HealthResponse,
+  type Thresholds,
   type TrackState,
   type WeatherResponse,
 } from "@/lib/api";
@@ -124,6 +125,7 @@ export function TimelineRail({
   onScrub,
   onTogglePlay,
   onStep,
+  thresholds = FALLBACK_THRESHOLDS,
 }: {
   history: TrackState[];
   index: number;
@@ -131,6 +133,7 @@ export function TimelineRail({
   onScrub: (i: number) => void;
   onTogglePlay: () => void;
   onStep: (delta: number) => void;
+  thresholds?: Thresholds;
 }) {
   const total = history.length;
   const position = total > 1 ? index / (total - 1) : 0;
@@ -163,11 +166,11 @@ export function TimelineRail({
       return {
         from,
         frame: run[Math.floor(run.length / 2)] ?? history[from],
-        degraded: run.some((s) => s.frame_quality.score < DEGRADED_BELOW),
+        degraded: run.some((s) => s.frame_quality.score < thresholds.quality_flag),
         current: index >= from && index < to,
       };
     });
-  }, [history, total, capacity, index]);
+  }, [history, total, capacity, index, thresholds]);
 
   /* The wetness ribbon is a continuous read of the index, so it is drawn as a gradient
      rather than discrete blocks. Every stop is a real frame. */
@@ -175,7 +178,7 @@ export function TimelineRail({
     total > 1
       ? `linear-gradient(90deg, ${history
           .filter((_, i) => i % Math.max(1, Math.floor(total / 40)) === 0 || i === total - 1)
-          .map((s, i, arr) => `${twiColor(s.twi)} ${((i / (arr.length - 1)) * 100).toFixed(1)}%`)
+          .map((s, i, arr) => `${twiColor(s.twi, thresholds)} ${((i / (arr.length - 1)) * 100).toFixed(1)}%`)
           .join(", ")})`
       : "var(--color-mat-well)";
 
@@ -231,7 +234,7 @@ export function TimelineRail({
 
           {/* Event markers: degraded frames and the moment the call armed. */}
           {history.map((s, i) =>
-            s.frame_quality.score < DEGRADED_BELOW || s.recommendation.state !== "HOLD" ? (
+            s.frame_quality.score < thresholds.quality_flag || s.recommendation.state !== "HOLD" ? (
               <span
                 key={i}
                 className="absolute bottom-0 h-[9px] w-px"
@@ -267,7 +270,7 @@ export function TimelineRail({
                 className="relative block min-w-0 flex-1 overflow-hidden border-r border-black/70 last:border-r-0"
                 /* The wetness colour sits under the image, so a cell reads as data from
                    the first paint and resolves into footage as the JPEG lands. */
-                style={{ background: twiColor(cell.frame.twi) }}
+                style={{ background: twiColor(cell.frame.twi, thresholds) }}
               >
                 {cell.frame.thumbnail_url && (
                   // eslint-disable-next-line @next/next/no-img-element -- backend-served frame, not a static asset

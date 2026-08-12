@@ -6,12 +6,19 @@
  * coordinates and colours.
  */
 
-export const TWI_THRESHOLDS = { slick: 25, fullWet: 65 } as const;
+export type Bands = { slick: number; fullWet: number };
+
+/**
+ * Compound boundaries. The backend is authoritative and serves these on `/api/health`;
+ * this is the shape to fall back on before it has answered, and the default that keeps
+ * these functions callable from a test without an HTTP round trip.
+ */
+export const TWI_THRESHOLDS: Bands = { slick: 25, fullWet: 65 };
 
 /** The condition a given index describes. The line is coloured by what it means. */
-export function bandColor(twi: number): string {
-  if (twi < TWI_THRESHOLDS.slick) return "#C9D1D9"; // state-dry
-  if (twi < TWI_THRESHOLDS.fullWet) return "#E0A33E"; // state-damp
+export function bandColor(twi: number, bands: Bands = TWI_THRESHOLDS): string {
+  if (twi < bands.slick) return "#C9D1D9"; // state-dry
+  if (twi < bands.fullWet) return "#E0A33E"; // state-damp
   return "#3D7DBF"; // state-wet
 }
 
@@ -32,24 +39,25 @@ export function conditionStops(
   points: readonly { x: number; twi: number }[],
   x0: number,
   x1: number,
+  bands: Bands = TWI_THRESHOLDS,
 ): Stop[] {
   if (points.length === 0) return [];
   const span = x1 - x0;
-  if (span <= 0) return [{ offset: 0, color: bandColor(points[0].twi) }];
+  if (span <= 0) return [{ offset: 0, color: bandColor(points[0].twi, bands) }];
 
   const at = (x: number) => Math.min(1, Math.max(0, (x - x0) / span));
-  const stops: Stop[] = [{ offset: 0, color: bandColor(points[0].twi) }];
+  const stops: Stop[] = [{ offset: 0, color: bandColor(points[0].twi, bands) }];
 
   for (let i = 1; i < points.length; i++) {
     const prev = points[i - 1];
     const curr = points[i];
-    const from = bandColor(prev.twi);
-    const to = bandColor(curr.twi);
+    const from = bandColor(prev.twi, bands);
+    const to = bandColor(curr.twi, bands);
     if (from === to) continue;
 
     // Which boundary did this segment cross? Handle both, in travel order, so a segment
     // spanning an entire band still changes colour twice.
-    const crossed = [TWI_THRESHOLDS.slick, TWI_THRESHOLDS.fullWet]
+    const crossed = [bands.slick, bands.fullWet]
       .filter((t) => (prev.twi - t) * (curr.twi - t) < 0)
       .sort((a, b) => (curr.twi > prev.twi ? a - b : b - a));
 
@@ -58,7 +66,7 @@ export function conditionStops(
       const offset = at(prev.x + f * (curr.x - prev.x));
       // A pair of stops at the same offset produces a hard edge.
       stops.push({ offset, color: stops[stops.length - 1].color });
-      stops.push({ offset, color: bandColor(threshold + (curr.twi > prev.twi ? 0.001 : -0.001)) });
+      stops.push({ offset, color: bandColor(threshold + (curr.twi > prev.twi ? 0.001 : -0.001), bands) });
     }
   }
 
@@ -90,10 +98,12 @@ export function projectionGap(args: {
   sufficientSignal: boolean;
   rateThreshold?: number;
   r2Min?: number;
+  bands?: Bands;
 }): string {
   const { twi, ratePerMin, rSquared, sufficientSignal } = args;
   const rateThreshold = args.rateThreshold ?? 1.5;
   const r2Min = args.r2Min ?? 0.4;
+  const bands = args.bands ?? TWI_THRESHOLDS;
 
   if (!sufficientSignal) {
     return rSquared < r2Min
@@ -105,7 +115,7 @@ export function projectionGap(args: {
   }
 
   const drying = ratePerMin < 0;
-  const ahead = [TWI_THRESHOLDS.slick, TWI_THRESHOLDS.fullWet].filter((t) =>
+  const ahead = [bands.slick, bands.fullWet].filter((t) =>
     drying ? t < twi : t > twi,
   );
   if (ahead.length === 0) {

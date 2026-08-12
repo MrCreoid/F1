@@ -12,12 +12,15 @@ saturated air will not dry, however dry the last few frames looked.
 from __future__ import annotations
 
 import json
+import logging
 import time
 import urllib.parse
 import urllib.request
 from dataclasses import dataclass
 
 from app import config
+
+_log = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True)
@@ -90,10 +93,12 @@ def get_weather(lat: float = config.DEFAULT_LAT, lon: float = config.DEFAULT_LON
             return snapshot
 
     delay = config.WEATHER_BACKOFF_S
+    last: Exception | None = None
     for attempt in range(config.WEATHER_RETRIES):
         try:
             snapshot = _fetch_open_meteo(lat, lon)
-        except Exception:  # noqa: BLE001 - any failure means fall back, never raise at the caller
+        except Exception as exc:  # noqa: BLE001 - any failure falls back, never raises at the caller
+            last = exc
             if attempt < config.WEATHER_RETRIES - 1:
                 time.sleep(delay)
                 delay *= 2  # exponential backoff
@@ -101,6 +106,15 @@ def get_weather(lat: float = config.DEFAULT_LAT, lon: float = config.DEFAULT_LON
         _cache = (time.monotonic(), snapshot)
         return snapshot
 
+    # Degrading silently is how a renamed upstream field becomes a permanent fallback
+    # that nobody notices: the UI honestly says "offline-fallback", so a real bug is
+    # indistinguishable from bad Wi-Fi. Say which it was, once, at the point of failure.
+    _log.warning(
+        "Open-Meteo unavailable after %d attempts (%s: %s) — using the bundled snapshot",
+        config.WEATHER_RETRIES,
+        type(last).__name__,
+        last,
+    )
     return OFFLINE_FALLBACK
 
 

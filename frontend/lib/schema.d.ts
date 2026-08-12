@@ -283,6 +283,7 @@ export interface components {
             weather_cache_age_s: number | null;
             /** Warmup Ms */
             warmup_ms?: number | null;
+            thresholds: components["schemas"]["Thresholds"];
         };
         /** Recommendation */
         Recommendation: {
@@ -354,6 +355,31 @@ export interface components {
             created_at: string;
             /** Name */
             name: string;
+        };
+        /**
+         * Thresholds
+         * @description The tuned constants the interface has to draw, served rather than re-typed.
+         *
+         *     Compound boundaries, the quality flag and the two frame-quality reference values were
+         *     all hardcoded a second time in the frontend. Retuning `config.py` left the chart
+         *     silently disagreeing with the pit call it sits beside — the analysis was right and the
+         *     picture of it was wrong, which is the worst of both.
+         */
+        Thresholds: {
+            /** Compound Low */
+            compound_low: number;
+            /** Compound High */
+            compound_high: number;
+            /** Quality Flag */
+            quality_flag: number;
+            /** Blur Reference */
+            blur_reference: number;
+            /** Clipping Tolerance */
+            clipping_tolerance: number;
+            /** Trend R2 Min */
+            trend_r2_min: number;
+            /** Trend Rate Min */
+            trend_rate_min: number;
         };
         /**
          * TrackState

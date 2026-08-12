@@ -145,6 +145,24 @@ class WeatherResponse(BaseModel):
     cache_age_s: float | None
 
 
+class Thresholds(BaseModel):
+    """The tuned constants the interface has to draw, served rather than re-typed.
+
+    Compound boundaries, the quality flag and the two frame-quality reference values were
+    all hardcoded a second time in the frontend. Retuning `config.py` left the chart
+    silently disagreeing with the pit call it sits beside — the analysis was right and the
+    picture of it was wrong, which is the worst of both.
+    """
+
+    compound_low: float
+    compound_high: float
+    quality_flag: float
+    blur_reference: float
+    clipping_tolerance: float
+    trend_r2_min: float
+    trend_rate_min: float
+
+
 class HealthResponse(BaseModel):
     model_id: str
     mode: Literal["zero-shot", "probe"]
@@ -154,3 +172,4 @@ class HealthResponse(BaseModel):
     # Measured on the last warmup pass, so the UI reports this machine's real per-frame
     # cost rather than a number from the README. Null only if warmup has not run.
     warmup_ms: float | None = None
+    thresholds: Thresholds

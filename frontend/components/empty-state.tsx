@@ -13,12 +13,14 @@ export function EmptyState({
   samples,
   busy,
   error,
+  warming = false,
   onSample,
   onUpload,
 }: {
   samples: Sample[];
   busy: string | null;
   error: string | null;
+  warming?: boolean;
   onSample: (id: string) => void;
   onUpload: (file: File) => void;
 }) {
@@ -85,7 +87,9 @@ export function EmptyState({
           ))}
           {samples.length === 0 && (
             <p className="tag px-4 py-4" style={{ background: "#12161B" }}>
-              Sample list unavailable — backend not reachable.
+              {warming
+                ? "Backend starting — loading model weights."
+                : "Sample list unavailable — backend not reachable."}
             </p>
           )}
         </div>

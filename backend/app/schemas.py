@@ -151,3 +151,6 @@ class HealthResponse(BaseModel):
     device: str
     warm: bool
     weather_cache_age_s: float | None
+    # Measured on the last warmup pass, so the UI reports this machine's real per-frame
+    # cost rather than a number from the README. Null only if warmup has not run.
+    warmup_ms: float | None = None

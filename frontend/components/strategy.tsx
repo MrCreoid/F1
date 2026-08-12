@@ -266,7 +266,7 @@ const LEVEL_COLOR: Record<LogEntry["level"], string> = {
 
 export function EventLog({ entries }: { entries: LogEntry[] }) {
   return (
-    <div className="grid min-h-0 grid-rows-[auto_minmax(0,1fr)] bg-mat-panel">
+    <div className="ww-log grid min-h-0 grid-rows-[auto_minmax(0,1fr)] bg-mat-panel">
       <div className="panel-head">
         <span className="section-title">Event log</span>
         <span className="font-mono text-[10px] text-text-muted">{entries.length}</span>

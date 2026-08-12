@@ -32,13 +32,22 @@ export function StatusBar({
   sessionName,
   elapsed,
   frameRate,
+  warming = false,
 }: {
   health: HealthResponse | null;
   weather: WeatherResponse | null;
   sessionName: string;
   elapsed: number;
   frameRate: number;
+  warming?: boolean;
 }) {
+  /* Three states, not two. "Cold" was shown both while the model was loading and when
+     nothing was listening, which are opposite situations for whoever is standing there. */
+  const link = health?.warm
+    ? { label: "Ready", color: "var(--color-trend-improving)", glow: "0 0 6px rgba(79,180,119,.7)" }
+    : warming
+      ? { label: "Warming", color: "var(--color-sodium)", glow: "0 0 6px rgba(255,122,26,.7)" }
+      : { label: "Cold", color: "var(--color-state-damp)", glow: "none" };
   return (
     <header
       className="ww-rise flex items-stretch overflow-x-auto border-b border-rule"
@@ -73,18 +82,18 @@ export function StatusBar({
         style={{ boxShadow: "inset 1px 0 0 var(--edge-hi)" }}
       >
         <span
-          className={`h-1.5 w-1.5 rounded-full ${health?.warm ? "ww-breathe" : ""}`}
-          style={{
-            background: health?.warm ? "var(--color-trend-improving)" : "var(--color-state-damp)",
-            boxShadow: health?.warm ? "0 0 6px rgba(79,180,119,.7)" : "none",
-          }}
+          className={`h-1.5 w-1.5 rounded-full ${health?.warm || warming ? "ww-breathe" : ""}`}
+          style={{ background: link.color, boxShadow: link.glow }}
         />
         <span className="text-[9.5px] font-semibold tracking-[.15em] text-[#7C8791] uppercase">
-          {health?.warm ? "Ready" : "Cold"}
+          {link.label}
         </span>
+        {/* The real measured per-frame cost on this machine, not a number from a README. */}
         <span className="tnum text-t11">
-          {frameRate}
-          <span className="text-[.78em] text-text-muted">fps</span>
+          {health?.warmup_ms != null ? health.warmup_ms.toFixed(0) : frameRate}
+          <span className="text-[.78em] text-text-muted">
+            {health?.warmup_ms != null ? "ms/frm" : "fps"}
+          </span>
         </span>
       </div>
     </header>

@@ -71,7 +71,7 @@ export function HeroInstrument({ state, history }: { state: TrackState; history:
     <div className="border-b border-rule bg-mat-panel px-[18px] pt-3.5 pb-4">
       <div className="chamfer bg-rule p-px">
         <div
-          className="chamfer grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-[26px] px-5 pt-4 pb-3.5"
+          className="ww-hero-grid chamfer grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-[26px] px-5 pt-4 pb-3.5"
           style={{
             background: "radial-gradient(140% 120% at 22% 0%, #101419 0%, #090C0F 70%)",
             boxShadow:
@@ -80,7 +80,7 @@ export function HeroInstrument({ state, history }: { state: TrackState; history:
         >
           <div>
             <span
-              className="block font-display leading-[.76] tracking-[-.048em] text-t128 tabular-nums"
+              className="ww-twi block font-display leading-[.76] tracking-[-.048em] text-t128 tabular-nums"
               style={{
                 fontVariationSettings: '"wdth" 104',
                 fontWeight: 800,
@@ -92,7 +92,7 @@ export function HeroInstrument({ state, history }: { state: TrackState; history:
                 {decimal}
               </span>
               <span
-                className="ml-2.5 align-[34px] font-mono text-t11 font-medium tracking-[.18em] text-text-muted"
+                className="ww-twi-unit ml-2.5 align-[34px] font-mono text-t11 font-medium tracking-[.18em] text-text-muted"
                 style={{ textShadow: "none" }}
               >
                 TWI
@@ -269,7 +269,7 @@ export function CrossoverProjection({
         )}
       </div>
 
-      <div className="well mx-[13px] mt-2.5 flex min-h-0 px-1 pt-1.5">
+      <div className="ww-chart well mx-[13px] mt-2.5 flex min-h-0 px-1 pt-1.5">
         <svg
           viewBox={`0 0 ${W} ${H}`}
           preserveAspectRatio="xMidYMid meet"
@@ -413,7 +413,7 @@ export function CrossoverProjection({
         </svg>
       </div>
 
-      <div className="mt-2.5 flex border-t border-rule" style={{ boxShadow: "inset 0 1px 0 var(--edge-hi)" }}>
+      <div className="ww-readouts mt-2.5 flex border-t border-rule" style={{ boxShadow: "inset 0 1px 0 var(--edge-hi)" }}>
         <Readout label="R²" value={state.trend.r_squared.toFixed(2)} />
         <Readout label="Window" value={`${state.trend.window_s.toFixed(0)}s`} />
         <Readout label="Signal" value={state.trend.sufficient_signal ? "Sufficient" : "Insufficient"} />

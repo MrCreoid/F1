@@ -281,6 +281,8 @@ export interface components {
             warm: boolean;
             /** Weather Cache Age S */
             weather_cache_age_s: number | null;
+            /** Warmup Ms */
+            warmup_ms?: number | null;
         };
         /** Recommendation */
         Recommendation: {

@@ -44,15 +44,24 @@ export class ApiError extends Error {
   }
 }
 
+/**
+ * What a dead backend actually looks like from the browser.
+ *
+ * Not a fetch rejection: the app talks to `/api/*` same-origin and Next proxies it, so
+ * a refused upstream arrives as a perfectly ordinary HTTP 500 with the plain-text body
+ * "Internal Server Error". The fetch-exception branch below therefore never fires in
+ * the shipping architecture, and this message reached nobody until it was checked.
+ */
+const UNREACHABLE =
+  "Backend unreachable. Start it: cd backend && ../.venv/bin/python -m uvicorn app.main:app --port 8000";
+
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   let response: Response;
   try {
     response = await fetch(`${API_BASE}${path}`, init);
   } catch {
-    throw new ApiError(
-      "Backend unreachable. Start it: cd backend && ../.venv/bin/python -m uvicorn app.main:app --port 8000",
-      0,
-    );
+    // Only reachable when NEXT_PUBLIC_API_BASE points straight at the backend.
+    throw new ApiError(UNREACHABLE, 0);
   }
 
   if (!response.ok) {
@@ -65,7 +74,10 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
         detail = String((body as { detail: unknown }).detail);
       }
     } catch {
-      /* non-JSON error body: keep the status line */
+      // A 5xx whose body is not JSON did not come from FastAPI — it is the proxy
+      // reporting that nothing answered. Say what to do about it, because "500
+      // Internal Server Error" tells the person standing there nothing at all.
+      if (response.status >= 500) detail = UNREACHABLE;
     }
     throw new ApiError(detail, response.status);
   }

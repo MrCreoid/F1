@@ -26,6 +26,12 @@ import { EmptyState } from "@/components/empty-state";
 /** Replay runs at the analysis rate, so one second on screen is one second of footage. */
 const REPLAY_FPS = 4;
 
+/* A cold start loads CLIP and runs three warmup passes before the port opens. Measured
+   at ~12s here, worst case slower on a cold filesystem cache — 20 attempts at 1.5s
+   covers 30s before the UI concludes nothing is listening. */
+const HEALTH_ATTEMPTS = 20;
+const HEALTH_RETRY_MS = 1500;
+
 export default function Workstation() {
   const [health, setHealth] = useState<HealthResponse | null>(null);
   const [weather, setWeather] = useState<WeatherResponse | null>(null);
@@ -37,17 +43,48 @@ export default function Workstation() {
   const [playing, setPlaying] = useState(false);
   const [busy, setBusy] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [warming, setWarming] = useState(false);
 
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
 
+  /* The backend does not accept connections until the model is loaded and warmed —
+     FastAPI's lifespan blocks startup — so on a cold start the first health call fails
+     for as long as that takes. Reporting "backend unreachable" then is simply wrong, and
+     it is wrong at the worst possible moment. Poll instead, say it is warming, and only
+     escalate to the actionable error once waiting has stopped being a plausible
+     explanation. */
   useEffect(() => {
+    let live = true;
     void (async () => {
-      const results = await Promise.allSettled([api.health(), api.weather(), api.samples()]);
-      if (results[0].status === "fulfilled") setHealth(results[0].value);
-      if (results[1].status === "fulfilled") setWeather(results[1].value);
-      if (results[2].status === "fulfilled") setSamples(results[2].value);
-      else if (results[2].reason instanceof ApiError) setError(results[2].reason.message);
+      for (let attempt = 0; live; attempt++) {
+        try {
+          const ready = await api.health();
+          if (!live) return;
+          setHealth(ready);
+          setWarming(false);
+          setError(null);
+          break;
+        } catch (e) {
+          if (!live) return;
+          if (attempt >= HEALTH_ATTEMPTS) {
+            setWarming(false);
+            setError(e instanceof ApiError ? e.message : String(e));
+            return;
+          }
+          setWarming(true);
+          await new Promise((r) => setTimeout(r, HEALTH_RETRY_MS));
+        }
+      }
+      if (!live) return;
+      const rest = await Promise.allSettled([api.weather(), api.samples()]);
+      if (!live) return;
+      if (rest[0].status === "fulfilled") setWeather(rest[0].value);
+      if (rest[1].status === "fulfilled") setSamples(rest[1].value);
+      else if (rest[1].reason instanceof ApiError) setError(rest[1].reason.message);
     })();
+    return () => {
+      live = false;
+    };
   }, []);
 
   /* Replay. Stops itself at the end rather than looping — an instrument that silently
@@ -122,13 +159,17 @@ export default function Workstation() {
     : 0;
 
   if (!current) {
+    // min-h rather than h: on a short or narrow viewport the three sample cards and the
+    // upload row are taller than the screen, and a fixed height would clip the only
+    // controls the app has at that moment.
     return (
-      <main className="grid h-dvh grid-rows-[30px_minmax(0,1fr)]">
-        <StatusBar health={health} weather={weather} sessionName="No session" elapsed={0} frameRate={0} />
+      <main className="grid min-h-dvh grid-rows-[30px_minmax(0,1fr)]">
+        <StatusBar health={health} weather={weather} sessionName="No session" elapsed={0} frameRate={0} warming={warming} />
         <EmptyState
           samples={samples}
           busy={busy}
           error={error}
+          warming={warming}
           onSample={(id) => {
             const s = samples.find((x) => x.id === id);
             void start(s?.name ?? id, (sid) => api.runSample(sid, id));
@@ -140,14 +181,7 @@ export default function Workstation() {
   }
 
   return (
-    <main
-      className="grid h-dvh"
-      style={{
-        gridTemplateColumns: "348px minmax(0, 1fr) 324px",
-        gridTemplateRows: "30px minmax(0, 1fr) 112px",
-        gridTemplateAreas: '"bar bar bar" "a b c" "rail rail rail"',
-      }}
-    >
+    <main className="workstation">
       <div style={{ gridArea: "bar" }}>
         <StatusBar
           health={health}
@@ -155,6 +189,7 @@ export default function Workstation() {
           sessionName={sourceName}
           elapsed={elapsed}
           frameRate={REPLAY_FPS}
+          warming={warming}
         />
       </div>
 

@@ -160,6 +160,80 @@ body {
   box-shadow: inset 0 1px 0 var(--edge-hi);
 }
 
+/* ─────────────────────────────────── workstation layout
+
+   Desktop is a fixed three-column instrument that never scrolls. Everything a
+   strategist needs is on one screen — that is the whole point of a pit wall, and a
+   readout you have to scroll to find is a readout you do not see in time.
+
+   Below 1024px that is not possible without clipping something, and what got clipped
+   was the crossover projection: the one panel the product is built around. So the
+   columns stack in the order SPEC-DESIGN D.3 specifies — frame, readout, projection,
+   call, timeline — and the page scrolls. It degrades to a report rather than to a
+   broken instrument.
+
+   This lives in CSS rather than inline styles on the grid because a breakpoint cannot
+   be expressed in a style attribute, which is why the layout had no breakpoint at all. */
+.workstation {
+  display: grid;
+  min-height: 100dvh;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: 30px auto auto auto 112px;
+  grid-template-areas: "bar" "a" "b" "c" "rail";
+}
+
+/* Stacked, the rows are auto-height, so any child sized with `minmax(0, 1fr)` collapses
+   to nothing. These two are the ones that would vanish: the chart draws into a
+   height-driven viewBox, and the log is an overflow container. */
+@media (max-width: 1023px) {
+  /* The chart's own viewBox ratio, so the letterboxed SVG leaves no dead band under it.
+     A flat min-height guessed too tall at every width except one. */
+  .ww-chart {
+    aspect-ratio: 560 / 318;
+    min-height: 200px;
+  }
+  .ww-log {
+    min-height: 220px;
+  }
+
+  /* The hero's numeral column is `auto`, so its intrinsic width sets the section's
+     minimum — 521px of it, against a 375px viewport. Stacking the two halves and
+     stepping the readout down to the next size in the scale is what makes the page
+     stop scrolling sideways. 64 is the step below 128; nothing between them exists. */
+  .ww-hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 16px;
+  }
+  .ww-twi {
+    font-size: var(--text-t64);
+  }
+  /* The unit was optically aligned against a 128px numeral. */
+  .ww-twi-unit {
+    vertical-align: baseline;
+  }
+
+  /* Six readouts across need 156px of padding alone before any digits. */
+  .ww-readouts {
+    flex-wrap: wrap;
+  }
+  .ww-readouts > * {
+    flex: 1 0 33.333%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .workstation {
+    height: 100dvh;
+    min-height: 0;
+    grid-template-columns: 348px minmax(0, 1fr) 324px;
+    grid-template-rows: 30px minmax(0, 1fr) 112px;
+    grid-template-areas:
+      "bar bar bar"
+      "a b c"
+      "rail rail rail";
+  }
+}
+
 /* ─────────────────────────────────── motion */
 
 @keyframes ww-breathe {

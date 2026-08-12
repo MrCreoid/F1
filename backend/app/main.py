@@ -124,6 +124,7 @@ def health() -> HealthResponse:
         device=classifier.device,
         warm=classifier.warm,
         weather_cache_age_s=cache_age_s(),
+        warmup_ms=getattr(app.state, "warmup_ms", None),
     )
 
 
@@ -272,9 +273,12 @@ def analyse_sample(
 
     path = config.SAMPLES_DIR / f"{sample_id}.mp4"
     if not path.exists():
+        # The clips are committed, so this only fires on a broken checkout. Name the path
+        # rather than a script to run: the script that made them was never committed, and
+        # sending someone to a file that does not exist is worse than saying nothing.
         raise HTTPException(
             status_code=500,
-            detail=f"Sample footage missing: {path.name}. Run scripts/build_samples.py",
+            detail=f"Sample footage missing: {path}. Restore it with: git checkout -- backend/samples",
         )
     return _run_video(record, database, path, job_id=str(uuid.uuid4()))
 

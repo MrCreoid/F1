@@ -17,6 +17,7 @@ counting it as one would be the quiet lie that makes a dataset worthless.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import shutil
 import sys
@@ -155,12 +156,21 @@ def build(source: Path, out: Path, limit: int | None) -> list[Candidate]:
             )
         )
 
+    # Frame ids are positional, so a rebuild reuses them for entirely different images.
+    # The labelling tool keeps progress in localStorage, and without something to tell
+    # one build from another it would restore the previous run's labels onto whatever
+    # now happens to sit at that index — silently corrupting hours of review. This
+    # fingerprints the build so a new one starts clean and the same one resumes.
+    build_id = hashlib.sha1("|".join(c.origin for c in candidates).encode()).hexdigest()[:12]
+
     (out / "manifest.json").write_text(
-        json.dumps([asdict(c) for c in candidates], indent=2) + "\n"
+        json.dumps({"build_id": build_id, "candidates": [asdict(c) for c in candidates]}, indent=2)
+        + "\n"
     )
     # The labelling page is opened straight off disk, and a browser will not fetch a
     # sibling JSON over file://. A script tag will, so the manifest ships as both.
     (out / "manifest.js").write_text(
+        f"window.MANIFEST_BUILD = {json.dumps(build_id)};\n"
         "window.MANIFEST = " + json.dumps([asdict(c) for c in candidates]) + ";\n"
     )
 

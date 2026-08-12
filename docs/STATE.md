@@ -84,6 +84,31 @@ generated card, and 37 tests over the licensing and review gates.
 - The label tool needs no server: `build_dataset.py` emits `manifest.js` beside it,
   because a browser will not `fetch` a sibling JSON over `file://` but will load a script
   tag. Progress goes to `localStorage` on every keystroke, so a closed tab costs nothing.
+- **`localStorage` is namespaced by a `build_id`.** Frame ids are positional, so a
+  rebuild reuses `00000` for a different image. The first version keyed progress on a
+  fixed string, and opening the real 400-image queue showed "4 labelled · Reject 4" from
+  a twenty-image test build an hour earlier — old labels landing on unrelated images.
+  Caught by reading the header, not by a test. `build_id` is a hash of the candidate
+  origins, so the same build resumes and a different one starts clean.
+- `push_to_hub.load_manifest()` reads both the old bare-list and the new wrapped
+  manifest, so a labelling session already in flight survives pulling that change.
+
+## The corpus, as fetched
+- **430 images, every one attributed, 17 rejected on licence.** By retrieval hint:
+  dry 135, wet 146, standing_water 98, damp 51. Licences: `cc-by-sa-4.0` 173,
+  `cc-by-2.0` 59, `cc-by-sa-2.0` 49, `cc-by-sa-3.0` 44, `pd` 33, `cc0` 26, and a tail.
+- **400 queued for review, 29 dropped below quality 0.35.**
+- CLIP's proposals against the retrieval hint, which is the argument for the dataset:
+
+  | hint ↓ / auto → | dry | damp | wet | standing |
+  |---|---|---|---|---|
+  | dry            | 111 |  3 |  6 |  5 |
+  | damp           |  25 |  8 | 10 |  4 |
+  | wet            |  14 | 49 | 59 | 18 |
+  | standing_water |  14 |  9 | 23 | 42 |
+
+  Zero-shot calls 25 of 47 damp-sourced images *dry*, and splits wet-sourced images
+  59/49 between wet and damp. That is the documented weakness, in real data.
 
 ## Phase 7 — the frame store and the filmstrip
 - Thumbnails are written in `main.py:_analyse_and_store`, the one function holding both

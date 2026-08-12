@@ -36,6 +36,17 @@ from app import config  # noqa: E402
 REJECTED = "reject"
 
 
+def load_manifest(path: Path) -> list[dict[str, Any]]:
+    """The candidate list, tolerating both manifest shapes.
+
+    Builds before the localStorage-collision fix wrote a bare list; current ones wrap it
+    with a `build_id`. Reading both means an in-progress labelling session survives
+    pulling this change.
+    """
+    payload = json.loads(path.read_text())
+    return payload["candidates"] if isinstance(payload, dict) else payload
+
+
 def load_labels(build_dir: Path) -> dict[str, str]:
     """Human corrections, keyed by frame id. Absent file means nothing reviewed yet."""
     path = build_dir / "labels.json"
@@ -265,7 +276,7 @@ def main() -> int:
     if not manifest_path.exists():
         raise SystemExit(f"No manifest at {manifest_path}. Run scripts/build_dataset.py first.")
 
-    manifest = json.loads(manifest_path.read_text())
+    manifest = load_manifest(manifest_path)
     labelled = apply_labels(manifest, load_labels(args.build))
     if not labelled:
         raise SystemExit(

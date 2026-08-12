@@ -168,6 +168,49 @@ def _manifest(*rows: tuple[str, str, str | None]) -> list[dict[str, object]]:
     ]
 
 
+def test_manifest_reads_both_shapes(tmp_path: Path) -> None:
+    """A labelling session already in flight must survive pulling the build_id change."""
+    rows = _manifest(("00000", "wet", None))
+    old = tmp_path / "old.json"
+    new = tmp_path / "new.json"
+    old.write_text(json.dumps(rows))
+    new.write_text(json.dumps({"build_id": "abc123", "candidates": rows}))
+
+    assert push_to_hub.load_manifest(old) == rows
+    assert push_to_hub.load_manifest(new) == rows
+
+
+def test_a_rebuild_gets_a_different_store_key(tmp_path: Path, monkeypatch) -> None:
+    """Ids are positional. Two builds over different images must not share progress,
+    or a rebuild silently applies old labels to whichever image now sits at that index."""
+    ids = []
+    for names in (("a.jpg", "b.jpg"), ("c.jpg", "d.jpg")):
+        source = tmp_path / f"src{names[0]}"
+        source.mkdir()
+        for name in names:
+            Image.fromarray(
+                np.random.default_rng(1).integers(40, 200, (48, 64, 3), dtype=np.uint8)
+            ).save(source / name)
+
+        class Fake:
+            device = "cpu"
+
+            @staticmethod
+            def load() -> "Fake":
+                return Fake()
+
+            @staticmethod
+            def classify(images: list[np.ndarray]) -> list[dict[str, float]]:
+                return [{"dry": 0.9, "damp": 0.05, "wet": 0.03, "standing_water": 0.02}] * len(images)
+
+        monkeypatch.setattr(build_dataset, "ZeroShotClassifier", Fake)
+        out = tmp_path / f"out{names[0]}"
+        build_dataset.build(source, out, limit=None)
+        ids.append(json.loads((out / "manifest.json").read_text())["build_id"])
+
+    assert ids[0] != ids[1]
+
+
 def test_a_frame_no_human_looked_at_never_reaches_the_dataset() -> None:
     manifest = _manifest(("00000", "wet", None), ("00001", "dry", None))
 

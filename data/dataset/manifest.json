@@ -1,0 +1,6405 @@
+{
+  "build_id": "88e9b2f385e7",
+  "candidates": [
+    {
+      "id": "00000",
+      "file": "images/00000.jpg",
+      "origin": "0118hot-mix_asphalt_concrete_manual_pouring-paving_in_the_repair_and_maintenance_19.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9144,
+      "probabilities": {
+        "dry": 0.9144,
+        "damp": 0.0711,
+        "wet": 0.0028,
+        "standing_water": 0.0117
+      },
+      "quality": 0.8938,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00001",
+      "file": "images/00001.jpg",
+      "origin": "0118hot-mix_asphalt_concrete_manual_pouring-paving_in_the_repair_and_maintenance_20.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9278,
+      "probabilities": {
+        "dry": 0.9278,
+        "damp": 0.0324,
+        "wet": 0.0205,
+        "standing_water": 0.0193
+      },
+      "quality": 0.8941,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00002",
+      "file": "images/00002.jpg",
+      "origin": "09196jfphilippine_rice_research_institute_fields_mu_oz_nueva_ecijafvf_19.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.4525,
+      "probabilities": {
+        "dry": 0.4525,
+        "damp": 0.3147,
+        "wet": 0.011,
+        "standing_water": 0.2218
+      },
+      "quality": 0.4718,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00003",
+      "file": "images/00003.jpg",
+      "origin": "0_ancienne_caserne_guillaume_ou_major_sabbe_0_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.964,
+      "probabilities": {
+        "dry": 0.0222,
+        "damp": 0.0043,
+        "wet": 0.964,
+        "standing_water": 0.0095
+      },
+      "quality": 0.943,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00004",
+      "file": "images/00004.jpg",
+      "origin": "10_after_rain_on_road_in_islamabad.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.5184,
+      "probabilities": {
+        "dry": 0.2851,
+        "damp": 0.5184,
+        "wet": 0.0727,
+        "standing_water": 0.1238
+      },
+      "quality": 0.4948,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00005",
+      "file": "images/00005.jpg",
+      "origin": "169th_st_81st_av_td_2019-07-09_04.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9966,
+      "probabilities": {
+        "dry": 0.9966,
+        "damp": 0.0021,
+        "wet": 0.0005,
+        "standing_water": 0.0008
+      },
+      "quality": 0.989,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00006",
+      "file": "images/00006.jpg",
+      "origin": "169th_st_81st_av_td_2019-07-09_05.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9924,
+      "probabilities": {
+        "dry": 0.9924,
+        "damp": 0.0055,
+        "wet": 0.001,
+        "standing_water": 0.0011
+      },
+      "quality": 0.9731,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00007",
+      "file": "images/00007.jpg",
+      "origin": "169th_st_81st_av_td_2019-07-09_06.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.942,
+      "probabilities": {
+        "dry": 0.942,
+        "damp": 0.0239,
+        "wet": 0.0077,
+        "standing_water": 0.0264
+      },
+      "quality": 0.9092,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00008",
+      "file": "images/00008.jpg",
+      "origin": "169th_st_81st_av_td_2019-07-09_07.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.8622,
+      "probabilities": {
+        "dry": 0.8622,
+        "damp": 0.0088,
+        "wet": 0.1167,
+        "standing_water": 0.0122
+      },
+      "quality": 0.8381,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00009",
+      "file": "images/00009.jpg",
+      "origin": "169th_st_81st_av_td_2019-07-09_08.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9954,
+      "probabilities": {
+        "dry": 0.9954,
+        "damp": 0.0033,
+        "wet": 0.0005,
+        "standing_water": 0.0007
+      },
+      "quality": 0.6237,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00011",
+      "file": "images/00011.jpg",
+      "origin": "169th_st_81st_av_td_2019-07-09_10.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9894,
+      "probabilities": {
+        "dry": 0.9894,
+        "damp": 0.0081,
+        "wet": 0.0016,
+        "standing_water": 0.0009
+      },
+      "quality": 0.6846,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00012",
+      "file": "images/00012.jpg",
+      "origin": "169th_st_81st_av_td_2019-07-10_02.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9851,
+      "probabilities": {
+        "dry": 0.9851,
+        "damp": 0.0124,
+        "wet": 0.0022,
+        "standing_water": 0.0003
+      },
+      "quality": 0.9735,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00013",
+      "file": "images/00013.jpg",
+      "origin": "169th_st_81st_av_td_2019-07-10_05.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.885,
+      "probabilities": {
+        "dry": 0.885,
+        "damp": 0.0409,
+        "wet": 0.0674,
+        "standing_water": 0.0066
+      },
+      "quality": 0.8528,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00014",
+      "file": "images/00014.jpg",
+      "origin": "169th_st_81st_av_td_2019-07-11_04.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9912,
+      "probabilities": {
+        "dry": 0.9912,
+        "damp": 0.0048,
+        "wet": 0.0029,
+        "standing_water": 0.0011
+      },
+      "quality": 0.9808,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00015",
+      "file": "images/00015.jpg",
+      "origin": "169th_st_81st_av_td_2019-07-11_05.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9781,
+      "probabilities": {
+        "dry": 0.9781,
+        "damp": 0.0091,
+        "wet": 0.0117,
+        "standing_water": 0.0011
+      },
+      "quality": 0.9617,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00016",
+      "file": "images/00016.jpg",
+      "origin": "169th_st_81st_av_td_2019-07-29_01.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9877,
+      "probabilities": {
+        "dry": 0.9877,
+        "damp": 0.0067,
+        "wet": 0.0011,
+        "standing_water": 0.0045
+      },
+      "quality": 0.9752,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00017",
+      "file": "images/00017.jpg",
+      "origin": "169th_st_81st_av_td_2019-07-29_02.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9934,
+      "probabilities": {
+        "dry": 0.9934,
+        "damp": 0.0037,
+        "wet": 0.0028,
+        "standing_water": 0.0001
+      },
+      "quality": 0.9843,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00018",
+      "file": "images/00018.jpg",
+      "origin": "169th_st_81st_av_td_2019-07-29_03.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9756,
+      "probabilities": {
+        "dry": 0.9756,
+        "damp": 0.007,
+        "wet": 0.0171,
+        "standing_water": 0.0003
+      },
+      "quality": 0.9469,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00019",
+      "file": "images/00019.jpg",
+      "origin": "19102010321.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.6675,
+      "probabilities": {
+        "dry": 0.0142,
+        "damp": 0.263,
+        "wet": 0.6675,
+        "standing_water": 0.0553
+      },
+      "quality": 0.6876,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00020",
+      "file": "images/00020.jpg",
+      "origin": "1950-04-23_mille_miglia_ferrari_166_0038m_serafini_salani.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.4181,
+      "probabilities": {
+        "dry": 0.0733,
+        "damp": 0.4181,
+        "wet": 0.3007,
+        "standing_water": 0.2078
+      },
+      "quality": 0.3972,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00022",
+      "file": "images/00022.jpg",
+      "origin": "1999-kienzle-dia_571_.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.9582,
+      "probabilities": {
+        "dry": 0.0029,
+        "damp": 0.0368,
+        "wet": 0.002,
+        "standing_water": 0.9582
+      },
+      "quality": 0.9354,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00023",
+      "file": "images/00023.jpg",
+      "origin": "1999-kienzle-dia_572_.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.9277,
+      "probabilities": {
+        "dry": 0.0052,
+        "damp": 0.0647,
+        "wet": 0.0024,
+        "standing_water": 0.9277
+      },
+      "quality": 0.9051,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00024",
+      "file": "images/00024.jpg",
+      "origin": "2004feb20_aanleg_rood_fietspad.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9976,
+      "probabilities": {
+        "dry": 0.9976,
+        "damp": 0.001,
+        "wet": 0.0006,
+        "standing_water": 0.0008
+      },
+      "quality": 0.9936,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00025",
+      "file": "images/00025.jpg",
+      "origin": "2005-06-06_puddles_in_chapel_hill_parking_lot.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.5213,
+      "probabilities": {
+        "dry": 0.5213,
+        "damp": 0.179,
+        "wet": 0.0206,
+        "standing_water": 0.2791
+      },
+      "quality": 0.5434,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00026",
+      "file": "images/00026.jpg",
+      "origin": "2006-10-24_oil-puddle.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.4913,
+      "probabilities": {
+        "dry": 0.3695,
+        "damp": 0.0462,
+        "wet": 0.4913,
+        "standing_water": 0.0929
+      },
+      "quality": 0.5467,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00027",
+      "file": "images/00027.jpg",
+      "origin": "2014-09-07_15_24_01_lizard_in_elko_nevada.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.986,
+      "probabilities": {
+        "dry": 0.986,
+        "damp": 0.0093,
+        "wet": 0.0047,
+        "standing_water": 0.0001
+      },
+      "quality": 0.9695,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00028",
+      "file": "images/00028.jpg",
+      "origin": "2015_366_310_still_raining_30714193151_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.7622,
+      "probabilities": {
+        "dry": 0.053,
+        "damp": 0.1843,
+        "wet": 0.7622,
+        "standing_water": 0.0005
+      },
+      "quality": 0.7581,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00029",
+      "file": "images/00029.jpg",
+      "origin": "20160226reilingen2.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.6989,
+      "probabilities": {
+        "dry": 0.0141,
+        "damp": 0.0368,
+        "wet": 0.6989,
+        "standing_water": 0.2502
+      },
+      "quality": 0.713,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00030",
+      "file": "images/00030.jpg",
+      "origin": "2016_photo_-_img_8187_37894860472_.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.8284,
+      "probabilities": {
+        "dry": 0.8284,
+        "damp": 0.1166,
+        "wet": 0.0486,
+        "standing_water": 0.0065
+      },
+      "quality": 0.8024,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00031",
+      "file": "images/00031.jpg",
+      "origin": "20170312_tyrerotationdirection_vw_rline_dscn6983_ptrqs.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.6683,
+      "probabilities": {
+        "dry": 0.6683,
+        "damp": 0.0989,
+        "wet": 0.2305,
+        "standing_water": 0.0022
+      },
+      "quality": 0.681,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00032",
+      "file": "images/00032.jpg",
+      "origin": "2019-05-02_16_43_38_an_earthworm_in_a_puddle_on_a_walking_path_in_the_franklin_farm_section_of_oak_hill_fairfax_county_virginia.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9608,
+      "probabilities": {
+        "dry": 0.9608,
+        "damp": 0.0361,
+        "wet": 0.0028,
+        "standing_water": 0.0004
+      },
+      "quality": 0.9455,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00033",
+      "file": "images/00033.jpg",
+      "origin": "2019-09-17_100_ocypus_olens_schwarzer_moderk_fer_at_bichlh_usl_tiefgrabenrotte_frankenfels_austria.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.8767,
+      "probabilities": {
+        "dry": 0.8767,
+        "damp": 0.1128,
+        "wet": 0.0103,
+        "standing_water": 0.0002
+      },
+      "quality": 0.8576,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00034",
+      "file": "images/00034.jpg",
+      "origin": "2020-04-13_11_08_18_an_earthworm_on_a_wet_walking_path_in_the_franklin_farm_section_of_oak_hill_fairfax_county_virginia.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.7042,
+      "probabilities": {
+        "dry": 0.7042,
+        "damp": 0.237,
+        "wet": 0.0361,
+        "standing_water": 0.0227
+      },
+      "quality": 0.7042,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00035",
+      "file": "images/00035.jpg",
+      "origin": "2020-04-13_11_11_55_an_earthworm_in_a_puddle_on_a_walking_path_in_the_franklin_farm_section_of_oak_hill_fairfax_county_virginia.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.8895,
+      "probabilities": {
+        "dry": 0.8895,
+        "damp": 0.1055,
+        "wet": 0.0041,
+        "standing_water": 0.0009
+      },
+      "quality": 0.8794,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00036",
+      "file": "images/00036.jpg",
+      "origin": "2020-04-13_11_12_55_an_earthworm_in_a_puddle_on_a_walking_path_in_the_franklin_farm_section_of_oak_hill_fairfax_county_virginia.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.8195,
+      "probabilities": {
+        "dry": 0.8195,
+        "damp": 0.1327,
+        "wet": 0.0469,
+        "standing_water": 0.0009
+      },
+      "quality": 0.8039,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00037",
+      "file": "images/00037.jpg",
+      "origin": "2020-08-18_08_57_15_black_caterpillar_with_yellow-orange_stripes_crawling_on_apple_barrel_court_in_the_franklin_farm_section_of_oak_hill_fairfax_county_virginia.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9768,
+      "probabilities": {
+        "dry": 0.9768,
+        "damp": 0.0133,
+        "wet": 0.0098,
+        "standing_water": 0.0001
+      },
+      "quality": 0.9379,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00038",
+      "file": "images/00038.jpg",
+      "origin": "2020-08-18_08_57_21_black_caterpillar_with_yellow-orange_stripes_crawling_on_apple_barrel_court_in_the_franklin_farm_section_of_oak_hill_fairfax_county_virginia.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9751,
+      "probabilities": {
+        "dry": 0.9751,
+        "damp": 0.009,
+        "wet": 0.0156,
+        "standing_water": 0.0003
+      },
+      "quality": 0.946,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00039",
+      "file": "images/00039.jpg",
+      "origin": "2020_tour_de_france_1st_stage_col_de_rimiez_2nd_lap_03.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.4373,
+      "probabilities": {
+        "dry": 0.3199,
+        "damp": 0.4373,
+        "wet": 0.0509,
+        "standing_water": 0.1918
+      },
+      "quality": 0.4499,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00040",
+      "file": "images/00040.jpg",
+      "origin": "2023-02-28_14_53_49_water_droplets_beading_up_on_an_asphalt_driveway_with_a_fresh_sealcoat_along_mountain_view_road_in_the_mountainview_section_of_ewing_township_mercer_county_new_jersey.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.5535,
+      "probabilities": {
+        "dry": 0.5535,
+        "damp": 0.0831,
+        "wet": 0.341,
+        "standing_water": 0.0224
+      },
+      "quality": 0.6061,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00041",
+      "file": "images/00041.jpg",
+      "origin": "2023-02-28_14_53_54_water_droplets_beading_up_on_an_asphalt_driveway_with_a_fresh_sealcoat_along_mountain_view_road_in_the_mountainview_section_of_ewing_township_mercer_county_new_jersey.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.7267,
+      "probabilities": {
+        "dry": 0.1834,
+        "damp": 0.0459,
+        "wet": 0.7267,
+        "standing_water": 0.0439
+      },
+      "quality": 0.6895,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00042",
+      "file": "images/00042.jpg",
+      "origin": "2023-02-28_14_54_01_water_droplets_beading_up_on_an_asphalt_driveway_with_a_fresh_sealcoat_along_mountain_view_road_in_the_mountainview_section_of_ewing_township_mercer_county_new_jersey.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.5464,
+      "probabilities": {
+        "dry": 0.3382,
+        "damp": 0.0738,
+        "wet": 0.5464,
+        "standing_water": 0.0416
+      },
+      "quality": 0.5792,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00043",
+      "file": "images/00043.jpg",
+      "origin": "2023-02-28_14_54_14_water_droplets_beading_up_on_an_asphalt_driveway_with_a_fresh_sealcoat_along_mountain_view_road_in_the_mountainview_section_of_ewing_township_mercer_county_new_jersey.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.5409,
+      "probabilities": {
+        "dry": 0.5409,
+        "damp": 0.0866,
+        "wet": 0.3693,
+        "standing_water": 0.0032
+      },
+      "quality": 0.6402,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00044",
+      "file": "images/00044.jpg",
+      "origin": "2023-03-18_11_26_50_sunlight_reflecting_off_an_asphalt_driveway_with_a_fresh_sealcoat_along_mountain_view_road_in_the_mountainview_section_of_ewing_township_mercer_county_new_jersey.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.9734,
+      "probabilities": {
+        "dry": 0.0188,
+        "damp": 0.0064,
+        "wet": 0.9734,
+        "standing_water": 0.0015
+      },
+      "quality": 0.9377,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00045",
+      "file": "images/00045.jpg",
+      "origin": "2023-05-20_15_01_12_a_freshly_paved_driveway_along_windybush_way_in_the_mountainview_section_of_ewing_township_mercer_county_new_jersey.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9441,
+      "probabilities": {
+        "dry": 0.9441,
+        "damp": 0.0517,
+        "wet": 0.004,
+        "standing_water": 0.0002
+      },
+      "quality": 0.9273,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00046",
+      "file": "images/00046.jpg",
+      "origin": "2023-05-20_15_01_27_water_drops_from_rain_on_a_freshly_paved_driveway_along_windybush_way_in_the_mountainview_section_of_ewing_township_mercer_county_new_jersey.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.4142,
+      "probabilities": {
+        "dry": 0.4142,
+        "damp": 0.1872,
+        "wet": 0.3587,
+        "standing_water": 0.0399
+      },
+      "quality": 0.4611,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00047",
+      "file": "images/00047.jpg",
+      "origin": "2023-09-20_13_47_41_a_fresh_layer_of_sealcoat_being_applied_to_an_asphalt_driveway_along_lochatong_road_in_the_mountainview_section_of_ewing_township_mercer_county_new_jersey.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.7728,
+      "probabilities": {
+        "dry": 0.7728,
+        "damp": 0.0622,
+        "wet": 0.1294,
+        "standing_water": 0.0355
+      },
+      "quality": 0.729,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00048",
+      "file": "images/00048.jpg",
+      "origin": "2024-06-25_11_43_25_an_asphalt_driveway_with_a_fresh_sealcoat_along_mountain_view_road_in_the_mountainview_section_of_ewing_township_mercer_county_new_jersey.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9802,
+      "probabilities": {
+        "dry": 0.9802,
+        "damp": 0.0118,
+        "wet": 0.0074,
+        "standing_water": 0.0006
+      },
+      "quality": 0.9615,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00049",
+      "file": "images/00049.jpg",
+      "origin": "2025-02-08_trade_center_ideal.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.7122,
+      "probabilities": {
+        "dry": 0.0056,
+        "damp": 0.1268,
+        "wet": 0.1554,
+        "standing_water": 0.7122
+      },
+      "quality": 0.6905,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00051",
+      "file": "images/00051.jpg",
+      "origin": "2025-11-15_ecovia_da_v_rzea_da_rainha_3.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.3987,
+      "probabilities": {
+        "dry": 0.0489,
+        "damp": 0.3942,
+        "wet": 0.3987,
+        "standing_water": 0.1583
+      },
+      "quality": 0.4727,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00052",
+      "file": "images/00052.jpg",
+      "origin": "2025-11-16_coastal_road_in_ferrel_1.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.4093,
+      "probabilities": {
+        "dry": 0.4093,
+        "damp": 0.3382,
+        "wet": 0.1716,
+        "standing_water": 0.0809
+      },
+      "quality": 0.4085,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00053",
+      "file": "images/00053.jpg",
+      "origin": "2025-11-16_trilho_da_almagreira_after_rain_1.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.4769,
+      "probabilities": {
+        "dry": 0.0896,
+        "damp": 0.2536,
+        "wet": 0.4769,
+        "standing_water": 0.1799
+      },
+      "quality": 0.4216,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00054",
+      "file": "images/00054.jpg",
+      "origin": "2025-11-16_trilho_da_almagreira_after_rain_2.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.5124,
+      "probabilities": {
+        "dry": 0.2773,
+        "damp": 0.5124,
+        "wet": 0.1158,
+        "standing_water": 0.0944
+      },
+      "quality": 0.4747,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00055",
+      "file": "images/00055.jpg",
+      "origin": "2026-04-14_12_06_08_a_freshly_paved_driveway_along_windybush_way_in_the_mountainview_section_of_ewing_township_mercer_county_new_jersey.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9839,
+      "probabilities": {
+        "dry": 0.9839,
+        "damp": 0.0131,
+        "wet": 0.0029,
+        "standing_water": 0.0002
+      },
+      "quality": 0.9701,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00056",
+      "file": "images/00056.jpg",
+      "origin": "2026-04-14_12_06_18_fresh_asphalt_on_a_newly_paved_driveway_along_windybush_way_in_the_mountainview_section_of_ewing_township_mercer_county_new_jersey.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9992,
+      "probabilities": {
+        "dry": 0.9992,
+        "damp": 0.0008,
+        "wet": 0.0,
+        "standing_water": 0.0
+      },
+      "quality": 0.8979,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00057",
+      "file": "images/00057.jpg",
+      "origin": "20260705_puddle.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.4935,
+      "probabilities": {
+        "dry": 0.0474,
+        "damp": 0.1471,
+        "wet": 0.4935,
+        "standing_water": 0.3119
+      },
+      "quality": 0.5007,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00058",
+      "file": "images/00058.jpg",
+      "origin": "20260723_a_puddle.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.5307,
+      "probabilities": {
+        "dry": 0.0781,
+        "damp": 0.0281,
+        "wet": 0.363,
+        "standing_water": 0.5307
+      },
+      "quality": 0.597,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00059",
+      "file": "images/00059.jpg",
+      "origin": "215fallcolor_08.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.9156,
+      "probabilities": {
+        "dry": 0.025,
+        "damp": 0.0478,
+        "wet": 0.9156,
+        "standing_water": 0.0116
+      },
+      "quality": 0.8831,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00060",
+      "file": "images/00060.jpg",
+      "origin": "25681776900_jpg_175371429_.jpeg",
+      "auto_label": "wet",
+      "auto_confidence": 0.6617,
+      "probabilities": {
+        "dry": 0.0675,
+        "damp": 0.0502,
+        "wet": 0.6617,
+        "standing_water": 0.2206
+      },
+      "quality": 0.6354,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00061",
+      "file": "images/00061.jpg",
+      "origin": "2_-_.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.9047,
+      "probabilities": {
+        "dry": 0.0398,
+        "damp": 0.0426,
+        "wet": 0.0129,
+        "standing_water": 0.9047
+      },
+      "quality": 0.8687,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00062",
+      "file": "images/00062.jpg",
+      "origin": "2k12_kub_radar_1s91_and_missile_launcher.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.5377,
+      "probabilities": {
+        "dry": 0.0241,
+        "damp": 0.0739,
+        "wet": 0.5377,
+        "standing_water": 0.3643
+      },
+      "quality": 0.5794,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00063",
+      "file": "images/00063.jpg",
+      "origin": "30-366_regen_veel_regen_57-365_in_explore_-_flickr_-_mj_klaver.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.8696,
+      "probabilities": {
+        "dry": 0.0011,
+        "damp": 0.1039,
+        "wet": 0.8696,
+        "standing_water": 0.0254
+      },
+      "quality": 0.8164,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00064",
+      "file": "images/00064.jpg",
+      "origin": "35w_bridge_collapse_15807989955_.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.6609,
+      "probabilities": {
+        "dry": 0.1503,
+        "damp": 0.1407,
+        "wet": 0.0481,
+        "standing_water": 0.6609
+      },
+      "quality": 0.6118,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00065",
+      "file": "images/00065.jpg",
+      "origin": "365_rain_mosaic_28586417071_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.9571,
+      "probabilities": {
+        "dry": 0.0069,
+        "damp": 0.0163,
+        "wet": 0.9571,
+        "standing_water": 0.0197
+      },
+      "quality": 0.933,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00066",
+      "file": "images/00066.jpg",
+      "origin": "3_-_.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.7995,
+      "probabilities": {
+        "dry": 0.0633,
+        "damp": 0.0919,
+        "wet": 0.0454,
+        "standing_water": 0.7995
+      },
+      "quality": 0.748,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00067",
+      "file": "images/00067.jpg",
+      "origin": "4_-_.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.3707,
+      "probabilities": {
+        "dry": 0.3707,
+        "damp": 0.3009,
+        "wet": 0.0215,
+        "standing_water": 0.3069
+      },
+      "quality": 0.4711,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00068",
+      "file": "images/00068.jpg",
+      "origin": "500px_photo_108418615_.jpeg",
+      "auto_label": "wet",
+      "auto_confidence": 0.5426,
+      "probabilities": {
+        "dry": 0.001,
+        "damp": 0.3421,
+        "wet": 0.5426,
+        "standing_water": 0.1144
+      },
+      "quality": 0.6105,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00069",
+      "file": "images/00069.jpg",
+      "origin": "500px_photo_159068751_.jpeg",
+      "auto_label": "wet",
+      "auto_confidence": 0.9309,
+      "probabilities": {
+        "dry": 0.0028,
+        "damp": 0.0447,
+        "wet": 0.9309,
+        "standing_water": 0.0216
+      },
+      "quality": 0.8567,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00070",
+      "file": "images/00070.jpg",
+      "origin": "500px_photo_57527176_.jpeg",
+      "auto_label": "damp",
+      "auto_confidence": 0.8568,
+      "probabilities": {
+        "dry": 0.0027,
+        "damp": 0.8568,
+        "wet": 0.1391,
+        "standing_water": 0.0014
+      },
+      "quality": 0.8611,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00071",
+      "file": "images/00071.jpg",
+      "origin": "500px_photo_59612224_.jpeg",
+      "auto_label": "wet",
+      "auto_confidence": 0.961,
+      "probabilities": {
+        "dry": 0.0007,
+        "damp": 0.0297,
+        "wet": 0.961,
+        "standing_water": 0.0086
+      },
+      "quality": 0.8452,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00072",
+      "file": "images/00072.jpg",
+      "origin": "53_365_calma_tras_la_tormenta_8229373292_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.6844,
+      "probabilities": {
+        "dry": 0.0002,
+        "damp": 0.0082,
+        "wet": 0.6844,
+        "standing_water": 0.3072
+      },
+      "quality": 0.77,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00073",
+      "file": "images/00073.jpg",
+      "origin": "5_-_.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.6284,
+      "probabilities": {
+        "dry": 0.122,
+        "damp": 0.2215,
+        "wet": 0.0281,
+        "standing_water": 0.6284
+      },
+      "quality": 0.6101,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00074",
+      "file": "images/00074.jpg",
+      "origin": "7133032305_-_flickr_-_heart_of_oak.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.8632,
+      "probabilities": {
+        "dry": 0.0003,
+        "damp": 0.0331,
+        "wet": 0.8632,
+        "standing_water": 0.1034
+      },
+      "quality": 0.8429,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00075",
+      "file": "images/00075.jpg",
+      "origin": "9611sampaloc_san_rafael_bulacan_22.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9887,
+      "probabilities": {
+        "dry": 0.9887,
+        "damp": 0.0034,
+        "wet": 0.0003,
+        "standing_water": 0.0077
+      },
+      "quality": 0.9794,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00076",
+      "file": "images/00076.jpg",
+      "origin": "a-child-standing-and-looking-for-something-in-water-391751964887.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.7925,
+      "probabilities": {
+        "dry": 0.0032,
+        "damp": 0.1369,
+        "wet": 0.0674,
+        "standing_water": 0.7925
+      },
+      "quality": 0.7733,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00077",
+      "file": "images/00077.jpg",
+      "origin": "a_barrel_containing_type_c_goop_for_pyrogel_pt-1.png",
+      "auto_label": "dry",
+      "auto_confidence": 0.5053,
+      "probabilities": {
+        "dry": 0.5053,
+        "damp": 0.3577,
+        "wet": 0.061,
+        "standing_water": 0.076
+      },
+      "quality": 0.5473,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00078",
+      "file": "images/00078.jpg",
+      "origin": "a_bit_of_tiger_twosome_51340545498_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.708,
+      "probabilities": {
+        "dry": 0.0266,
+        "damp": 0.19,
+        "wet": 0.708,
+        "standing_water": 0.0754
+      },
+      "quality": 0.6804,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00079",
+      "file": "images/00079.jpg",
+      "origin": "a_boy_washes_his_hands_inside_a_rockpuddle.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9118,
+      "probabilities": {
+        "dry": 0.9118,
+        "damp": 0.0417,
+        "wet": 0.0212,
+        "standing_water": 0.0253
+      },
+      "quality": 0.8751,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00080",
+      "file": "images/00080.jpg",
+      "origin": "a_change_in_the_weather_9408867969_.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.5184,
+      "probabilities": {
+        "dry": 0.0013,
+        "damp": 0.5184,
+        "wet": 0.475,
+        "standing_water": 0.0052
+      },
+      "quality": 0.705,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00081",
+      "file": "images/00081.jpg",
+      "origin": "a_farm_track_in_the_lincolnshire_vales_south_kesteven_england.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.5039,
+      "probabilities": {
+        "dry": 0.4137,
+        "damp": 0.027,
+        "wet": 0.0554,
+        "standing_water": 0.5039
+      },
+      "quality": 0.609,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00082",
+      "file": "images/00082.jpg",
+      "origin": "a_ford_on_wash_lane_corner_-_geograph.org.uk_-_1220748.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.6327,
+      "probabilities": {
+        "dry": 0.0185,
+        "damp": 0.3027,
+        "wet": 0.0461,
+        "standing_water": 0.6327
+      },
+      "quality": 0.6749,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00083",
+      "file": "images/00083.jpg",
+      "origin": "a_heat_wave_in_helsinki_in_the_summer_of_1964_jokahbl3e_e21-1_.tif",
+      "auto_label": "dry",
+      "auto_confidence": 0.4243,
+      "probabilities": {
+        "dry": 0.4243,
+        "damp": 0.1443,
+        "wet": 0.3157,
+        "standing_water": 0.1157
+      },
+      "quality": 0.3873,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00084",
+      "file": "images/00084.jpg",
+      "origin": "a_hint_of_spring_66648527_.jpeg",
+      "auto_label": "wet",
+      "auto_confidence": 0.6651,
+      "probabilities": {
+        "dry": 0.0178,
+        "damp": 0.1722,
+        "wet": 0.6651,
+        "standing_water": 0.1448
+      },
+      "quality": 0.6435,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00085",
+      "file": "images/00085.jpg",
+      "origin": "a_magia_da_noite.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.9515,
+      "probabilities": {
+        "dry": 0.0,
+        "damp": 0.0093,
+        "wet": 0.9515,
+        "standing_water": 0.0393
+      },
+      "quality": 0.9338,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00086",
+      "file": "images/00086.jpg",
+      "origin": "a_military_district_of_washington_mdw_engineer_company_technical_rescue_firefighter_makes_his_way_towards_the_fire_on_the_second_day_after_the_attack_010912-a-pd956-016.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.623,
+      "probabilities": {
+        "dry": 0.0202,
+        "damp": 0.2917,
+        "wet": 0.0651,
+        "standing_water": 0.623
+      },
+      "quality": 0.6485,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00087",
+      "file": "images/00087.jpg",
+      "origin": "a_murky_morning_for_the_backwater_female_tiger_51340324701_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.4433,
+      "probabilities": {
+        "dry": 0.2368,
+        "damp": 0.2017,
+        "wet": 0.4433,
+        "standing_water": 0.1182
+      },
+      "quality": 0.3607,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00088",
+      "file": "images/00088.jpg",
+      "origin": "a_path_leading_to_hartshead_moor_services_-_geograph.org.uk_-_2921491.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.7334,
+      "probabilities": {
+        "dry": 0.2125,
+        "damp": 0.7334,
+        "wet": 0.0436,
+        "standing_water": 0.0105
+      },
+      "quality": 0.7365,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00089",
+      "file": "images/00089.jpg",
+      "origin": "a_person_stranded_on_how_to_walk_through_murky_waters.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.4475,
+      "probabilities": {
+        "dry": 0.0171,
+        "damp": 0.1381,
+        "wet": 0.4475,
+        "standing_water": 0.3973
+      },
+      "quality": 0.5538,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00090",
+      "file": "images/00090.jpg",
+      "origin": "a_puddle_after_rain_on_a_damaged_asphalt_surface_a_storm_drain_grate_on.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.8717,
+      "probabilities": {
+        "dry": 0.0233,
+        "damp": 0.0735,
+        "wet": 0.8717,
+        "standing_water": 0.0315
+      },
+      "quality": 0.8215,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00091",
+      "file": "images/00091.jpg",
+      "origin": "a_puddle_in_warsaw_poland.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.7235,
+      "probabilities": {
+        "dry": 0.0085,
+        "damp": 0.2576,
+        "wet": 0.7235,
+        "standing_water": 0.0105
+      },
+      "quality": 0.679,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00092",
+      "file": "images/00092.jpg",
+      "origin": "a_rainy_sunday.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.6047,
+      "probabilities": {
+        "dry": 0.1359,
+        "damp": 0.6047,
+        "wet": 0.1434,
+        "standing_water": 0.1161
+      },
+      "quality": 0.5275,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00093",
+      "file": "images/00093.jpg",
+      "origin": "a_road_in_belmannu.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.5806,
+      "probabilities": {
+        "dry": 0.3055,
+        "damp": 0.5806,
+        "wet": 0.0859,
+        "standing_water": 0.028
+      },
+      "quality": 0.6029,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00094",
+      "file": "images/00094.jpg",
+      "origin": "a_spring_rainbow_arched_over_sofia.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.8773,
+      "probabilities": {
+        "dry": 0.0252,
+        "damp": 0.0778,
+        "wet": 0.8773,
+        "standing_water": 0.0198
+      },
+      "quality": 0.8408,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00095",
+      "file": "images/00095.jpg",
+      "origin": "a_very_wet_faifley_road_-_geograph.org.uk_-_831556.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.9322,
+      "probabilities": {
+        "dry": 0.023,
+        "damp": 0.9322,
+        "wet": 0.0171,
+        "standing_water": 0.0278
+      },
+      "quality": 0.8923,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00096",
+      "file": "images/00096.jpg",
+      "origin": "a_very_wet_kirkintilloch_road_-_geograph.org.uk_-_1410468.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.6891,
+      "probabilities": {
+        "dry": 0.0547,
+        "damp": 0.6891,
+        "wet": 0.1688,
+        "standing_water": 0.0875
+      },
+      "quality": 0.6386,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00097",
+      "file": "images/00097.jpg",
+      "origin": "a_very_wet_road_-_geograph.org.uk_-_337091.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.5016,
+      "probabilities": {
+        "dry": 0.5016,
+        "damp": 0.2541,
+        "wet": 0.1371,
+        "standing_water": 0.1071
+      },
+      "quality": 0.4423,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00098",
+      "file": "images/00098.jpg",
+      "origin": "a_wet_bank_road_-_geograph.org.uk_-_1670583.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.4378,
+      "probabilities": {
+        "dry": 0.0184,
+        "damp": 0.2013,
+        "wet": 0.4378,
+        "standing_water": 0.3425
+      },
+      "quality": 0.5129,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00099",
+      "file": "images/00099.jpg",
+      "origin": "a_wet_garvaghy_road_-_geograph.org.uk_-_1409024.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.7959,
+      "probabilities": {
+        "dry": 0.1884,
+        "damp": 0.7959,
+        "wet": 0.0087,
+        "standing_water": 0.007
+      },
+      "quality": 0.7497,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00100",
+      "file": "images/00100.jpg",
+      "origin": "a_wet_road_blackhill_-_geograph.org.uk_-_1567037.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.4673,
+      "probabilities": {
+        "dry": 0.4673,
+        "damp": 0.4559,
+        "wet": 0.0231,
+        "standing_water": 0.0537
+      },
+      "quality": 0.4751,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00101",
+      "file": "images/00101.jpg",
+      "origin": "a_wet_road_hill_house_road_cartworth_-_geograph.org.uk_-_932375.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9158,
+      "probabilities": {
+        "dry": 0.9158,
+        "damp": 0.077,
+        "wet": 0.0048,
+        "standing_water": 0.0023
+      },
+      "quality": 0.8981,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00102",
+      "file": "images/00102.jpg",
+      "origin": "a_wet_road_in_cowal_-_geograph.org.uk_-_615409.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.7964,
+      "probabilities": {
+        "dry": 0.1206,
+        "damp": 0.7964,
+        "wet": 0.0263,
+        "standing_water": 0.0567
+      },
+      "quality": 0.7022,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00103",
+      "file": "images/00103.jpg",
+      "origin": "a_wet_road_to_keiloch_-_geograph.org.uk_-_476748.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.4939,
+      "probabilities": {
+        "dry": 0.4158,
+        "damp": 0.4939,
+        "wet": 0.0098,
+        "standing_water": 0.0805
+      },
+      "quality": 0.5534,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00104",
+      "file": "images/00104.jpg",
+      "origin": "a_wet_surface_on_the_lane_to_silverton_mill_-_geograph.org.uk_-_1589082.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.7427,
+      "probabilities": {
+        "dry": 0.2362,
+        "damp": 0.7427,
+        "wet": 0.018,
+        "standing_water": 0.0031
+      },
+      "quality": 0.5627,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00105",
+      "file": "images/00105.jpg",
+      "origin": "aarestrasse_unterseen.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.6101,
+      "probabilities": {
+        "dry": 0.0901,
+        "damp": 0.0714,
+        "wet": 0.2285,
+        "standing_water": 0.6101
+      },
+      "quality": 0.5698,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00106",
+      "file": "images/00106.jpg",
+      "origin": "abby_food_store_tallahassee_florida.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.3777,
+      "probabilities": {
+        "dry": 0.3777,
+        "damp": 0.3481,
+        "wet": 0.0267,
+        "standing_water": 0.2475
+      },
+      "quality": 0.4571,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00107",
+      "file": "images/00107.jpg",
+      "origin": "aboboyaa.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.7227,
+      "probabilities": {
+        "dry": 0.7227,
+        "damp": 0.1519,
+        "wet": 0.1097,
+        "standing_water": 0.0157
+      },
+      "quality": 0.6943,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00108",
+      "file": "images/00108.jpg",
+      "origin": "adopta_parking_chauss_e_drainange_r_servoir.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9995,
+      "probabilities": {
+        "dry": 0.9995,
+        "damp": 0.0005,
+        "wet": 0.0,
+        "standing_water": 0.0
+      },
+      "quality": 0.9828,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00109",
+      "file": "images/00109.jpg",
+      "origin": "aeropuerto_de_madrid-barajas_-_exterior_01.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.986,
+      "probabilities": {
+        "dry": 0.986,
+        "damp": 0.0041,
+        "wet": 0.0032,
+        "standing_water": 0.0067
+      },
+      "quality": 0.9738,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00110",
+      "file": "images/00110.jpg",
+      "origin": "after_the_rain-2014.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.9513,
+      "probabilities": {
+        "dry": 0.0005,
+        "damp": 0.0194,
+        "wet": 0.9513,
+        "standing_water": 0.0289
+      },
+      "quality": 0.9239,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00111",
+      "file": "images/00111.jpg",
+      "origin": "after_the_rain_-_bacalar_reflection_2021.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.9258,
+      "probabilities": {
+        "dry": 0.0004,
+        "damp": 0.0515,
+        "wet": 0.9258,
+        "standing_water": 0.0223
+      },
+      "quality": 0.8762,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00112",
+      "file": "images/00112.jpg",
+      "origin": "after_the_rain_-_flickr_-_judithjackson957.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.86,
+      "probabilities": {
+        "dry": 0.0024,
+        "damp": 0.1124,
+        "wet": 0.86,
+        "standing_water": 0.0252
+      },
+      "quality": 0.7665,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00113",
+      "file": "images/00113.jpg",
+      "origin": "after_the_rain_-_geograph.org.uk_-_792799.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.5655,
+      "probabilities": {
+        "dry": 0.0237,
+        "damp": 0.5655,
+        "wet": 0.098,
+        "standing_water": 0.3128
+      },
+      "quality": 0.5984,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00114",
+      "file": "images/00114.jpg",
+      "origin": "after_the_rain_in_my_village.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.8613,
+      "probabilities": {
+        "dry": 0.0377,
+        "damp": 0.0952,
+        "wet": 0.0058,
+        "standing_water": 0.8613
+      },
+      "quality": 0.8334,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00115",
+      "file": "images/00115.jpg",
+      "origin": "aggregati_rap.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9547,
+      "probabilities": {
+        "dry": 0.9547,
+        "damp": 0.0336,
+        "wet": 0.0098,
+        "standing_water": 0.0019
+      },
+      "quality": 0.9329,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00116",
+      "file": "images/00116.jpg",
+      "origin": "aggregato_rap.png",
+      "auto_label": "dry",
+      "auto_confidence": 0.9904,
+      "probabilities": {
+        "dry": 0.9904,
+        "damp": 0.0092,
+        "wet": 0.0004,
+        "standing_water": 0.0
+      },
+      "quality": 0.9836,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00117",
+      "file": "images/00117.jpg",
+      "origin": "air_force_memorial_under_construction_177355827_.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.8085,
+      "probabilities": {
+        "dry": 0.0016,
+        "damp": 0.8085,
+        "wet": 0.0363,
+        "standing_water": 0.1537
+      },
+      "quality": 0.801,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00118",
+      "file": "images/00118.jpg",
+      "origin": "air_yang_diam.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.5587,
+      "probabilities": {
+        "dry": 0.2786,
+        "damp": 0.0655,
+        "wet": 0.5587,
+        "standing_water": 0.0973
+      },
+      "quality": 0.5417,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00119",
+      "file": "images/00119.jpg",
+      "origin": "aix-en-provence_13_lanterne_954.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.675,
+      "probabilities": {
+        "dry": 0.2145,
+        "damp": 0.0976,
+        "wet": 0.675,
+        "standing_water": 0.0128
+      },
+      "quality": 0.6596,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00120",
+      "file": "images/00120.jpg",
+      "origin": "al-qutayfah_distrito_2001_12.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.8592,
+      "probabilities": {
+        "dry": 0.8592,
+        "damp": 0.0798,
+        "wet": 0.0579,
+        "standing_water": 0.0032
+      },
+      "quality": 0.7246,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00121",
+      "file": "images/00121.jpg",
+      "origin": "alaska_fairbanks_dollar_day_rental_1972_01.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.4565,
+      "probabilities": {
+        "dry": 0.037,
+        "damp": 0.1582,
+        "wet": 0.4565,
+        "standing_water": 0.3483
+      },
+      "quality": 0.4988,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00122",
+      "file": "images/00122.jpg",
+      "origin": "alcobendas_-_museo_nacional_de_ciencia_y_tecnolog_a_muncyt_09.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9805,
+      "probabilities": {
+        "dry": 0.9805,
+        "damp": 0.0069,
+        "wet": 0.0023,
+        "standing_water": 0.0104
+      },
+      "quality": 0.9589,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00123",
+      "file": "images/00123.jpg",
+      "origin": "allaben-shandaken_new_york_408382719_.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.6938,
+      "probabilities": {
+        "dry": 0.2289,
+        "damp": 0.0701,
+        "wet": 0.0073,
+        "standing_water": 0.6938
+      },
+      "quality": 0.3892,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00124",
+      "file": "images/00124.jpg",
+      "origin": "allaben-shandaken_new_york_408382723_.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.5885,
+      "probabilities": {
+        "dry": 0.5885,
+        "damp": 0.1348,
+        "wet": 0.0236,
+        "standing_water": 0.2532
+      },
+      "quality": 0.449,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00125",
+      "file": "images/00125.jpg",
+      "origin": "alley_pioneer_square.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.7264,
+      "probabilities": {
+        "dry": 0.0205,
+        "damp": 0.0601,
+        "wet": 0.7264,
+        "standing_water": 0.1929
+      },
+      "quality": 0.7007,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00126",
+      "file": "images/00126.jpg",
+      "origin": "alma_transporter_damping_system_transpvalve-1000421_.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.8812,
+      "probabilities": {
+        "dry": 0.8812,
+        "damp": 0.0593,
+        "wet": 0.0399,
+        "standing_water": 0.0196
+      },
+      "quality": 0.8268,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00127",
+      "file": "images/00127.jpg",
+      "origin": "alma_transporter_damping_system_transpvalve-1000421_.tiff",
+      "auto_label": "dry",
+      "auto_confidence": 0.8491,
+      "probabilities": {
+        "dry": 0.8491,
+        "damp": 0.0754,
+        "wet": 0.0563,
+        "standing_water": 0.0192
+      },
+      "quality": 0.7956,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00128",
+      "file": "images/00128.jpg",
+      "origin": "alpine_slide_walkway_marking.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.8809,
+      "probabilities": {
+        "dry": 0.8809,
+        "damp": 0.0508,
+        "wet": 0.0655,
+        "standing_water": 0.0028
+      },
+      "quality": 0.8517,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00129",
+      "file": "images/00129.jpg",
+      "origin": "ama_14_lords_members_say_that_their_comeback_in_the_streets_of_ethekwini_will_be_helpful.png",
+      "auto_label": "wet",
+      "auto_confidence": 0.88,
+      "probabilities": {
+        "dry": 0.0301,
+        "damp": 0.0199,
+        "wet": 0.88,
+        "standing_water": 0.07
+      },
+      "quality": 0.8429,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00130",
+      "file": "images/00130.jpg",
+      "origin": "amanecer_-_panoramio_1_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.9135,
+      "probabilities": {
+        "dry": 0.0011,
+        "damp": 0.0221,
+        "wet": 0.9135,
+        "standing_water": 0.0633
+      },
+      "quality": 0.867,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00131",
+      "file": "images/00131.jpg",
+      "origin": "american_flag_reflected_in_a_puddle_of_water.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.4161,
+      "probabilities": {
+        "dry": 0.4161,
+        "damp": 0.2196,
+        "wet": 0.3622,
+        "standing_water": 0.0021
+      },
+      "quality": 0.5201,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00132",
+      "file": "images/00132.jpg",
+      "origin": "antrocel_g.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9859,
+      "probabilities": {
+        "dry": 0.9859,
+        "damp": 0.013,
+        "wet": 0.0011,
+        "standing_water": 0.0
+      },
+      "quality": 0.9597,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00133",
+      "file": "images/00133.jpg",
+      "origin": "antrocel_p.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9776,
+      "probabilities": {
+        "dry": 0.9776,
+        "damp": 0.0193,
+        "wet": 0.0011,
+        "standing_water": 0.002
+      },
+      "quality": 0.965,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00134",
+      "file": "images/00134.jpg",
+      "origin": "aparados_da_serra2-rs.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.9888,
+      "probabilities": {
+        "dry": 0.0018,
+        "damp": 0.0066,
+        "wet": 0.9888,
+        "standing_water": 0.0029
+      },
+      "quality": 0.9772,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00135",
+      "file": "images/00135.jpg",
+      "origin": "apartment_block_fairfax_road_london_nw6_-_geograph.org.uk_-_1128165.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.953,
+      "probabilities": {
+        "dry": 0.025,
+        "damp": 0.953,
+        "wet": 0.0078,
+        "standing_water": 0.0143
+      },
+      "quality": 0.9279,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00136",
+      "file": "images/00136.jpg",
+      "origin": "apple_and_water.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.6795,
+      "probabilities": {
+        "dry": 0.0226,
+        "damp": 0.6795,
+        "wet": 0.194,
+        "standing_water": 0.1039
+      },
+      "quality": 0.5584,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00137",
+      "file": "images/00137.jpg",
+      "origin": "approaching_long_house_farm_-_geograph.org.uk_-_661550.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.9673,
+      "probabilities": {
+        "dry": 0.006,
+        "damp": 0.9673,
+        "wet": 0.0024,
+        "standing_water": 0.0243
+      },
+      "quality": 0.9272,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00138",
+      "file": "images/00138.jpg",
+      "origin": "aquaplaning.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.8012,
+      "probabilities": {
+        "dry": 0.0149,
+        "damp": 0.1287,
+        "wet": 0.8012,
+        "standing_water": 0.0552
+      },
+      "quality": 0.7702,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00140",
+      "file": "images/00140.jpg",
+      "origin": "arc_de_triomphe_reflection.jpeg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.9077,
+      "probabilities": {
+        "dry": 0.0104,
+        "damp": 0.0168,
+        "wet": 0.0651,
+        "standing_water": 0.9077
+      },
+      "quality": 0.8785,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00141",
+      "file": "images/00141.jpg",
+      "origin": "arches_of_jamali_kamali_mosque.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.6454,
+      "probabilities": {
+        "dry": 0.0124,
+        "damp": 0.0377,
+        "wet": 0.6454,
+        "standing_water": 0.3044
+      },
+      "quality": 0.6976,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00142",
+      "file": "images/00142.jpg",
+      "origin": "arganda_del_rey_planta_asf_ltica_2016_43_.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9948,
+      "probabilities": {
+        "dry": 0.9948,
+        "damp": 0.0028,
+        "wet": 0.0006,
+        "standing_water": 0.0018
+      },
+      "quality": 0.9889,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00143",
+      "file": "images/00143.jpg",
+      "origin": "arganda_del_rey_planta_asf_ltica_2016_44_.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9954,
+      "probabilities": {
+        "dry": 0.9954,
+        "damp": 0.0031,
+        "wet": 0.0005,
+        "standing_water": 0.0011
+      },
+      "quality": 0.9899,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00144",
+      "file": "images/00144.jpg",
+      "origin": "arganda_del_rey_planta_asf_ltica_2016_45_.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9952,
+      "probabilities": {
+        "dry": 0.9952,
+        "damp": 0.003,
+        "wet": 0.0003,
+        "standing_water": 0.0015
+      },
+      "quality": 0.9895,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00145",
+      "file": "images/00145.jpg",
+      "origin": "arganda_del_rey_planta_asf_ltica_2016_46_.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9958,
+      "probabilities": {
+        "dry": 0.9958,
+        "damp": 0.0028,
+        "wet": 0.0001,
+        "standing_water": 0.0012
+      },
+      "quality": 0.9907,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00146",
+      "file": "images/00146.jpg",
+      "origin": "argentina_buenos_aires_-_barrio_san_telmo_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.7409,
+      "probabilities": {
+        "dry": 0.0653,
+        "damp": 0.0187,
+        "wet": 0.7409,
+        "standing_water": 0.1751
+      },
+      "quality": 0.7182,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00147",
+      "file": "images/00147.jpg",
+      "origin": "asc_leiden_-_f._van_der_kraaij_collection_-_06_-_086_-_an_unpaved_rural_muddy_road_with_puddles._palm_trees_in_a_dense_forest_-_grand_gedeh_county_liberia_1978.tiff",
+      "auto_label": "dry",
+      "auto_confidence": 0.9417,
+      "probabilities": {
+        "dry": 0.9417,
+        "damp": 0.0396,
+        "wet": 0.0025,
+        "standing_water": 0.0162
+      },
+      "quality": 0.9175,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00148",
+      "file": "images/00148.jpg",
+      "origin": "asc_leiden_-_f._van_der_kraaij_collection_-_21_-_013_-_pi_tons_adultes_et_enfants_-_centre_burkina_faso_1982.tif",
+      "auto_label": "dry",
+      "auto_confidence": 0.9371,
+      "probabilities": {
+        "dry": 0.9371,
+        "damp": 0.0429,
+        "wet": 0.0002,
+        "standing_water": 0.0198
+      },
+      "quality": 0.9154,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00149",
+      "file": "images/00149.jpg",
+      "origin": "asfalt_1.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9902,
+      "probabilities": {
+        "dry": 0.9902,
+        "damp": 0.0079,
+        "wet": 0.0011,
+        "standing_water": 0.0008
+      },
+      "quality": 0.9821,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00150",
+      "file": "images/00150.jpg",
+      "origin": "asfalt_2.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9644,
+      "probabilities": {
+        "dry": 0.9644,
+        "damp": 0.0265,
+        "wet": 0.0015,
+        "standing_water": 0.0076
+      },
+      "quality": 0.9463,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00151",
+      "file": "images/00151.jpg",
+      "origin": "asfalt_3.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9647,
+      "probabilities": {
+        "dry": 0.9647,
+        "damp": 0.0309,
+        "wet": 0.0012,
+        "standing_water": 0.0032
+      },
+      "quality": 0.9494,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00152",
+      "file": "images/00152.jpg",
+      "origin": "asfalt_4.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.921,
+      "probabilities": {
+        "dry": 0.921,
+        "damp": 0.0624,
+        "wet": 0.009,
+        "standing_water": 0.0076
+      },
+      "quality": 0.8976,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00153",
+      "file": "images/00153.jpg",
+      "origin": "asfalt_5.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9696,
+      "probabilities": {
+        "dry": 0.9696,
+        "damp": 0.0256,
+        "wet": 0.002,
+        "standing_water": 0.0028
+      },
+      "quality": 0.9543,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00154",
+      "file": "images/00154.jpg",
+      "origin": "asfaltado_de_las_calles.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.4529,
+      "probabilities": {
+        "dry": 0.3022,
+        "damp": 0.057,
+        "wet": 0.1878,
+        "standing_water": 0.4529
+      },
+      "quality": 0.4502,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00155",
+      "file": "images/00155.jpg",
+      "origin": "asfalto_da_estrada_da_ilha_-_panoramio.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.6203,
+      "probabilities": {
+        "dry": 0.6203,
+        "damp": 0.0703,
+        "wet": 0.3073,
+        "standing_water": 0.0021
+      },
+      "quality": 0.6135,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00156",
+      "file": "images/00156.jpg",
+      "origin": "asfaltoml_ggning_2025.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.6139,
+      "probabilities": {
+        "dry": 0.6139,
+        "damp": 0.0618,
+        "wet": 0.267,
+        "standing_water": 0.0574
+      },
+      "quality": 0.606,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00158",
+      "file": "images/00158.jpg",
+      "origin": "asphalt_29166898493_.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.612,
+      "probabilities": {
+        "dry": 0.612,
+        "damp": 0.2379,
+        "wet": 0.1459,
+        "standing_water": 0.0042
+      },
+      "quality": 0.6261,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00159",
+      "file": "images/00159.jpg",
+      "origin": "asphalt_29499964520_.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.7772,
+      "probabilities": {
+        "dry": 0.7772,
+        "damp": 0.1205,
+        "wet": 0.1007,
+        "standing_water": 0.0016
+      },
+      "quality": 0.7578,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00160",
+      "file": "images/00160.jpg",
+      "origin": "asphalt_29679425882_.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.7543,
+      "probabilities": {
+        "dry": 0.7543,
+        "damp": 0.2107,
+        "wet": 0.0346,
+        "standing_water": 0.0003
+      },
+      "quality": 0.4421,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00161",
+      "file": "images/00161.jpg",
+      "origin": "asphalt_29792327115_.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9687,
+      "probabilities": {
+        "dry": 0.9687,
+        "damp": 0.0221,
+        "wet": 0.0088,
+        "standing_water": 0.0004
+      },
+      "quality": 0.949,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00162",
+      "file": "images/00162.jpg",
+      "origin": "asphalt_and_puddle.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.9263,
+      "probabilities": {
+        "dry": 0.0669,
+        "damp": 0.0061,
+        "wet": 0.9263,
+        "standing_water": 0.0007
+      },
+      "quality": 0.8733,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00163",
+      "file": "images/00163.jpg",
+      "origin": "asphalt_and_puddle_no._11.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.4793,
+      "probabilities": {
+        "dry": 0.4793,
+        "damp": 0.2163,
+        "wet": 0.2887,
+        "standing_water": 0.0157
+      },
+      "quality": 0.3599,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00164",
+      "file": "images/00164.jpg",
+      "origin": "asphalt_close_up_24337981232_.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9516,
+      "probabilities": {
+        "dry": 0.9516,
+        "damp": 0.0362,
+        "wet": 0.0117,
+        "standing_water": 0.0005
+      },
+      "quality": 0.9309,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00165",
+      "file": "images/00165.jpg",
+      "origin": "asphalt_concrete-bog.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9679,
+      "probabilities": {
+        "dry": 0.9679,
+        "damp": 0.0295,
+        "wet": 0.0006,
+        "standing_water": 0.002
+      },
+      "quality": 0.9358,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00166",
+      "file": "images/00166.jpg",
+      "origin": "asphalt_on_concrete.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9771,
+      "probabilities": {
+        "dry": 0.9771,
+        "damp": 0.0168,
+        "wet": 0.0056,
+        "standing_water": 0.0005
+      },
+      "quality": 0.9513,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00167",
+      "file": "images/00167.jpg",
+      "origin": "asphalt_pad_to_the_side_of_the_farmington_canal_trail_burlington_ct.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.7645,
+      "probabilities": {
+        "dry": 0.7645,
+        "damp": 0.1737,
+        "wet": 0.0126,
+        "standing_water": 0.0492
+      },
+      "quality": 0.677,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00168",
+      "file": "images/00168.jpg",
+      "origin": "asphalt_road_texture.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.984,
+      "probabilities": {
+        "dry": 0.984,
+        "damp": 0.0072,
+        "wet": 0.0086,
+        "standing_water": 0.0002
+      },
+      "quality": 0.9722,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00169",
+      "file": "images/00169.jpg",
+      "origin": "asphalt_shells_surface_texture_dtxr-st-8.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9898,
+      "probabilities": {
+        "dry": 0.9898,
+        "damp": 0.0069,
+        "wet": 0.0033,
+        "standing_water": 0.0001
+      },
+      "quality": 0.9809,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00170",
+      "file": "images/00170.jpg",
+      "origin": "asphalt_shingles_texture_dtxr-st-ap-1.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.6566,
+      "probabilities": {
+        "dry": 0.6566,
+        "damp": 0.2399,
+        "wet": 0.1035,
+        "standing_water": 0.0
+      },
+      "quality": 0.6215,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00174",
+      "file": "images/00174.jpg",
+      "origin": "asphalte.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9686,
+      "probabilities": {
+        "dry": 0.9686,
+        "damp": 0.0133,
+        "wet": 0.0116,
+        "standing_water": 0.0065
+      },
+      "quality": 0.947,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00176",
+      "file": "images/00176.jpg",
+      "origin": "assim_na_terra_como_no_c_u_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.7547,
+      "probabilities": {
+        "dry": 0.0427,
+        "damp": 0.1773,
+        "wet": 0.7547,
+        "standing_water": 0.0252
+      },
+      "quality": 0.6791,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00177",
+      "file": "images/00177.jpg",
+      "origin": "aufeis_cone_at_joe_creek-firth_river_confluence_ivvavik_national_park_yt.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.4377,
+      "probabilities": {
+        "dry": 0.3763,
+        "damp": 0.042,
+        "wet": 0.1439,
+        "standing_water": 0.4377
+      },
+      "quality": 0.4994,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00178",
+      "file": "images/00178.jpg",
+      "origin": "aut_tirol_bezirk_kitzb_hel_gemeinde_westendorf_rettenbach_hinterwindau_hinterwindau_1_mautw_rterhaus_mattes_2023-09-30.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.7902,
+      "probabilities": {
+        "dry": 0.1556,
+        "damp": 0.7902,
+        "wet": 0.0023,
+        "standing_water": 0.0518
+      },
+      "quality": 0.7771,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00179",
+      "file": "images/00179.jpg",
+      "origin": "autoroute_8_-_allemagne_-_panneau_2.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.8659,
+      "probabilities": {
+        "dry": 0.8659,
+        "damp": 0.062,
+        "wet": 0.0124,
+        "standing_water": 0.0597
+      },
+      "quality": 0.8286,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00180",
+      "file": "images/00180.jpg",
+      "origin": "autumn_rain_in_explored_2_-_12_-_2025_-_flickr_-_seenbynick.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.9576,
+      "probabilities": {
+        "dry": 0.0018,
+        "damp": 0.0279,
+        "wet": 0.9576,
+        "standing_water": 0.0127
+      },
+      "quality": 0.9355,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00181",
+      "file": "images/00181.jpg",
+      "origin": "avenue_des_champs-elys_es_paris_12_december_2020.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.9065,
+      "probabilities": {
+        "dry": 0.0079,
+        "damp": 0.0197,
+        "wet": 0.9065,
+        "standing_water": 0.0659
+      },
+      "quality": 0.8784,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00182",
+      "file": "images/00182.jpg",
+      "origin": "avtostishon_on_chervnopartizanck.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.5155,
+      "probabilities": {
+        "dry": 0.1678,
+        "damp": 0.3123,
+        "wet": 0.0044,
+        "standing_water": 0.5155
+      },
+      "quality": 0.5816,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00186",
+      "file": "images/00186.jpg",
+      "origin": "backwater_female_tiger_and_male_cub_51340545268_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.4781,
+      "probabilities": {
+        "dry": 0.0548,
+        "damp": 0.2341,
+        "wet": 0.4781,
+        "standing_water": 0.2331
+      },
+      "quality": 0.4555,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00187",
+      "file": "images/00187.jpg",
+      "origin": "backwater_subadult_tiger_with_mum_51341064164_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.5367,
+      "probabilities": {
+        "dry": 0.1017,
+        "damp": 0.2456,
+        "wet": 0.5367,
+        "standing_water": 0.1161
+      },
+      "quality": 0.482,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00188",
+      "file": "images/00188.jpg",
+      "origin": "bad_driburg_-_2017-06-05_-_nsg_gradberg_33_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.8992,
+      "probabilities": {
+        "dry": 0.0014,
+        "damp": 0.0224,
+        "wet": 0.8992,
+        "standing_water": 0.077
+      },
+      "quality": 0.8768,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00189",
+      "file": "images/00189.jpg",
+      "origin": "bad_roads.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.515,
+      "probabilities": {
+        "dry": 0.267,
+        "damp": 0.1389,
+        "wet": 0.515,
+        "standing_water": 0.079
+      },
+      "quality": 0.4756,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00190",
+      "file": "images/00190.jpg",
+      "origin": "bad_weather_approaches_tullynaha_-_geograph.org.uk_-_1564808.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.9494,
+      "probabilities": {
+        "dry": 0.0055,
+        "damp": 0.9494,
+        "wet": 0.0147,
+        "standing_water": 0.0304
+      },
+      "quality": 0.9241,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00191",
+      "file": "images/00191.jpg",
+      "origin": "baker-berry_reflected.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.8383,
+      "probabilities": {
+        "dry": 0.0059,
+        "damp": 0.0093,
+        "wet": 0.8383,
+        "standing_water": 0.1465
+      },
+      "quality": 0.8326,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00192",
+      "file": "images/00192.jpg",
+      "origin": "ballyhoo_5805117805_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.9269,
+      "probabilities": {
+        "dry": 0.0116,
+        "damp": 0.0235,
+        "wet": 0.9269,
+        "standing_water": 0.038
+      },
+      "quality": 0.8598,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00193",
+      "file": "images/00193.jpg",
+      "origin": "balmy_5794416176_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.7771,
+      "probabilities": {
+        "dry": 0.0164,
+        "damp": 0.0192,
+        "wet": 0.7771,
+        "standing_water": 0.1873
+      },
+      "quality": 0.7608,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00194",
+      "file": "images/00194.jpg",
+      "origin": "barangay_bambang_2026-05-31_bocaue_bulacan_02.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.8344,
+      "probabilities": {
+        "dry": 0.0074,
+        "damp": 0.153,
+        "wet": 0.0053,
+        "standing_water": 0.8344
+      },
+      "quality": 0.8351,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00195",
+      "file": "images/00195.jpg",
+      "origin": "barangay_bambang_2026-05-31_bocaue_bulacan_14.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.9159,
+      "probabilities": {
+        "dry": 0.017,
+        "damp": 0.0273,
+        "wet": 0.0398,
+        "standing_water": 0.9159
+      },
+      "quality": 0.881,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00196",
+      "file": "images/00196.jpg",
+      "origin": "bark_and_roots.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.8881,
+      "probabilities": {
+        "dry": 0.8881,
+        "damp": 0.0305,
+        "wet": 0.0576,
+        "standing_water": 0.0238
+      },
+      "quality": 0.8491,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00197",
+      "file": "images/00197.jpg",
+      "origin": "barrier_reflections_-_geograph.org.uk_-_639985.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.4885,
+      "probabilities": {
+        "dry": 0.0452,
+        "damp": 0.0568,
+        "wet": 0.4885,
+        "standing_water": 0.4095
+      },
+      "quality": 0.5882,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00198",
+      "file": "images/00198.jpg",
+      "origin": "basilica_estrela_jmc.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.9844,
+      "probabilities": {
+        "dry": 0.0003,
+        "damp": 0.0015,
+        "wet": 0.9844,
+        "standing_water": 0.0138
+      },
+      "quality": 0.967,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00199",
+      "file": "images/00199.jpg",
+      "origin": "basilica_guadalupe.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.834,
+      "probabilities": {
+        "dry": 0.0017,
+        "damp": 0.0534,
+        "wet": 0.834,
+        "standing_water": 0.111
+      },
+      "quality": 0.8116,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00200",
+      "file": "images/00200.jpg",
+      "origin": "baszta_dm.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.5957,
+      "probabilities": {
+        "dry": 0.2311,
+        "damp": 0.5957,
+        "wet": 0.0201,
+        "standing_water": 0.1531
+      },
+      "quality": 0.5892,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00201",
+      "file": "images/00201.jpg",
+      "origin": "bazalgette_lancaster_fm-159_50999397220_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.683,
+      "probabilities": {
+        "dry": 0.1124,
+        "damp": 0.0781,
+        "wet": 0.683,
+        "standing_water": 0.1265
+      },
+      "quality": 0.6017,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00202",
+      "file": "images/00202.jpg",
+      "origin": "bazalgette_lancaster_fm-159_50999397525_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.6197,
+      "probabilities": {
+        "dry": 0.1279,
+        "damp": 0.2183,
+        "wet": 0.6197,
+        "standing_water": 0.0342
+      },
+      "quality": 0.591,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00203",
+      "file": "images/00203.jpg",
+      "origin": "bazalgette_lancaster_fm-159_50999397850_.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.4181,
+      "probabilities": {
+        "dry": 0.4181,
+        "damp": 0.0531,
+        "wet": 0.2008,
+        "standing_water": 0.3279
+      },
+      "quality": 0.432,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00204",
+      "file": "images/00204.jpg",
+      "origin": "bazalgette_lancaster_fm-159_50999397975_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.7296,
+      "probabilities": {
+        "dry": 0.0118,
+        "damp": 0.0323,
+        "wet": 0.7296,
+        "standing_water": 0.2263
+      },
+      "quality": 0.7119,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00205",
+      "file": "images/00205.jpg",
+      "origin": "bazalgette_lancaster_fm-159_50999398130_.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.5154,
+      "probabilities": {
+        "dry": 0.2269,
+        "damp": 0.0316,
+        "wet": 0.2261,
+        "standing_water": 0.5154
+      },
+      "quality": 0.5045,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00206",
+      "file": "images/00206.jpg",
+      "origin": "bazalgette_lancaster_fm-159_50999398590_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.5752,
+      "probabilities": {
+        "dry": 0.2125,
+        "damp": 0.0554,
+        "wet": 0.5752,
+        "standing_water": 0.1569
+      },
+      "quality": 0.5182,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00207",
+      "file": "images/00207.jpg",
+      "origin": "bazalgette_lancaster_fm-159_50999403965_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.4379,
+      "probabilities": {
+        "dry": 0.226,
+        "damp": 0.2353,
+        "wet": 0.4379,
+        "standing_water": 0.1008
+      },
+      "quality": 0.3674,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00208",
+      "file": "images/00208.jpg",
+      "origin": "bazalgette_lancaster_fm-159_51067876093_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.7578,
+      "probabilities": {
+        "dry": 0.0815,
+        "damp": 0.0422,
+        "wet": 0.7578,
+        "standing_water": 0.1184
+      },
+      "quality": 0.7028,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00210",
+      "file": "images/00210.jpg",
+      "origin": "bazalgette_lancaster_fm-159_51067877138_.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.4366,
+      "probabilities": {
+        "dry": 0.0512,
+        "damp": 0.0838,
+        "wet": 0.4283,
+        "standing_water": 0.4366
+      },
+      "quality": 0.5413,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00212",
+      "file": "images/00212.jpg",
+      "origin": "bazalgette_lancaster_fm-159_51067883253_.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.44,
+      "probabilities": {
+        "dry": 0.1242,
+        "damp": 0.44,
+        "wet": 0.4122,
+        "standing_water": 0.0236
+      },
+      "quality": 0.548,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00213",
+      "file": "images/00213.jpg",
+      "origin": "bazalgette_lancaster_fm-159_51068582641_.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.4582,
+      "probabilities": {
+        "dry": 0.02,
+        "damp": 0.0718,
+        "wet": 0.45,
+        "standing_water": 0.4582
+      },
+      "quality": 0.5956,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00214",
+      "file": "images/00214.jpg",
+      "origin": "bazalgette_lancaster_fm-159_51068583586_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.9224,
+      "probabilities": {
+        "dry": 0.003,
+        "damp": 0.0514,
+        "wet": 0.9224,
+        "standing_water": 0.0232
+      },
+      "quality": 0.857,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00215",
+      "file": "images/00215.jpg",
+      "origin": "bazalgette_lancaster_fm-159_51068679752_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.7758,
+      "probabilities": {
+        "dry": 0.1632,
+        "damp": 0.0379,
+        "wet": 0.7758,
+        "standing_water": 0.0231
+      },
+      "quality": 0.7339,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00216",
+      "file": "images/00216.jpg",
+      "origin": "bead_island.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.3845,
+      "probabilities": {
+        "dry": 0.0431,
+        "damp": 0.3845,
+        "wet": 0.2078,
+        "standing_water": 0.3646
+      },
+      "quality": 0.4408,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00217",
+      "file": "images/00217.jpg",
+      "origin": "belgrave_gardens_from_south_lodge_drive_london_n14_-_geograph.org.uk_-_1659970.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.5106,
+      "probabilities": {
+        "dry": 0.2828,
+        "damp": 0.5106,
+        "wet": 0.1868,
+        "standing_water": 0.0197
+      },
+      "quality": 0.5155,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00218",
+      "file": "images/00218.jpg",
+      "origin": "belle_epoque_-_paris_dos_tr_picos.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.9405,
+      "probabilities": {
+        "dry": 0.0028,
+        "damp": 0.0281,
+        "wet": 0.9405,
+        "standing_water": 0.0286
+      },
+      "quality": 0.8161,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00219",
+      "file": "images/00219.jpg",
+      "origin": "bench_lake_puddle_and_mount_heyburn.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.8186,
+      "probabilities": {
+        "dry": 0.0227,
+        "damp": 0.0618,
+        "wet": 0.8186,
+        "standing_water": 0.097
+      },
+      "quality": 0.7448,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00220",
+      "file": "images/00220.jpg",
+      "origin": "berms_of_construction_material_in_duluth_3724629055_.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.948,
+      "probabilities": {
+        "dry": 0.948,
+        "damp": 0.014,
+        "wet": 0.001,
+        "standing_water": 0.037
+      },
+      "quality": 0.9267,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00221",
+      "file": "images/00221.jpg",
+      "origin": "beutifull_water.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.8686,
+      "probabilities": {
+        "dry": 0.0035,
+        "damp": 0.0595,
+        "wet": 0.8686,
+        "standing_water": 0.0684
+      },
+      "quality": 0.8383,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00222",
+      "file": "images/00222.jpg",
+      "origin": "bicycle_parking_stand_1.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.6433,
+      "probabilities": {
+        "dry": 0.6433,
+        "damp": 0.1318,
+        "wet": 0.1963,
+        "standing_water": 0.0286
+      },
+      "quality": 0.612,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00223",
+      "file": "images/00223.jpg",
+      "origin": "bicycle_parking_stand_2.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.5066,
+      "probabilities": {
+        "dry": 0.5066,
+        "damp": 0.131,
+        "wet": 0.3391,
+        "standing_water": 0.0233
+      },
+      "quality": 0.5518,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00224",
+      "file": "images/00224.jpg",
+      "origin": "bicycle_reflections.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.9529,
+      "probabilities": {
+        "dry": 0.0003,
+        "damp": 0.0444,
+        "wet": 0.9529,
+        "standing_water": 0.0024
+      },
+      "quality": 0.9292,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00225",
+      "file": "images/00225.jpg",
+      "origin": "big_backwater_female_tiger_51341334215_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.5062,
+      "probabilities": {
+        "dry": 0.2323,
+        "damp": 0.187,
+        "wet": 0.5062,
+        "standing_water": 0.0746
+      },
+      "quality": 0.4561,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00226",
+      "file": "images/00226.jpg",
+      "origin": "big_backwater_tiger_twosome_51339600807_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.6044,
+      "probabilities": {
+        "dry": 0.0862,
+        "damp": 0.2691,
+        "wet": 0.6044,
+        "standing_water": 0.0403
+      },
+      "quality": 0.5995,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00227",
+      "file": "images/00227.jpg",
+      "origin": "bike_with_basket_omagh_-_geograph.org.uk_-_5220271.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.9348,
+      "probabilities": {
+        "dry": 0.025,
+        "damp": 0.9348,
+        "wet": 0.0125,
+        "standing_water": 0.0277
+      },
+      "quality": 0.9025,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00228",
+      "file": "images/00228.jpg",
+      "origin": "bild0007_dragsterstrecke_asphalt_gummi_nox2019.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.5111,
+      "probabilities": {
+        "dry": 0.5111,
+        "damp": 0.0863,
+        "wet": 0.3997,
+        "standing_water": 0.0029
+      },
+      "quality": 0.6364,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00230",
+      "file": "images/00230.jpg",
+      "origin": "bjargarstigur_16.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.6631,
+      "probabilities": {
+        "dry": 0.1448,
+        "damp": 0.6631,
+        "wet": 0.1222,
+        "standing_water": 0.0699
+      },
+      "quality": 0.6016,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00231",
+      "file": "images/00231.jpg",
+      "origin": "black_as_black_1648018480_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.8588,
+      "probabilities": {
+        "dry": 0.0034,
+        "damp": 0.122,
+        "wet": 0.8588,
+        "standing_water": 0.0158
+      },
+      "quality": 0.8384,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00232",
+      "file": "images/00232.jpg",
+      "origin": "black_swan_puddle.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.7291,
+      "probabilities": {
+        "dry": 0.0187,
+        "damp": 0.217,
+        "wet": 0.7291,
+        "standing_water": 0.0351
+      },
+      "quality": 0.7293,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00233",
+      "file": "images/00233.jpg",
+      "origin": "blick_auf_eine_pf_tze.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.3586,
+      "probabilities": {
+        "dry": 0.2356,
+        "damp": 0.3484,
+        "wet": 0.0574,
+        "standing_water": 0.3586
+      },
+      "quality": 0.4071,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00234",
+      "file": "images/00234.jpg",
+      "origin": "blue_elixir_3156956367_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.8214,
+      "probabilities": {
+        "dry": 0.0135,
+        "damp": 0.0469,
+        "wet": 0.8214,
+        "standing_water": 0.1182
+      },
+      "quality": 0.6379,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00235",
+      "file": "images/00235.jpg",
+      "origin": "blue_hour_piazza_duomo_5_-_syracuse_-_unesco_world_heritage.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.3928,
+      "probabilities": {
+        "dry": 0.0187,
+        "damp": 0.1959,
+        "wet": 0.3926,
+        "standing_water": 0.3928
+      },
+      "quality": 0.5107,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00236",
+      "file": "images/00236.jpg",
+      "origin": "blue_raised_pavement_marker.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.8899,
+      "probabilities": {
+        "dry": 0.0728,
+        "damp": 0.0215,
+        "wet": 0.8899,
+        "standing_water": 0.0158
+      },
+      "quality": 0.8561,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00237",
+      "file": "images/00237.jpg",
+      "origin": "bmw_1_series_e82.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.7627,
+      "probabilities": {
+        "dry": 0.0059,
+        "damp": 0.1371,
+        "wet": 0.7627,
+        "standing_water": 0.0943
+      },
+      "quality": 0.7381,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00238",
+      "file": "images/00238.jpg",
+      "origin": "boenrippelwellen.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.9314,
+      "probabilities": {
+        "dry": 0.01,
+        "damp": 0.0181,
+        "wet": 0.9314,
+        "standing_water": 0.0405
+      },
+      "quality": 0.8956,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00239",
+      "file": "images/00239.jpg",
+      "origin": "boisar_road_gururaj_kamlapure.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9864,
+      "probabilities": {
+        "dry": 0.9864,
+        "damp": 0.0099,
+        "wet": 0.0033,
+        "standing_water": 0.0005
+      },
+      "quality": 0.9745,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00240",
+      "file": "images/00240.jpg",
+      "origin": "bondeccfl400-474_cheias_.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.8629,
+      "probabilities": {
+        "dry": 0.0038,
+        "damp": 0.1217,
+        "wet": 0.0116,
+        "standing_water": 0.8629
+      },
+      "quality": 0.849,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00241",
+      "file": "images/00241.jpg",
+      "origin": "botanical_garden_ducks.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.5626,
+      "probabilities": {
+        "dry": 0.0706,
+        "damp": 0.5626,
+        "wet": 0.2789,
+        "standing_water": 0.0879
+      },
+      "quality": 0.5447,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00242",
+      "file": "images/00242.jpg",
+      "origin": "boulevard_du_mus_e_chamb_ry_sous_la_pluie_au_feu_orange_2018_.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.6251,
+      "probabilities": {
+        "dry": 0.0112,
+        "damp": 0.6251,
+        "wet": 0.274,
+        "standing_water": 0.0896
+      },
+      "quality": 0.6479,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00243",
+      "file": "images/00243.jpg",
+      "origin": "boulevard_du_mus_e_chamb_ry_sous_la_pluie_au_feu_rouge_2018_.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.726,
+      "probabilities": {
+        "dry": 0.0068,
+        "damp": 0.726,
+        "wet": 0.2048,
+        "standing_water": 0.0625
+      },
+      "quality": 0.7234,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00244",
+      "file": "images/00244.jpg",
+      "origin": "boulevard_du_mus_e_chamb_ry_sous_la_pluie_au_feu_vert_2018_.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.7113,
+      "probabilities": {
+        "dry": 0.0054,
+        "damp": 0.7113,
+        "wet": 0.197,
+        "standing_water": 0.0863
+      },
+      "quality": 0.7065,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00245",
+      "file": "images/00245.jpg",
+      "origin": "boundary_stone_on_mynydd_maen_-_geograph.org.uk_-_652198.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.4645,
+      "probabilities": {
+        "dry": 0.0372,
+        "damp": 0.0896,
+        "wet": 0.4645,
+        "standing_water": 0.4087
+      },
+      "quality": 0.5571,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00246",
+      "file": "images/00246.jpg",
+      "origin": "bouquet_5170503366_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.9822,
+      "probabilities": {
+        "dry": 0.0057,
+        "damp": 0.0084,
+        "wet": 0.9822,
+        "standing_water": 0.0037
+      },
+      "quality": 0.9596,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00247",
+      "file": "images/00247.jpg",
+      "origin": "breeuwer_hoorn.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.5227,
+      "probabilities": {
+        "dry": 0.445,
+        "damp": 0.5227,
+        "wet": 0.0113,
+        "standing_water": 0.0209
+      },
+      "quality": 0.6929,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00248",
+      "file": "images/00248.jpg",
+      "origin": "bridge_panoroma_view.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9206,
+      "probabilities": {
+        "dry": 0.9206,
+        "damp": 0.0283,
+        "wet": 0.0496,
+        "standing_water": 0.0015
+      },
+      "quality": 0.8576,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00249",
+      "file": "images/00249.jpg",
+      "origin": "bridleway_at_gernon_bushes_nature_reserve_coopersale_essex_england_-_tree_reflections.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.6181,
+      "probabilities": {
+        "dry": 0.0264,
+        "damp": 0.3177,
+        "wet": 0.6181,
+        "standing_water": 0.0379
+      },
+      "quality": 0.593,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00250",
+      "file": "images/00250.jpg",
+      "origin": "briqquette.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.5152,
+      "probabilities": {
+        "dry": 0.5152,
+        "damp": 0.2523,
+        "wet": 0.2041,
+        "standing_water": 0.0284
+      },
+      "quality": 0.4065,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00251",
+      "file": "images/00251.jpg",
+      "origin": "broadhurst_gardens_london_nw6_-_geograph.org.uk_-_1127776.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.5233,
+      "probabilities": {
+        "dry": 0.4709,
+        "damp": 0.5233,
+        "wet": 0.0021,
+        "standing_water": 0.0037
+      },
+      "quality": 0.7385,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00252",
+      "file": "images/00252.jpg",
+      "origin": "brod.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.7635,
+      "probabilities": {
+        "dry": 0.174,
+        "damp": 0.0202,
+        "wet": 0.0422,
+        "standing_water": 0.7635
+      },
+      "quality": 0.7437,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00253",
+      "file": "images/00253.jpg",
+      "origin": "brojce_market_square_2_.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.6442,
+      "probabilities": {
+        "dry": 0.203,
+        "damp": 0.1238,
+        "wet": 0.029,
+        "standing_water": 0.6442
+      },
+      "quality": 0.6188,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00254",
+      "file": "images/00254.jpg",
+      "origin": "broomston_lane_-_geograph.org.uk_-_500476.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.769,
+      "probabilities": {
+        "dry": 0.0425,
+        "damp": 0.769,
+        "wet": 0.0214,
+        "standing_water": 0.1672
+      },
+      "quality": 0.6116,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00255",
+      "file": "images/00255.jpg",
+      "origin": "bruxelles_46495744414_.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.8177,
+      "probabilities": {
+        "dry": 0.0132,
+        "damp": 0.0534,
+        "wet": 0.1157,
+        "standing_water": 0.8177
+      },
+      "quality": 0.7842,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00256",
+      "file": "images/00256.jpg",
+      "origin": "btv_depotst_0022_puddle_20060102.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9399,
+      "probabilities": {
+        "dry": 0.9399,
+        "damp": 0.0419,
+        "wet": 0.0159,
+        "standing_water": 0.0023
+      },
+      "quality": 0.916,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00257",
+      "file": "images/00257.jpg",
+      "origin": "bubbles_swirls_-_flickr_-_lilasjardin.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.8586,
+      "probabilities": {
+        "dry": 0.0049,
+        "damp": 0.0745,
+        "wet": 0.8586,
+        "standing_water": 0.0619
+      },
+      "quality": 0.8265,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00258",
+      "file": "images/00258.jpg",
+      "origin": "bucurestiul_meu_-_panoramio_170_.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.4844,
+      "probabilities": {
+        "dry": 0.0396,
+        "damp": 0.3972,
+        "wet": 0.0788,
+        "standing_water": 0.4844
+      },
+      "quality": 0.5273,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00259",
+      "file": "images/00259.jpg",
+      "origin": "calle_inundada_valpara_so.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.5067,
+      "probabilities": {
+        "dry": 0.0055,
+        "damp": 0.4593,
+        "wet": 0.0285,
+        "standing_water": 0.5067
+      },
+      "quality": 0.6918,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00261",
+      "file": "images/00261.jpg",
+      "origin": "calm_down_21996861904_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.7364,
+      "probabilities": {
+        "dry": 0.0071,
+        "damp": 0.1249,
+        "wet": 0.7364,
+        "standing_water": 0.1315
+      },
+      "quality": 0.7141,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00262",
+      "file": "images/00262.jpg",
+      "origin": "cantonment_link_name_board_11-08-2025.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.6881,
+      "probabilities": {
+        "dry": 0.0653,
+        "damp": 0.1648,
+        "wet": 0.0818,
+        "standing_water": 0.6881
+      },
+      "quality": 0.6325,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00263",
+      "file": "images/00263.jpg",
+      "origin": "cat_on_wet_street_37613036_.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.8656,
+      "probabilities": {
+        "dry": 0.0604,
+        "damp": 0.8656,
+        "wet": 0.0446,
+        "standing_water": 0.0294
+      },
+      "quality": 0.8028,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00264",
+      "file": "images/00264.jpg",
+      "origin": "cat_on_wet_street_37613038_.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.8389,
+      "probabilities": {
+        "dry": 0.0683,
+        "damp": 0.8389,
+        "wet": 0.0704,
+        "standing_water": 0.0224
+      },
+      "quality": 0.7797,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00265",
+      "file": "images/00265.jpg",
+      "origin": "centro_de_nova_friburgo_alagado_em_2023.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.4417,
+      "probabilities": {
+        "dry": 0.0706,
+        "damp": 0.251,
+        "wet": 0.2367,
+        "standing_water": 0.4417
+      },
+      "quality": 0.4076,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00266",
+      "file": "images/00266.jpg",
+      "origin": "chefoo_john_thomson.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.5261,
+      "probabilities": {
+        "dry": 0.1451,
+        "damp": 0.5261,
+        "wet": 0.075,
+        "standing_water": 0.2538
+      },
+      "quality": 0.4414,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00267",
+      "file": "images/00267.jpg",
+      "origin": "chiang-mai_thailand_songkran-festival-2017-06.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.4827,
+      "probabilities": {
+        "dry": 0.1053,
+        "damp": 0.222,
+        "wet": 0.1901,
+        "standing_water": 0.4827
+      },
+      "quality": 0.4072,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00268",
+      "file": "images/00268.jpg",
+      "origin": "college_road_kensal_green_-_geograph.org.uk_-_1122444.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.6765,
+      "probabilities": {
+        "dry": 0.0354,
+        "damp": 0.6765,
+        "wet": 0.0344,
+        "standing_water": 0.2538
+      },
+      "quality": 0.6857,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00269",
+      "file": "images/00269.jpg",
+      "origin": "colorado_state_highway_71.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.994,
+      "probabilities": {
+        "dry": 0.994,
+        "damp": 0.0045,
+        "wet": 0.001,
+        "standing_water": 0.0005
+      },
+      "quality": 0.988,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00270",
+      "file": "images/00270.jpg",
+      "origin": "colored_asphalt.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9901,
+      "probabilities": {
+        "dry": 0.9901,
+        "damp": 0.0052,
+        "wet": 0.0047,
+        "standing_water": 0.0
+      },
+      "quality": 0.6973,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00271",
+      "file": "images/00271.jpg",
+      "origin": "compa_iadeasfaltosmaestu.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.5523,
+      "probabilities": {
+        "dry": 0.1376,
+        "damp": 0.5523,
+        "wet": 0.0147,
+        "standing_water": 0.2955
+      },
+      "quality": 0.5825,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00272",
+      "file": "images/00272.jpg",
+      "origin": "comparing_temperature_of_asphalt_grass_in_the_sun_d.d.teoli_jr._1.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9269,
+      "probabilities": {
+        "dry": 0.9269,
+        "damp": 0.0682,
+        "wet": 0.004,
+        "standing_water": 0.0009
+      },
+      "quality": 0.913,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00273",
+      "file": "images/00273.jpg",
+      "origin": "compayne_gardens_london_nw6_-_geograph.org.uk_-_1127577.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.8928,
+      "probabilities": {
+        "dry": 0.1009,
+        "damp": 0.8928,
+        "wet": 0.0024,
+        "standing_water": 0.0038
+      },
+      "quality": 0.8828,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00274",
+      "file": "images/00274.jpg",
+      "origin": "competent_asphalt_7993008814_.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9054,
+      "probabilities": {
+        "dry": 0.9054,
+        "damp": 0.0911,
+        "wet": 0.0016,
+        "standing_water": 0.0019
+      },
+      "quality": 0.583,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00275",
+      "file": "images/00275.jpg",
+      "origin": "congregation_of_backwater_female_and_cubs_51340544348_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.7188,
+      "probabilities": {
+        "dry": 0.0153,
+        "damp": 0.1055,
+        "wet": 0.7188,
+        "standing_water": 0.1604
+      },
+      "quality": 0.6916,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00277",
+      "file": "images/00277.jpg",
+      "origin": "corner_of_compayne_gardens_and_fairhazel_gardens_london_nw6_-_geograph.org.uk_-_1127729.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.769,
+      "probabilities": {
+        "dry": 0.2111,
+        "damp": 0.769,
+        "wet": 0.0064,
+        "standing_water": 0.0135
+      },
+      "quality": 0.7872,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00278",
+      "file": "images/00278.jpg",
+      "origin": "corner_of_compayne_gardens_and_fairhazel_gardens_london_nw6_-_geograph.org.uk_-_1127742.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.7111,
+      "probabilities": {
+        "dry": 0.2532,
+        "damp": 0.7111,
+        "wet": 0.0075,
+        "standing_water": 0.0281
+      },
+      "quality": 0.732,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00279",
+      "file": "images/00279.jpg",
+      "origin": "damp_sunset_york_-_geograph.org.uk_-_3794548.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.6408,
+      "probabilities": {
+        "dry": 0.0037,
+        "damp": 0.6408,
+        "wet": 0.35,
+        "standing_water": 0.0055
+      },
+      "quality": 0.7533,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00280",
+      "file": "images/00280.jpg",
+      "origin": "day_41_it_s_melting_32677153262_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.9214,
+      "probabilities": {
+        "dry": 0.0599,
+        "damp": 0.0049,
+        "wet": 0.9214,
+        "standing_water": 0.0138
+      },
+      "quality": 0.8909,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00281",
+      "file": "images/00281.jpg",
+      "origin": "degan_gabin_8_the_motorcyclist_.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.7409,
+      "probabilities": {
+        "dry": 0.1004,
+        "damp": 0.1142,
+        "wet": 0.0445,
+        "standing_water": 0.7409
+      },
+      "quality": 0.6841,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00282",
+      "file": "images/00282.jpg",
+      "origin": "dia_lluvioso.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.4141,
+      "probabilities": {
+        "dry": 0.237,
+        "damp": 0.3197,
+        "wet": 0.0291,
+        "standing_water": 0.4141
+      },
+      "quality": 0.4659,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00283",
+      "file": "images/00283.jpg",
+      "origin": "diaethria_neglecta_neglecta_nymphalidae_biblidinae_callicorini_45878222651_.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.4755,
+      "probabilities": {
+        "dry": 0.1881,
+        "damp": 0.4755,
+        "wet": 0.3311,
+        "standing_water": 0.0053
+      },
+      "quality": 0.5587,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00284",
+      "file": "images/00284.jpg",
+      "origin": "district-kota-marudu_sabah_jalan-marak-parak-01.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.784,
+      "probabilities": {
+        "dry": 0.784,
+        "damp": 0.1137,
+        "wet": 0.0854,
+        "standing_water": 0.0169
+      },
+      "quality": 0.7473,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00285",
+      "file": "images/00285.jpg",
+      "origin": "domina_train_station.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.4317,
+      "probabilities": {
+        "dry": 0.2032,
+        "damp": 0.4317,
+        "wet": 0.0049,
+        "standing_water": 0.3602
+      },
+      "quality": 0.5446,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00286",
+      "file": "images/00286.jpg",
+      "origin": "dowflake_keeps_this_road_dustless_-_dpla_-_585b0ab10c51151641063bdb2f1c1bcb.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.5039,
+      "probabilities": {
+        "dry": 0.5039,
+        "damp": 0.4053,
+        "wet": 0.0188,
+        "standing_water": 0.0719
+      },
+      "quality": 0.6147,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00287",
+      "file": "images/00287.jpg",
+      "origin": "driving_rain_-_flickr_-_a_whisper_of_unremitting_demand.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.4545,
+      "probabilities": {
+        "dry": 0.4545,
+        "damp": 0.2775,
+        "wet": 0.2635,
+        "standing_water": 0.0045
+      },
+      "quality": 0.5364,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00288",
+      "file": "images/00288.jpg",
+      "origin": "duff_street_-_geograph.org.uk_-_1107727.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.5302,
+      "probabilities": {
+        "dry": 0.5302,
+        "damp": 0.4665,
+        "wet": 0.0018,
+        "standing_water": 0.0014
+      },
+      "quality": 0.7445,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00289",
+      "file": "images/00289.jpg",
+      "origin": "dusty_sector_v_caused_by_nalban_waterbody_dredging_-_salt_lake_city_-_kolkata_2001-04-26_006.tif",
+      "auto_label": "dry",
+      "auto_confidence": 0.5103,
+      "probabilities": {
+        "dry": 0.5103,
+        "damp": 0.2781,
+        "wet": 0.0073,
+        "standing_water": 0.2043
+      },
+      "quality": 0.5563,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00290",
+      "file": "images/00290.jpg",
+      "origin": "dz6_1685_quiet_city_street_at_night_lined_with_glowing_streetlights_and_empty_lanes_stretching_toward_distant_buildings.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.4336,
+      "probabilities": {
+        "dry": 0.4336,
+        "damp": 0.3781,
+        "wet": 0.1822,
+        "standing_water": 0.006
+      },
+      "quality": 0.5519,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00291",
+      "file": "images/00291.jpg",
+      "origin": "enchente_em_matinhos_19-03-2009_-_panoramio.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.5485,
+      "probabilities": {
+        "dry": 0.0255,
+        "damp": 0.3847,
+        "wet": 0.0413,
+        "standing_water": 0.5485
+      },
+      "quality": 0.5574,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00292",
+      "file": "images/00292.jpg",
+      "origin": "environmental_images-_2004_-_water_pollution_412-epd-water_pollutionsewer_overflow1.jpg_-_dpla_-_3cf39ad651121163706f69bf551c9bb8.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.5115,
+      "probabilities": {
+        "dry": 0.0381,
+        "damp": 0.1537,
+        "wet": 0.2967,
+        "standing_water": 0.5115
+      },
+      "quality": 0.5195,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00293",
+      "file": "images/00293.jpg",
+      "origin": "exiting_governor_s_dip_from_governor_s_bridge.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.5475,
+      "probabilities": {
+        "dry": 0.5475,
+        "damp": 0.2901,
+        "wet": 0.1556,
+        "standing_water": 0.0068
+      },
+      "quality": 0.5891,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00294",
+      "file": "images/00294.jpg",
+      "origin": "fagollaga_1570448517.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.8884,
+      "probabilities": {
+        "dry": 0.0038,
+        "damp": 0.0963,
+        "wet": 0.0114,
+        "standing_water": 0.8884
+      },
+      "quality": 0.8714,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00295",
+      "file": "images/00295.jpg",
+      "origin": "flash_flood_on_billesley_lane_-_geograph.org.uk_-_6278993.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.6199,
+      "probabilities": {
+        "dry": 0.0118,
+        "damp": 0.6199,
+        "wet": 0.1261,
+        "standing_water": 0.2422
+      },
+      "quality": 0.5922,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00296",
+      "file": "images/00296.jpg",
+      "origin": "flickr_-_ronsaunders47_-_norton_classic._rotary_twin_cylinder_engine._1987_uk..jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.4587,
+      "probabilities": {
+        "dry": 0.4587,
+        "damp": 0.1855,
+        "wet": 0.3481,
+        "standing_water": 0.0077
+      },
+      "quality": 0.5413,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00297",
+      "file": "images/00297.jpg",
+      "origin": "flickr_-_s2art.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.4849,
+      "probabilities": {
+        "dry": 0.4849,
+        "damp": 0.0886,
+        "wet": 0.4236,
+        "standing_water": 0.0029
+      },
+      "quality": 0.6317,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00298",
+      "file": "images/00298.jpg",
+      "origin": "flickr_-_sigfrid_lundberg_-_r0011196.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.8854,
+      "probabilities": {
+        "dry": 0.0161,
+        "damp": 0.8854,
+        "wet": 0.0934,
+        "standing_water": 0.0051
+      },
+      "quality": 0.8566,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00299",
+      "file": "images/00299.jpg",
+      "origin": "flinders_street_station_in_wet.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.4862,
+      "probabilities": {
+        "dry": 0.0326,
+        "damp": 0.3012,
+        "wet": 0.18,
+        "standing_water": 0.4862
+      },
+      "quality": 0.4533,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00300",
+      "file": "images/00300.jpg",
+      "origin": "flood_in_nong_bua_district.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.7389,
+      "probabilities": {
+        "dry": 0.0272,
+        "damp": 0.1815,
+        "wet": 0.0524,
+        "standing_water": 0.7389
+      },
+      "quality": 0.7006,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00301",
+      "file": "images/00301.jpg",
+      "origin": "flooded_country_road.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.6879,
+      "probabilities": {
+        "dry": 0.0354,
+        "damp": 0.2284,
+        "wet": 0.0483,
+        "standing_water": 0.6879
+      },
+      "quality": 0.6711,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00302",
+      "file": "images/00302.jpg",
+      "origin": "flooded_road.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.5224,
+      "probabilities": {
+        "dry": 0.0975,
+        "damp": 0.0822,
+        "wet": 0.2978,
+        "standing_water": 0.5224
+      },
+      "quality": 0.5047,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00303",
+      "file": "images/00303.jpg",
+      "origin": "flooded_road_at_great_swamp_6097159338_.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.5453,
+      "probabilities": {
+        "dry": 0.0258,
+        "damp": 0.3557,
+        "wet": 0.0731,
+        "standing_water": 0.5453
+      },
+      "quality": 0.6024,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00304",
+      "file": "images/00304.jpg",
+      "origin": "flooded_street_and_vehicles.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.5505,
+      "probabilities": {
+        "dry": 0.0192,
+        "damp": 0.2181,
+        "wet": 0.5505,
+        "standing_water": 0.2123
+      },
+      "quality": 0.5565,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00306",
+      "file": "images/00306.jpg",
+      "origin": "foot_transport_on_a_dirty_road.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.4494,
+      "probabilities": {
+        "dry": 0.4494,
+        "damp": 0.0977,
+        "wet": 0.1586,
+        "standing_water": 0.2943
+      },
+      "quality": 0.4082,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00307",
+      "file": "images/00307.jpg",
+      "origin": "footpath_surface_-_ground.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.8049,
+      "probabilities": {
+        "dry": 0.8049,
+        "damp": 0.1129,
+        "wet": 0.046,
+        "standing_water": 0.0362
+      },
+      "quality": 0.7618,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00308",
+      "file": "images/00308.jpg",
+      "origin": "fort-de-france_24099659100_.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.5692,
+      "probabilities": {
+        "dry": 0.2764,
+        "damp": 0.5692,
+        "wet": 0.0389,
+        "standing_water": 0.1155
+      },
+      "quality": 0.5322,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00309",
+      "file": "images/00309.jpg",
+      "origin": "gavle_central_station_2019_-_bicycle_parking.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.7283,
+      "probabilities": {
+        "dry": 0.0776,
+        "damp": 0.7283,
+        "wet": 0.0183,
+        "standing_water": 0.1757
+      },
+      "quality": 0.6867,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00310",
+      "file": "images/00310.jpg",
+      "origin": "george_street_dunedin_2013_01_.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.4735,
+      "probabilities": {
+        "dry": 0.4735,
+        "damp": 0.2788,
+        "wet": 0.1246,
+        "standing_water": 0.1231
+      },
+      "quality": 0.4193,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00311",
+      "file": "images/00311.jpg",
+      "origin": "george_street_dunedin_2013_02_.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.5054,
+      "probabilities": {
+        "dry": 0.5054,
+        "damp": 0.2931,
+        "wet": 0.1179,
+        "standing_water": 0.0836
+      },
+      "quality": 0.479,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00312",
+      "file": "images/00312.jpg",
+      "origin": "herrnskretschen_hauptstra_e_elbtal.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.5503,
+      "probabilities": {
+        "dry": 0.5503,
+        "damp": 0.436,
+        "wet": 0.0024,
+        "standing_water": 0.0113
+      },
+      "quality": 0.721,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00313",
+      "file": "images/00313.jpg",
+      "origin": "hill_road_flood_20080607-2.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.5352,
+      "probabilities": {
+        "dry": 0.1354,
+        "damp": 0.2328,
+        "wet": 0.0966,
+        "standing_water": 0.5352
+      },
+      "quality": 0.4751,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00314",
+      "file": "images/00314.jpg",
+      "origin": "hill_road_flood_20080607.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.4131,
+      "probabilities": {
+        "dry": 0.4131,
+        "damp": 0.1803,
+        "wet": 0.0106,
+        "standing_water": 0.396
+      },
+      "quality": 0.54,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00315",
+      "file": "images/00315.jpg",
+      "origin": "human_fingerprints_on_an_ancient_landscape_153611_-_libya_plateau_oli2_20241117_lrg_.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.6038,
+      "probabilities": {
+        "dry": 0.6038,
+        "damp": 0.114,
+        "wet": 0.1934,
+        "standing_water": 0.0888
+      },
+      "quality": 0.5431,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00316",
+      "file": "images/00316.jpg",
+      "origin": "human_fingerprints_on_an_ancient_landscape_153611_-_libyaoilfield_oli2_20241117_lrg_.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.6348,
+      "probabilities": {
+        "dry": 0.6348,
+        "damp": 0.0969,
+        "wet": 0.2569,
+        "standing_water": 0.0115
+      },
+      "quality": 0.6494,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00318",
+      "file": "images/00318.jpg",
+      "origin": "hydra_after_the_rain_50573444951_.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.7398,
+      "probabilities": {
+        "dry": 0.1651,
+        "damp": 0.7398,
+        "wet": 0.0399,
+        "standing_water": 0.0552
+      },
+      "quality": 0.7028,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00322",
+      "file": "images/00322.jpg",
+      "origin": "img_karad10.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.7778,
+      "probabilities": {
+        "dry": 0.0239,
+        "damp": 0.1408,
+        "wet": 0.7778,
+        "standing_water": 0.0576
+      },
+      "quality": 0.7435,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00324",
+      "file": "images/00324.jpg",
+      "origin": "inondation_cotonou.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.8565,
+      "probabilities": {
+        "dry": 0.063,
+        "damp": 0.0649,
+        "wet": 0.0156,
+        "standing_water": 0.8565
+      },
+      "quality": 0.7958,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00325",
+      "file": "images/00325.jpg",
+      "origin": "inondation_et_insalubrit_.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.8595,
+      "probabilities": {
+        "dry": 0.8595,
+        "damp": 0.0855,
+        "wet": 0.0138,
+        "standing_water": 0.0412
+      },
+      "quality": 0.8198,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00326",
+      "file": "images/00326.jpg",
+      "origin": "intermediate_asphald_road_surface_near_krate_ko.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9837,
+      "probabilities": {
+        "dry": 0.9837,
+        "damp": 0.0032,
+        "wet": 0.0123,
+        "standing_water": 0.0008
+      },
+      "quality": 0.9668,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00328",
+      "file": "images/00328.jpg",
+      "origin": "jijpjjpjpoo.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9845,
+      "probabilities": {
+        "dry": 0.9845,
+        "damp": 0.0078,
+        "wet": 0.0074,
+        "standing_water": 0.0004
+      },
+      "quality": 0.9727,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00329",
+      "file": "images/00329.jpg",
+      "origin": "jojoja.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.7927,
+      "probabilities": {
+        "dry": 0.0389,
+        "damp": 0.0761,
+        "wet": 0.7927,
+        "standing_water": 0.0923
+      },
+      "quality": 0.7119,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00330",
+      "file": "images/00330.jpg",
+      "origin": "kaisaniemenkatu_-_ser081634_-_hkm.hkms000005-km0000o0vc.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.8911,
+      "probabilities": {
+        "dry": 0.0236,
+        "damp": 0.8911,
+        "wet": 0.044,
+        "standing_water": 0.0412
+      },
+      "quality": 0.8451,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00331",
+      "file": "images/00331.jpg",
+      "origin": "lahm_itzgrund_hochwasser_2023-20231228-rm-154642.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.7032,
+      "probabilities": {
+        "dry": 0.0023,
+        "damp": 0.0371,
+        "wet": 0.2575,
+        "standing_water": 0.7032
+      },
+      "quality": 0.7401,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00332",
+      "file": "images/00332.jpg",
+      "origin": "linumstriatum10.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.453,
+      "probabilities": {
+        "dry": 0.453,
+        "damp": 0.3808,
+        "wet": 0.1451,
+        "standing_water": 0.0211
+      },
+      "quality": 0.5387,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00333",
+      "file": "images/00333.jpg",
+      "origin": "llierca.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.8465,
+      "probabilities": {
+        "dry": 0.0531,
+        "damp": 0.0945,
+        "wet": 0.0059,
+        "standing_water": 0.8465
+      },
+      "quality": 0.8156,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00334",
+      "file": "images/00334.jpg",
+      "origin": "lluvia_en_zarzaparrillas_koakalko._-_panoramio.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.6139,
+      "probabilities": {
+        "dry": 0.0893,
+        "damp": 0.6139,
+        "wet": 0.0299,
+        "standing_water": 0.2669
+      },
+      "quality": 0.6143,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00335",
+      "file": "images/00335.jpg",
+      "origin": "los_heroes-koakalko._-_panoramio.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.8441,
+      "probabilities": {
+        "dry": 0.0178,
+        "damp": 0.0958,
+        "wet": 0.0423,
+        "standing_water": 0.8441
+      },
+      "quality": 0.8077,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00336",
+      "file": "images/00336.jpg",
+      "origin": "maafe_man_bakery.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.495,
+      "probabilities": {
+        "dry": 0.0145,
+        "damp": 0.1577,
+        "wet": 0.3328,
+        "standing_water": 0.495
+      },
+      "quality": 0.5466,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00337",
+      "file": "images/00337.jpg",
+      "origin": "madrid_manhole_cover_canal_de_isabel_ii_-_registro_sumate_ale_reto_del_agua_2006.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.4426,
+      "probabilities": {
+        "dry": 0.373,
+        "damp": 0.108,
+        "wet": 0.4426,
+        "standing_water": 0.0764
+      },
+      "quality": 0.4797,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00338",
+      "file": "images/00338.jpg",
+      "origin": "marines_man_a_steam_roller_1969_29338942015_.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9297,
+      "probabilities": {
+        "dry": 0.9297,
+        "damp": 0.0373,
+        "wet": 0.0004,
+        "standing_water": 0.0325
+      },
+      "quality": 0.9053,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00339",
+      "file": "images/00339.jpg",
+      "origin": "mehmet_abi_allah_kolayl_k_versin..._-_panoramio.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.8394,
+      "probabilities": {
+        "dry": 0.0139,
+        "damp": 0.0955,
+        "wet": 0.0511,
+        "standing_water": 0.8394
+      },
+      "quality": 0.7124,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00340",
+      "file": "images/00340.jpg",
+      "origin": "mercedes-benz_g63_amg_v8_biturbo_suv_50703492437_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.3857,
+      "probabilities": {
+        "dry": 0.2512,
+        "damp": 0.334,
+        "wet": 0.3857,
+        "standing_water": 0.0291
+      },
+      "quality": 0.4576,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00341",
+      "file": "images/00341.jpg",
+      "origin": "minor_flood.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.8397,
+      "probabilities": {
+        "dry": 0.0095,
+        "damp": 0.028,
+        "wet": 0.1228,
+        "standing_water": 0.8397
+      },
+      "quality": 0.7986,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00342",
+      "file": "images/00342.jpg",
+      "origin": "morava_river_flooding_2009_-_panoramio.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.9555,
+      "probabilities": {
+        "dry": 0.0294,
+        "damp": 0.0121,
+        "wet": 0.003,
+        "standing_water": 0.9555
+      },
+      "quality": 0.9338,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00343",
+      "file": "images/00343.jpg",
+      "origin": "morogoro_road_b129_flooded_1_01.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.3685,
+      "probabilities": {
+        "dry": 0.0326,
+        "damp": 0.2742,
+        "wet": 0.3685,
+        "standing_water": 0.3247
+      },
+      "quality": 0.4485,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00345",
+      "file": "images/00345.jpg",
+      "origin": "morro_strand_state_beach_1_.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.5291,
+      "probabilities": {
+        "dry": 0.5291,
+        "damp": 0.1164,
+        "wet": 0.1856,
+        "standing_water": 0.1689
+      },
+      "quality": 0.4478,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00346",
+      "file": "images/00346.jpg",
+      "origin": "nalban_waterbody_dredging_-_kolkata_2001-04-26_002.tif",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.5678,
+      "probabilities": {
+        "dry": 0.2475,
+        "damp": 0.1797,
+        "wet": 0.005,
+        "standing_water": 0.5678
+      },
+      "quality": 0.5987,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00347",
+      "file": "images/00347.jpg",
+      "origin": "nalban_waterbody_dredging_-_kolkata_2001-04-26_011.tif",
+      "auto_label": "dry",
+      "auto_confidence": 0.6468,
+      "probabilities": {
+        "dry": 0.6468,
+        "damp": 0.0646,
+        "wet": 0.0014,
+        "standing_water": 0.2872
+      },
+      "quality": 0.6954,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00348",
+      "file": "images/00348.jpg",
+      "origin": "nalban_waterbody_dredging_-_kolkata_2001-04-26_016.tif",
+      "auto_label": "dry",
+      "auto_confidence": 0.9276,
+      "probabilities": {
+        "dry": 0.9276,
+        "damp": 0.0208,
+        "wet": 0.0009,
+        "standing_water": 0.0508
+      },
+      "quality": 0.9033,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00349",
+      "file": "images/00349.jpg",
+      "origin": "nalban_waterbody_dredging_-_kolkata_2001-04-26_018.tif",
+      "auto_label": "dry",
+      "auto_confidence": 0.9773,
+      "probabilities": {
+        "dry": 0.9773,
+        "damp": 0.0145,
+        "wet": 0.0003,
+        "standing_water": 0.0079
+      },
+      "quality": 0.9629,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00350",
+      "file": "images/00350.jpg",
+      "origin": "nalban_waterbody_dredging_-_kolkata_2001-04-26_019.tif",
+      "auto_label": "dry",
+      "auto_confidence": 0.4112,
+      "probabilities": {
+        "dry": 0.4112,
+        "damp": 0.2652,
+        "wet": 0.0101,
+        "standing_water": 0.3136
+      },
+      "quality": 0.5111,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00351",
+      "file": "images/00351.jpg",
+      "origin": "nalban_waterbody_dredging_-_sector_v_-_salt_lake_city_-_kolkata_2001-04-26_-_kolkata_2001-04-26_001.tif",
+      "auto_label": "dry",
+      "auto_confidence": 0.9834,
+      "probabilities": {
+        "dry": 0.9834,
+        "damp": 0.0093,
+        "wet": 0.0022,
+        "standing_water": 0.0051
+      },
+      "quality": 0.9647,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00352",
+      "file": "images/00352.jpg",
+      "origin": "nanjingroad3.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.402,
+      "probabilities": {
+        "dry": 0.0032,
+        "damp": 0.2896,
+        "wet": 0.402,
+        "standing_water": 0.3052
+      },
+      "quality": 0.5258,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00353",
+      "file": "images/00353.jpg",
+      "origin": "night_view_1.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.7507,
+      "probabilities": {
+        "dry": 0.0418,
+        "damp": 0.7507,
+        "wet": 0.0597,
+        "standing_water": 0.1478
+      },
+      "quality": 0.7092,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00354",
+      "file": "images/00354.jpg",
+      "origin": "no_way_through.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.619,
+      "probabilities": {
+        "dry": 0.2993,
+        "damp": 0.619,
+        "wet": 0.051,
+        "standing_water": 0.0307
+      },
+      "quality": 0.6482,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00358",
+      "file": "images/00358.jpg",
+      "origin": "photo_d_hiver.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.6259,
+      "probabilities": {
+        "dry": 0.0005,
+        "damp": 0.3515,
+        "wet": 0.6259,
+        "standing_water": 0.0222
+      },
+      "quality": 0.7319,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00359",
+      "file": "images/00359.jpg",
+      "origin": "pikiwiki_israel_84668_deheimsh_mosque_in_lod.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.6801,
+      "probabilities": {
+        "dry": 0.0578,
+        "damp": 0.2489,
+        "wet": 0.0132,
+        "standing_water": 0.6801
+      },
+      "quality": 0.6902,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00360",
+      "file": "images/00360.jpg",
+      "origin": "polic_a_nacional_de_los_colombianos_5520384658_.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.9106,
+      "probabilities": {
+        "dry": 0.0026,
+        "damp": 0.0805,
+        "wet": 0.0064,
+        "standing_water": 0.9106
+      },
+      "quality": 0.8833,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00361",
+      "file": "images/00361.jpg",
+      "origin": "porsche_356_carrera_cabriolet.tif",
+      "auto_label": "wet",
+      "auto_confidence": 0.5833,
+      "probabilities": {
+        "dry": 0.1295,
+        "damp": 0.285,
+        "wet": 0.5833,
+        "standing_water": 0.0022
+      },
+      "quality": 0.5323,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00362",
+      "file": "images/00362.jpg",
+      "origin": "povode_1997_uhersk_hradi_t_-_k_i_ovatka.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.9035,
+      "probabilities": {
+        "dry": 0.0031,
+        "damp": 0.0764,
+        "wet": 0.0169,
+        "standing_water": 0.9035
+      },
+      "quality": 0.8699,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00363",
+      "file": "images/00363.jpg",
+      "origin": "public_footpath_to_the_reservoir_-_geograph.org.uk_-_1126898.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.6535,
+      "probabilities": {
+        "dry": 0.6535,
+        "damp": 0.2279,
+        "wet": 0.0512,
+        "standing_water": 0.0673
+      },
+      "quality": 0.6304,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00364",
+      "file": "images/00364.jpg",
+      "origin": "puddle_love_5805120385_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.9205,
+      "probabilities": {
+        "dry": 0.0075,
+        "damp": 0.0107,
+        "wet": 0.9205,
+        "standing_water": 0.0614
+      },
+      "quality": 0.8896,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00365",
+      "file": "images/00365.jpg",
+      "origin": "pune_streets.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.6349,
+      "probabilities": {
+        "dry": 0.3187,
+        "damp": 0.6349,
+        "wet": 0.0407,
+        "standing_water": 0.0057
+      },
+      "quality": 0.7026,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00366",
+      "file": "images/00366.jpg",
+      "origin": "queensbury_fp31_flooded_by_a_stream_-_geograph.org.uk_-_5625787.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.3938,
+      "probabilities": {
+        "dry": 0.0438,
+        "damp": 0.3938,
+        "wet": 0.2237,
+        "standing_water": 0.3388
+      },
+      "quality": 0.4402,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00367",
+      "file": "images/00367.jpg",
+      "origin": "rain_-_flickr_-_anantal.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.6646,
+      "probabilities": {
+        "dry": 0.0041,
+        "damp": 0.6646,
+        "wet": 0.2331,
+        "standing_water": 0.0982
+      },
+      "quality": 0.6779,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00368",
+      "file": "images/00368.jpg",
+      "origin": "rain_hitting_the_pavement.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.4328,
+      "probabilities": {
+        "dry": 0.0227,
+        "damp": 0.4312,
+        "wet": 0.4328,
+        "standing_water": 0.1133
+      },
+      "quality": 0.5622,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00369",
+      "file": "images/00369.jpg",
+      "origin": "rainy_spring_day_of_bojnord_-_14_april_2018_13.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.5987,
+      "probabilities": {
+        "dry": 0.0296,
+        "damp": 0.1263,
+        "wet": 0.2454,
+        "standing_water": 0.5987
+      },
+      "quality": 0.5888,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00370",
+      "file": "images/00370.jpg",
+      "origin": "rainy_spring_day_of_bojnord_-_14_april_2018_15.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.8352,
+      "probabilities": {
+        "dry": 0.013,
+        "damp": 0.1361,
+        "wet": 0.0156,
+        "standing_water": 0.8352
+      },
+      "quality": 0.8195,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00371",
+      "file": "images/00371.jpg",
+      "origin": "rel_mpago.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.621,
+      "probabilities": {
+        "dry": 0.0163,
+        "damp": 0.621,
+        "wet": 0.304,
+        "standing_water": 0.0587
+      },
+      "quality": 0.6622,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00372",
+      "file": "images/00372.jpg",
+      "origin": "road_surface_-_foam_crumbs.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9031,
+      "probabilities": {
+        "dry": 0.9031,
+        "damp": 0.01,
+        "wet": 0.0719,
+        "standing_water": 0.015
+      },
+      "quality": 0.8748,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00373",
+      "file": "images/00373.jpg",
+      "origin": "road_surface_-_ground_2.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.98,
+      "probabilities": {
+        "dry": 0.98,
+        "damp": 0.0064,
+        "wet": 0.0068,
+        "standing_water": 0.0069
+      },
+      "quality": 0.9639,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00374",
+      "file": "images/00374.jpg",
+      "origin": "road_surface_-_ground_3.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9759,
+      "probabilities": {
+        "dry": 0.9759,
+        "damp": 0.014,
+        "wet": 0.005,
+        "standing_water": 0.0051
+      },
+      "quality": 0.9542,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00375",
+      "file": "images/00375.jpg",
+      "origin": "route_biatsota-bafia_en_saison_s_che.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.454,
+      "probabilities": {
+        "dry": 0.454,
+        "damp": 0.0797,
+        "wet": 0.0381,
+        "standing_water": 0.4282
+      },
+      "quality": 0.5677,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00376",
+      "file": "images/00376.jpg",
+      "origin": "ruelle_inond_e.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.7849,
+      "probabilities": {
+        "dry": 0.0186,
+        "damp": 0.1826,
+        "wet": 0.0138,
+        "standing_water": 0.7849
+      },
+      "quality": 0.7829,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00377",
+      "file": "images/00377.jpg",
+      "origin": "schelpen.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9647,
+      "probabilities": {
+        "dry": 0.9647,
+        "damp": 0.0309,
+        "wet": 0.0038,
+        "standing_water": 0.0006
+      },
+      "quality": 0.5727,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00378",
+      "file": "images/00378.jpg",
+      "origin": "siracusa_homebanner.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.4857,
+      "probabilities": {
+        "dry": 0.0272,
+        "damp": 0.307,
+        "wet": 0.1802,
+        "standing_water": 0.4857
+      },
+      "quality": 0.5168,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00379",
+      "file": "images/00379.jpg",
+      "origin": "sitzbank_berflutung.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.6334,
+      "probabilities": {
+        "dry": 0.0007,
+        "damp": 0.0976,
+        "wet": 0.2683,
+        "standing_water": 0.6334
+      },
+      "quality": 0.6697,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00380",
+      "file": "images/00380.jpg",
+      "origin": "soba-noodles-deliveryman-tokyo-1935.png",
+      "auto_label": "damp",
+      "auto_confidence": 0.4887,
+      "probabilities": {
+        "dry": 0.0422,
+        "damp": 0.4887,
+        "wet": 0.1179,
+        "standing_water": 0.3512
+      },
+      "quality": 0.5255,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00381",
+      "file": "images/00381.jpg",
+      "origin": "sp_r_efter_sp_rvagn_kungsportsavenyen_och_vasagatan_juli_2025.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.8397,
+      "probabilities": {
+        "dry": 0.8397,
+        "damp": 0.0188,
+        "wet": 0.0294,
+        "standing_water": 0.1121
+      },
+      "quality": 0.8072,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00382",
+      "file": "images/00382.jpg",
+      "origin": "stockhom_sant_eriksgatan_21-10-2021.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.6794,
+      "probabilities": {
+        "dry": 0.0082,
+        "damp": 0.2628,
+        "wet": 0.6794,
+        "standing_water": 0.0496
+      },
+      "quality": 0.7069,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00383",
+      "file": "images/00383.jpg",
+      "origin": "stream_near_boundary_wall_and_fence_-_geograph.org.uk_-_1187838.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.7168,
+      "probabilities": {
+        "dry": 0.0512,
+        "damp": 0.7168,
+        "wet": 0.1284,
+        "standing_water": 0.1036
+      },
+      "quality": 0.6612,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00384",
+      "file": "images/00384.jpg",
+      "origin": "street_flood.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.494,
+      "probabilities": {
+        "dry": 0.0693,
+        "damp": 0.2457,
+        "wet": 0.1911,
+        "standing_water": 0.494
+      },
+      "quality": 0.4518,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00385",
+      "file": "images/00385.jpg",
+      "origin": "street_flood_2.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.399,
+      "probabilities": {
+        "dry": 0.2536,
+        "damp": 0.31,
+        "wet": 0.0374,
+        "standing_water": 0.399
+      },
+      "quality": 0.4475,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00386",
+      "file": "images/00386.jpg",
+      "origin": "stuart_street_dunedin_2013_01_.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.853,
+      "probabilities": {
+        "dry": 0.0704,
+        "damp": 0.853,
+        "wet": 0.0249,
+        "standing_water": 0.0516
+      },
+      "quality": 0.8027,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00387",
+      "file": "images/00387.jpg",
+      "origin": "stuart_street_dunedin_2013_02_.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.7294,
+      "probabilities": {
+        "dry": 0.1762,
+        "damp": 0.7294,
+        "wet": 0.0198,
+        "standing_water": 0.0746
+      },
+      "quality": 0.6998,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00388",
+      "file": "images/00388.jpg",
+      "origin": "surface-asphalt-compacted-gravel-mix-estartit-2.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9981,
+      "probabilities": {
+        "dry": 0.9981,
+        "damp": 0.0013,
+        "wet": 0.0006,
+        "standing_water": 0.0001
+      },
+      "quality": 0.9898,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00389",
+      "file": "images/00389.jpg",
+      "origin": "surface-asphalt-compacted-gravel-mix-estartit.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9978,
+      "probabilities": {
+        "dry": 0.9978,
+        "damp": 0.0015,
+        "wet": 0.0005,
+        "standing_water": 0.0003
+      },
+      "quality": 0.985,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00390",
+      "file": "images/00390.jpg",
+      "origin": "surface-asphalt-compacted-gravel-mix-valldavia.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9908,
+      "probabilities": {
+        "dry": 0.9908,
+        "damp": 0.0058,
+        "wet": 0.0016,
+        "standing_water": 0.0017
+      },
+      "quality": 0.9762,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00391",
+      "file": "images/00391.jpg",
+      "origin": "surface-asphalt-excellent-thusis-schweiz.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.946,
+      "probabilities": {
+        "dry": 0.946,
+        "damp": 0.0214,
+        "wet": 0.0254,
+        "standing_water": 0.0072
+      },
+      "quality": 0.9153,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00392",
+      "file": "images/00392.jpg",
+      "origin": "surface-asphalt-horrible-rongellen-schweiz.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9428,
+      "probabilities": {
+        "dry": 0.9428,
+        "damp": 0.0345,
+        "wet": 0.0047,
+        "standing_water": 0.018
+      },
+      "quality": 0.9118,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00393",
+      "file": "images/00393.jpg",
+      "origin": "surface-asphalt-rock-ebenalp-schweiz.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9481,
+      "probabilities": {
+        "dry": 0.9481,
+        "damp": 0.0249,
+        "wet": 0.0136,
+        "standing_water": 0.0134
+      },
+      "quality": 0.9156,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00394",
+      "file": "images/00394.jpg",
+      "origin": "surface-asphalt-smoothness-bad-horrible.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9548,
+      "probabilities": {
+        "dry": 0.9548,
+        "damp": 0.037,
+        "wet": 0.0071,
+        "standing_water": 0.0012
+      },
+      "quality": 0.9333,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00395",
+      "file": "images/00395.jpg",
+      "origin": "surface-asphalt-smoothness-excellent-giv-6217.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9919,
+      "probabilities": {
+        "dry": 0.9919,
+        "damp": 0.0068,
+        "wet": 0.001,
+        "standing_water": 0.0003
+      },
+      "quality": 0.9845,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00396",
+      "file": "images/00396.jpg",
+      "origin": "surface-compacted-smoothness-good-girona.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.911,
+      "probabilities": {
+        "dry": 0.911,
+        "damp": 0.0253,
+        "wet": 0.0189,
+        "standing_water": 0.0447
+      },
+      "quality": 0.8755,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00397",
+      "file": "images/00397.jpg",
+      "origin": "surface-fine-gravel-costa-brava.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9975,
+      "probabilities": {
+        "dry": 0.9975,
+        "damp": 0.0017,
+        "wet": 0.0003,
+        "standing_water": 0.0006
+      },
+      "quality": 0.9935,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00398",
+      "file": "images/00398.jpg",
+      "origin": "surface-gravel-rock-cala-la-calella.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9855,
+      "probabilities": {
+        "dry": 0.9855,
+        "damp": 0.0056,
+        "wet": 0.0017,
+        "standing_water": 0.0072
+      },
+      "quality": 0.9711,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00399",
+      "file": "images/00399.jpg",
+      "origin": "surface-paving-stones-hvide-sane-havn-smoothness-excellent.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9778,
+      "probabilities": {
+        "dry": 0.9778,
+        "damp": 0.0181,
+        "wet": 0.004,
+        "standing_water": 0.0002
+      },
+      "quality": 0.9618,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00400",
+      "file": "images/00400.jpg",
+      "origin": "surface-rock-earth-ground-cami-de-ronda-2.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9182,
+      "probabilities": {
+        "dry": 0.9182,
+        "damp": 0.0243,
+        "wet": 0.0237,
+        "standing_water": 0.0339
+      },
+      "quality": 0.8813,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00401",
+      "file": "images/00401.jpg",
+      "origin": "surface-rock-earth-ground-cami-de-ronda.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.8789,
+      "probabilities": {
+        "dry": 0.8789,
+        "damp": 0.0222,
+        "wet": 0.0342,
+        "standing_water": 0.0647
+      },
+      "quality": 0.8391,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00402",
+      "file": "images/00402.jpg",
+      "origin": "surface-rock-gravel-schwende-schweiz.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9458,
+      "probabilities": {
+        "dry": 0.9458,
+        "damp": 0.0322,
+        "wet": 0.0186,
+        "standing_water": 0.0033
+      },
+      "quality": 0.9047,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00403",
+      "file": "images/00403.jpg",
+      "origin": "surface-sand-hvidberg-strand-denmark.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.6376,
+      "probabilities": {
+        "dry": 0.6376,
+        "damp": 0.1706,
+        "wet": 0.102,
+        "standing_water": 0.0899
+      },
+      "quality": 0.5753,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00404",
+      "file": "images/00404.jpg",
+      "origin": "surface-sand-intermediate-mas-pinell.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9827,
+      "probabilities": {
+        "dry": 0.9827,
+        "damp": 0.0083,
+        "wet": 0.0013,
+        "standing_water": 0.0078
+      },
+      "quality": 0.9694,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00405",
+      "file": "images/00405.jpg",
+      "origin": "surface-sett-girona.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9631,
+      "probabilities": {
+        "dry": 0.9631,
+        "damp": 0.0211,
+        "wet": 0.0156,
+        "standing_water": 0.0002
+      },
+      "quality": 0.9416,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00406",
+      "file": "images/00406.jpg",
+      "origin": "surface-sett-la-bisbal-demprda.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.8886,
+      "probabilities": {
+        "dry": 0.8886,
+        "damp": 0.0442,
+        "wet": 0.0667,
+        "standing_water": 0.0005
+      },
+      "quality": 0.8625,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00407",
+      "file": "images/00407.jpg",
+      "origin": "surface-unhewn-cobblestone-peratallada-road-1.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.8178,
+      "probabilities": {
+        "dry": 0.8178,
+        "damp": 0.0753,
+        "wet": 0.1049,
+        "standing_water": 0.002
+      },
+      "quality": 0.7916,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00408",
+      "file": "images/00408.jpg",
+      "origin": "surface-unhewn-cobblestone-peratallada-road-2.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9779,
+      "probabilities": {
+        "dry": 0.9779,
+        "damp": 0.018,
+        "wet": 0.0038,
+        "standing_water": 0.0003
+      },
+      "quality": 0.963,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00409",
+      "file": "images/00409.jpg",
+      "origin": "sydney_central_in_the_rain_11321727685_.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.4804,
+      "probabilities": {
+        "dry": 0.019,
+        "damp": 0.4584,
+        "wet": 0.0422,
+        "standing_water": 0.4804
+      },
+      "quality": 0.6394,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00410",
+      "file": "images/00410.jpg",
+      "origin": "synnerligen-ojaemn-koeryta.png",
+      "auto_label": "dry",
+      "auto_confidence": 0.9406,
+      "probabilities": {
+        "dry": 0.9406,
+        "damp": 0.0296,
+        "wet": 0.0248,
+        "standing_water": 0.005
+      },
+      "quality": 0.9077,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00411",
+      "file": "images/00411.jpg",
+      "origin": "that_s_the_way_to_do_it_-_geograph.org.uk_-_507679.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.8945,
+      "probabilities": {
+        "dry": 0.004,
+        "damp": 0.0353,
+        "wet": 0.0663,
+        "standing_water": 0.8945
+      },
+      "quality": 0.8411,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00412",
+      "file": "images/00412.jpg",
+      "origin": "the_american_annual_of_photography_1919_14596077430_.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.8833,
+      "probabilities": {
+        "dry": 0.0021,
+        "damp": 0.8833,
+        "wet": 0.1133,
+        "standing_water": 0.0013
+      },
+      "quality": 0.5897,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00413",
+      "file": "images/00413.jpg",
+      "origin": "the_british_isles_winter_weather_event_deaths_of_2010.png",
+      "auto_label": "dry",
+      "auto_confidence": 0.4536,
+      "probabilities": {
+        "dry": 0.4536,
+        "damp": 0.419,
+        "wet": 0.0932,
+        "standing_water": 0.0343
+      },
+      "quality": 0.5496,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00414",
+      "file": "images/00414.jpg",
+      "origin": "the_parched_earth_at_the_racetrack_playa_with_a_dead_twig_that_blew_onto_it._245e93a8-e794-404e-93cb-dba071515168_.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.9563,
+      "probabilities": {
+        "dry": 0.9563,
+        "damp": 0.0232,
+        "wet": 0.0139,
+        "standing_water": 0.0065
+      },
+      "quality": 0.9324,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00415",
+      "file": "images/00415.jpg",
+      "origin": "this_is_obviously_not_the_stereotypical_sun-parched_summer_day_in_death_valley._snow_dots_the_ground_amid_a_field_of_cacti_along_the_dead-end_road_to_a_playa_known_as_the_racetrack_a_dry_lakebed_lccn2013631008.tif",
+      "auto_label": "dry",
+      "auto_confidence": 0.746,
+      "probabilities": {
+        "dry": 0.746,
+        "damp": 0.1086,
+        "wet": 0.0355,
+        "standing_water": 0.1099
+      },
+      "quality": 0.698,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00416",
+      "file": "images/00416.jpg",
+      "origin": "this_is_obviously_not_the_stereotypical_sun-parched_summer_day_in_death_valley._snow_dots_the_ground_amid_a_field_of_cacti_along_the_dead-end_road_to_a_playa_known_as_the_racetrack_a_dry_lakebed_lccn2013631010.tif",
+      "auto_label": "dry",
+      "auto_confidence": 0.8996,
+      "probabilities": {
+        "dry": 0.8996,
+        "damp": 0.035,
+        "wet": 0.009,
+        "standing_water": 0.0563
+      },
+      "quality": 0.8664,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00417",
+      "file": "images/00417.jpg",
+      "origin": "this_is_obviously_not_the_stereotypical_sun-parched_summer_day_in_death_valley_lccn2013631036.tif",
+      "auto_label": "dry",
+      "auto_confidence": 0.8821,
+      "probabilities": {
+        "dry": 0.8821,
+        "damp": 0.0273,
+        "wet": 0.0249,
+        "standing_water": 0.0657
+      },
+      "quality": 0.8436,
+      "query_hint": "damp",
+      "label": null
+    },
+    {
+      "id": "00418",
+      "file": "images/00418.jpg",
+      "origin": "thula_street_yemen_13097461913_.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.6918,
+      "probabilities": {
+        "dry": 0.1826,
+        "damp": 0.6918,
+        "wet": 0.0481,
+        "standing_water": 0.0775
+      },
+      "quality": 0.6384,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00419",
+      "file": "images/00419.jpg",
+      "origin": "triq_i_-_ew_mini_pod_bram_.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.7906,
+      "probabilities": {
+        "dry": 0.0154,
+        "damp": 0.0908,
+        "wet": 0.1032,
+        "standing_water": 0.7906
+      },
+      "quality": 0.7519,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00420",
+      "file": "images/00420.jpg",
+      "origin": "two_vehicles_aquaplaning.jpg",
+      "auto_label": "standing_water",
+      "auto_confidence": 0.8852,
+      "probabilities": {
+        "dry": 0.0148,
+        "damp": 0.0461,
+        "wet": 0.0539,
+        "standing_water": 0.8852
+      },
+      "quality": 0.8377,
+      "query_hint": "standing_water",
+      "label": null
+    },
+    {
+      "id": "00422",
+      "file": "images/00422.jpg",
+      "origin": "velikiy_novgorod_trolleybus_28_bolshaya_sankt-peterburgskaya_street_2006_01_.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.7636,
+      "probabilities": {
+        "dry": 0.0966,
+        "damp": 0.7636,
+        "wet": 0.0302,
+        "standing_water": 0.1096
+      },
+      "quality": 0.715,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00423",
+      "file": "images/00423.jpg",
+      "origin": "wageningen_s_hoogstraat_after_spring_rain.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.8771,
+      "probabilities": {
+        "dry": 0.0828,
+        "damp": 0.8771,
+        "wet": 0.003,
+        "standing_water": 0.0371
+      },
+      "quality": 0.7472,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00424",
+      "file": "images/00424.jpg",
+      "origin": "walk_down_the_str_get_2760265707_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.6041,
+      "probabilities": {
+        "dry": 0.0338,
+        "damp": 0.2099,
+        "wet": 0.6041,
+        "standing_water": 0.1523
+      },
+      "quality": 0.5724,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00425",
+      "file": "images/00425.jpg",
+      "origin": "wet_street_-_bokeh_10615021874_jpg_165453417_.jpg",
+      "auto_label": "wet",
+      "auto_confidence": 0.9126,
+      "probabilities": {
+        "dry": 0.0031,
+        "damp": 0.0588,
+        "wet": 0.9126,
+        "standing_water": 0.0254
+      },
+      "quality": 0.8816,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00426",
+      "file": "images/00426.jpg",
+      "origin": "yoshkar-ola_mari_el_republic_russia_-_panoramio_139_.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.669,
+      "probabilities": {
+        "dry": 0.0511,
+        "damp": 0.669,
+        "wet": 0.0859,
+        "standing_water": 0.194
+      },
+      "quality": 0.6275,
+      "query_hint": "wet",
+      "label": null
+    },
+    {
+      "id": "00427",
+      "file": "images/00427.jpg",
+      "origin": "zentralbibliothek_z_rich_-_asphaltleger_am_limmatquai_-_991112696799705501.jpg",
+      "auto_label": "damp",
+      "auto_confidence": 0.5178,
+      "probabilities": {
+        "dry": 0.386,
+        "damp": 0.5178,
+        "wet": 0.0513,
+        "standing_water": 0.0449
+      },
+      "quality": 0.5997,
+      "query_hint": "dry",
+      "label": null
+    },
+    {
+      "id": "00428",
+      "file": "images/00428.jpg",
+      "origin": "zentralbibliothek_z_rich_-_asphaltleger_am_limmatquai_-_991137214739705501.jpg",
+      "auto_label": "dry",
+      "auto_confidence": 0.7424,
+      "probabilities": {
+        "dry": 0.7424,
+        "damp": 0.2277,
+        "wet": 0.0144,
+        "standing_water": 0.0155
+      },
+      "quality": 0.7618,
+      "query_hint": "dry",
+      "label": null
+    }
+  ]
+}

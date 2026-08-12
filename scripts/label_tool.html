@@ -112,7 +112,9 @@
     { key: "4", name: "standing_water", label: "Standing water", color: "var(--standing)", hint: "pooled water, spray" },
     { key: "0", name: "reject",         label: "Reject",         color: "var(--reject)",   hint: "not a road surface" },
   ];
-  const STORE = "ww-labels-v1";
+  // Namespaced per build. Frame ids are positional, so without this a rebuild would
+  // restore the previous run's labels onto whatever image now sits at that index.
+  const STORE = `ww-labels-${window.MANIFEST_BUILD || "unknown"}`;
 
   const items = window.MANIFEST || [];
   if (!items.length) {

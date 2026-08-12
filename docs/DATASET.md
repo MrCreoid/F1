@@ -76,6 +76,10 @@ but it will load a script tag.
 - `←` `→` move · `u` undo the last decision
 - Progress is written to `localStorage` on every keystroke and the tool resumes at the
   first unlabelled frame, so closing the tab two hours in costs nothing.
+- Progress is keyed on the build's `build_id`, a hash of the candidate origins. Frame ids
+  are positional, so **re-running `build_dataset.py` invalidates a part-finished pass** —
+  the new build starts clean rather than applying old labels to whichever image now sits
+  at each index. Save `labels.json` before rebuilding.
 - `Save labels.json` downloads the result. Put it in `data/dataset/` next to the manifest.
 
 The header shows a running "CLIP agrees N%" figure. Watch it: if it sits near 100% you

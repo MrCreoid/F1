@@ -216,6 +216,113 @@ DRYING_FORCING_RATE = -4.7
 # inside a few minutes, and 3 * 4.0 = 12 TWI/min gets there.
 WETTING_PER_MM_H = 4.0
 
+# ---------------------------------------------------------------- B.8 dataset
+
+# Where scripts/ works. Outside DATA_DIR because the dataset is a deliverable we curate
+# and publish, not runtime state the app rewrites.
+DATASET_DIR = Path(os.getenv("WW_DATASET_DIR", BACKEND_ROOT.parent / "data"))
+SOURCES_DIR = DATASET_DIR / "sources"
+BUILD_DIR = DATASET_DIR / "dataset"
+
+# Wikimedia Commons. Their API returns HTTP 403 to a request with no User-Agent, and the
+# failure looks like a network fault rather than a policy one — an hour lost the first
+# time. The contact address is part of their published requirement, not decoration.
+COMMONS_API = "https://commons.wikimedia.org/w/api.php"
+COMMONS_USER_AGENT = "WeatherWhiplash/0.1 (hackathon project; pratyushgarg527@gmail.com)"
+
+# Machine-readable licence slugs we are willing to redistribute. Everything here permits
+# commercial use and redistribution with attribution; anything not on this list is
+# skipped and counted, never silently downgraded. NC and ND are absent deliberately —
+# a dataset nobody may reuse is not worth publishing.
+ALLOWED_LICENSES: tuple[str, ...] = (
+    "cc0",
+    "cc-by-1.0", "cc-by-2.0", "cc-by-2.5", "cc-by-3.0", "cc-by-4.0",
+    "cc-by-sa-1.0", "cc-by-sa-2.0", "cc-by-sa-2.5", "cc-by-sa-3.0", "cc-by-sa-4.0",
+    "pd", "publicdomain",
+)
+
+# Curated Commons categories, grouped by the condition each is *expected* to surface.
+# These are hints for retrieval only — a category never becomes the label.
+#
+# Categories rather than free-text search, because Commons search matches the wording of
+# a file's description page and not the picture. Measured on a 288-image run, only 36% of
+# search results had a road word in the title at all: "wet racetrack" returned a
+# passenger's window photographs of a Heathrow-to-LAX flight, and "standing water on
+# road" returned a series of Norfolk water towers, matched on "Water" and "standing by".
+# Categories are maintained by people and cost the reviewer far less time.
+#
+# Every name here was verified to contain files. Plausible-sounding ones that are empty —
+# Category:Wet asphalt, Category:Tarmac, Category:Dry asphalt — are omitted, so do not
+# add a category without checking it first.
+SOURCE_CATEGORIES: dict[str, tuple[str, ...]] = {
+    "dry": (
+        "Category:Asphalt",
+        "Category:Asphalt concrete",
+        "Category:Road surfaces",
+    ),
+    "wet": (
+        "Category:Wet roads",
+        "Category:Wet streets",
+        "Category:Reflections in puddles",
+    ),
+    "standing_water": (
+        "Category:Puddles",
+        "Category:Flooded roads",
+        "Category:Aquaplaning",
+    ),
+}
+
+# Free-text terms, used only where no category covers the condition. There is no
+# "damp roads" category on Commons — damp is the state nobody photographs deliberately,
+# which is also why zero-shot CLIP is worst at it and why the dataset is worth building.
+SOURCE_QUERIES: dict[str, tuple[str, ...]] = {
+    "damp": (
+        "damp road surface",
+        "drying road surface after rain",
+        "drying line racetrack",
+    ),
+}
+
+# Commons categories carry audio and video too: Category:Puddles holds pronunciation
+# recordings of the word "puddle". Anything not in this set is skipped.
+IMAGE_EXTENSIONS: tuple[str, ...] = (".jpg", ".jpeg", ".png", ".tif", ".tiff", ".webp")
+
+# Files to pull per category or query. 60 is the API's comfortable page size and, across
+# the categories above, yields roughly 400 candidates — enough for a linear probe.
+SOURCE_PAGE_SIZE = 60
+
+# Long edge of the thumbnail we request from Commons. Matches FRAME_MAX_EDGE so a
+# published image is exactly what the model was shown — a dataset whose images differ
+# from the pipeline's input is a dataset that documents nothing.
+SOURCE_IMAGE_EDGE = FRAME_MAX_EDGE
+
+# Per-attempt timeout and retry budget for Commons, mirroring the weather client.
+COMMONS_TIMEOUT_S = 20.0
+COMMONS_RETRIES = 3
+COMMONS_BACKOFF_S = 1.0
+
+# Pause between downloads. Measured: 0.2s earns HTTP 429 part-way through a full run,
+# because requesting a derivative size makes Commons generate the thumbnail rather than
+# serve a cached file. 1.0s keeps a ~700-image run inside their limits; the run takes
+# about fifteen minutes and is done once.
+COMMONS_DELAY_S = 1.0
+
+# A 429 is a rate limit, not a transient fault, so the ordinary backoff is far too
+# impatient — retrying two seconds later earns another 429. Waiting this long instead
+# turns a lost image into a slow one.
+COMMONS_RATE_LIMIT_BACKOFF_S = 30.0
+
+# Candidate frames below this quality never reach the labelling queue. Reviewing a
+# blown-out frame costs the same two seconds as reviewing a good one and teaches the
+# probe nothing, so the budget goes to frames a human can actually judge. Higher than
+# the runtime flag threshold: the app must still *show* a bad frame, but the dataset
+# has no reason to contain one.
+DATASET_MIN_QUALITY = 0.35
+
+# Hub repo ids. Overridable so a fork does not have to edit code to publish its own.
+HF_DATASET_REPO = os.getenv("WW_HF_DATASET", "pratyushgarg/weather-whiplash-surfaces")
+HF_MODEL_REPO = os.getenv("WW_HF_MODEL", "pratyushgarg/weather-whiplash-probe")
+
 # ---------------------------------------------------------------- runtime
 
 

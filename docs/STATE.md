@@ -1,76 +1,153 @@
 # STATE
 
-Last updated: 2026-08-12 · after Phase 7
+Last updated: 2026-08-12 · after Phase 9a
 
 ## Position
-- Phases complete: 0 (scaffold + probe), 1 (backbone), 2 (intelligence layer), 3 (design proof), 5 (frontend shell), 6 (signature element), 7 (pit call + timeline)
-- Next phase: 9 — Hugging Face. `scripts/` still does not exist and this is the only rule break left. Phase 7's frame store is the substrate `build_dataset.py` reads from, so extraction never has to be written twice.
-- Then 10 (hardening + `docs/DEMO.md`), then 8 (motion, trimmed).
-- Phase 4 (WebSocket realtime) is **skipped**, per the cut list. `GET /api/sessions/{id}/states` plus client replay gives the same thing visually — PHASES.md says batch-and-replay is "visually identical during a demo".
-- Blockers: none.
+- Phases complete: 0 (scaffold + probe), 1 (backbone), 2 (intelligence layer), 3 (design proof), 5 (frontend shell), 6 (signature element), 7 (pit call + timeline), **9a (dataset pipeline — built, not yet published)**
+- Next phase: 10 — hardening and `docs/DEMO.md`, then `/hostile`.
+- Phase 4 (WebSocket realtime) is **skipped**, per the cut list.
+- Phase 8 (motion, trimmed) is last.
+- **Blocker on Rule 3: two things only a human can supply.** See below.
+
+## Rule 3 — what is left, precisely
+
+The pipeline is built, tested and proven end to end on real data. It has not published,
+because publishing needs two inputs that are not code:
+
+1. **~2 hours of labelling.** Run `scripts/build_dataset.py`, open the tool it writes,
+   press 1–4 and 0 through the queue, save `labels.json` back into `data/dataset/`.
+2. **`HF_TOKEN` in the environment.** Not set on this machine. `push_to_hub.py` stops
+   and says how to make one rather than attempting an anonymous push.
+
+Until both happen, **Rule 3 is still broken**. Everything else about it is done:
+`fetch_sources.py`, `build_dataset.py`, `label_tool.html`, `push_to_hub.py`, an honest
+generated card, and 37 tests over the licensing and review gates.
 
 ## Competition rules — current standing
-- **Rule 1 (real frontend + backend, genuine boundary): SATISFIED.** Next.js 16 app on :3000, FastAPI on :8000, separate processes, HTTP between them. No model code in the browser.
+- **Rule 1 (real frontend + backend, genuine boundary): SATISFIED.**
 - **Rule 2 (not a wrapper): SATISFIED.** The temporal layer is the product.
-- **Rule 3 (Hugging Face visible + our own published dataset/model): NOT YET.** The remaining rule gap. Minimum fix is publishing the dataset.
-- **Rule 4 (runs with no internet): SATISFIED for the app.** Fonts are self-hosted by `next/font` at build time, weights are cached in `backend/.cache/`, thumbnails are written to local disk and served from it, weather has timeout + backoff + a bundled fallback + `WW_OFFLINE=1`. The remaining live call is Open-Meteo, which degrades correctly.
+- **Rule 3 (HF visible + our own published dataset/model): PIPELINE READY, NOT PUBLISHED.**
+- **Rule 4 (runs with no internet): SATISFIED for the app.** The dataset scripts are the
+  only network consumers and none of them runs during a demo.
 
 ## Hard measurements
-- Device: mps. Single-frame classification 18.5 ms. Full 70s clip: 263 frames end to end in 2.0 s.
-- Kalman Q = 0.05 — settles a 10-point step in 3.0 s, holds plateau noise at 0.9 from 3.0 of measurement noise.
-- Backend suite: **61 passed in 19.0 s**. Frontend: 8 chart tests pass, `tsc --noEmit` clean, `eslint` clean, `next build` succeeds.
-- Thumbnails: 480px wide, JPEG q80. A 300-frame clip writes ~300 files under `backend/data/frames/<session>/`.
-- Measured in-browser during live replay: the camera monitor was never in an unloaded state across 60 samples over 3 s. No preloading needed.
+- Device: mps. Single-frame classification 18.5 ms. Full 70s clip: 263 frames in 2.0 s.
+- Kalman Q = 0.05 — settles a 10-point step in 3.0 s, holds plateau noise at 0.9.
+- Backend suite: **98 passed in 19.9 s**. Frontend: 8 chart tests, `tsc`, `eslint`,
+  `next build` all clean.
+- Thumbnails 480px q80; a 300-frame clip writes ~300 files under `backend/data/frames/`.
+- **Retrieval precision, measured:** free-text Commons search put a road word in only
+  **36% of 288 titles**. Curated categories are near 100% on inspection of the first 20.
 
-## Decisions made and why
-- **Next rewrites `/api/*` and `/media/*` to FastAPI** rather than the browser calling :8000 directly. Same-origin means no CORS to configure and no backend host baked into client code; the boundary is still two processes over HTTP. `WW_BACKEND` splits them across machines.
-- **`allowedDevOrigins: ["127.0.0.1", "localhost"]`** — without it Next dev 403s its own `/_next/static` chunks when the app is opened on `127.0.0.1`, so the client bundle never loads and every panel silently stays empty. Cost an hour; worth the comment in `next.config.ts`.
-- **Archivo loads as a variable font with no fixed weight.** `next/font` rejects `axes` alongside `weight`, and the design drives the `wdth` axis directly.
-- **Types are generated, never hand-written** — `npm run gen:api` runs `openapi-typescript` against the live schema. If the backend changes a field, the frontend stops compiling.
-- **`GET /api/sessions/{id}/states`** returns every frame's full TrackState. This is what makes the transport controls real: play/step/scrub move an index through that history and every panel re-renders what the system knew at that frame.
-- Replay runs at 4 fps, the analysis rate, so one second on screen is one second of footage. It stops at the end rather than looping — an instrument that silently restarts would misrepresent the data.
-- The event log is **derived from state transitions**, not authored. Every row is a real change the backend reported.
-- Sample clips are committed under `backend/samples/` (10 MB total), not generated at runtime. The demo must not depend on anything being produced on the night.
-
-## Phase 6 — the signature element
-- **Hand-rolled SVG, not Recharts.** The cone is a polygon whose three vertices come from `eta_s`, `eta_optimistic_s` and `eta_pessimistic_s` — three separate scalars, not a series Recharts can plot. The stroke needs a gradient whose stops are computed from where the data crosses 25 and 65. Neither is expressible without escape hatches, and it avoids a dependency.
-- **The line shifts hue at each band crossing** (D.4). `conditionStops()` finds the exact crossing x by linear interpolation and emits paired stops at the same offset, so the transition is a hard edge. History and projection share one gradient so colour carries continuously across *now*.
-- **The countdown interpolates at 60fps** against wall time and re-syncs on each new backend value. It only runs while replay is advancing — paused, it shows exactly what the backend said for that frame.
-- **The null state names the gate that actually failed.** `projectionGap()` mirrors B.5's gates in order. Verified again this phase: the ambiguous clip reads `R² 0.28 BELOW 0.40 THRESHOLD` while the drying clip past its boundary reads `ALREADY BELOW THE SLICK THRESHOLD` — two different real reasons, not one stock string.
+## Phase 9a — the dataset pipeline
+- **Categories, not free-text search.** Commons search matches the description page, not
+  the picture. `wet racetrack` returned a passenger's photographs out of an aeroplane
+  window (`2007_07_21_lhr-lax_328.jpg`); `standing water on road` returned four Norfolk
+  water towers, matched on "Water" and "standing by"; `road drying after rain` returned a
+  Tudor house. CLIP labels them anyway — it called the house `damp` at 0.56 — because it
+  always returns a distribution over four classes whatever you show it.
+- **Every category was verified to contain files before being configured.** Plausible
+  names are routinely empty: `Category:Wet asphalt`, `Category:Tarmac`,
+  `Category:Dry asphalt`, `Category:Standing water` all return zero. An empty category is
+  indistinguishable from a typo, so do not add one unchecked.
+- **Free text survives only for `damp`.** Commons has no damp-roads category, because
+  nobody photographs a slightly wet road deliberately. That absence is the same reason
+  zero-shot CLIP is worst at damp, and the reason the dataset is worth building.
+- **`Category:Puddles` contains `.ogg` and `.wav`** recordings of people pronouncing the
+  word. `is_image()` filters on extension before anything reaches a decoder.
+- **Attribution is flushed after every source, not at the end.** The first version wrote
+  it once on completion; an interrupted run left 181 images on disk with no licence
+  recorded, which is indistinguishable from unlicensed content. Caught by looking at the
+  directory, not by a test — and then vindicated within the hour: the fetch died on
+  `Category:Aquaplaning` with `RemoteDisconnected`, and all 322 images already on disk
+  were still fully attributed. The earlier design would have lost every licence.
+- **The retry loop must catch `OSError`, not `urllib.error.URLError`.**
+  `http.client.RemoteDisconnected` is a `ConnectionResetError` and therefore an
+  `OSError`, but it is *not* a `URLError`, and urllib does not wrap it. The narrow catch
+  let one dropped connection abort a forty-minute run. `URLError` and `HTTPError` are
+  both `OSError` subclasses, so the broader catch loses nothing.
+- **A dying source costs that source, not the run.** The retrieval generators hit the
+  network lazily, so they are drained inside their own try — one unreachable category no
+  longer takes the eleven after it with it.
+- **An orphan cannot reach the export.** If a source directory has an `attribution.json`,
+  `build_dataset.collect()` skips any image missing from it. A directory with no
+  attribution file is treated as own footage and passes freely.
+- **The retrieval hint is never a label.** Recorded as `query_hint`, read by nothing.
+- **A frame no human reviewed is dropped by `apply_labels`.** Shipping auto-labels as
+  ground truth would make the dataset a record of the model's own opinion.
+- **`auto_label` is written once and never overwritten**, so the card can state how many
+  frames the reviewer changed. That number is the argument for the dataset existing.
+- **The card is generated from the manifest's own counts**, including the unflattering
+  parts: class imbalance, single-annotator, retrieval bias, geographic and night skew.
+- **`push_to_hub.py` is dry-run by default.** Publishing is a deliberate act.
+- **`HF_TOKEN` from the environment only** — never written, printed, or put in an error.
+- The label tool needs no server: `build_dataset.py` emits `manifest.js` beside it,
+  because a browser will not `fetch` a sibling JSON over `file://` but will load a script
+  tag. Progress goes to `localStorage` on every keystroke, so a closed tab costs nothing.
 
 ## Phase 7 — the frame store and the filmstrip
-- **Thumbnails are written in `main.py:_analyse_and_store`, not in the pipeline.** That function already holds both the decoded images and the session they belong to, and it is the single path both ingest routes go through — so uploads and one-click samples get images from one place. `analysis/pipeline.py` stays pure and never touches the filesystem; it still emits `thumbnail_url=None` and main.py fills it in before persisting.
-- **`write_thumbnail` converts RGB→BGR before `cv2.imwrite`.** Extraction hands out RGB; cv2 writes BGR. Skipping the conversion tints every stored frame blue, which is exactly what the classifier reads as wet — the bug would present as a model failure. There is a test asserting a red frame comes back red.
-- **Served by a `StaticFiles` mount at `/media`, with `check_dir=False`**, because the directory is created in the lifespan, which runs after the module is imported. Without the flag a cold checkout fails to start rather than simply having nothing to serve.
-- **`DELETE /api/sessions/{id}` rmtree's the session's frames.** The frame store is outside the database, so the SQLAlchemy cascade cannot reach it.
-- **The filmstrip measures itself.** How many frames fit as legible thumbnails is a question only the rendered width can answer, so a `ResizeObserver` reports it and the strip picks `floor(width / 104)` cells. Measured at 1440px: 13 cells at 111×62, which is 16:9 to within a pixel.
-- **Each cell stands for a range of frames, not a sample of one.** It shows the range's middle frame, and the cell under the playhead is therefore always well defined. A cell is marked degraded if *any* frame inside it is — the same principle as the geometric mean in B.2, a warning must not be averaged away by its neighbours.
-- **Degraded cells are hatched and dimmed to 0.5, not hidden.** First attempt was hatching alone at 1px/5px and 55% opacity; it read as a faint warm cast over bright spray rather than a mark. 1.5px/6px at 85% plus the dim survives a 100px-wide cell. Verified at 1:1 zoom — the downscaled screenshot was hiding the difference, not the design.
-- **The strip is a real `role="slider"`**, focusable, with `aria-valuenow`/`aria-valuetext`. It was a clickable `div` with `role="presentation"` — reachable by mouse only. Arrow keys already worked at the window level and still do.
-- **`next` is null on BOX, so the transition is rendered from history.** At the instant the call fires, `current` is already the new compound and the schema alone cannot say what was left. `history.at(-2).recommendation.current` is the compound being left. This is a drawing decision, not an analysis one, so it did not earn a schema field. Verified in-browser: at the firing frame the panel reads `BOX 3/3 · INTER → SLICK` with the destination in sodium, and the event log reads `Box · inter → slick`.
-- `DEGRADED_BELOW` now lives in `lib/api.ts` mirroring `config.QUALITY_FLAG_THRESHOLD`; the literal `0.25` had been inlined in three places.
+- Thumbnails are written in `main.py:_analyse_and_store`, the one function holding both
+  the decoded images and the session, and the single path both ingest routes go through.
+  `analysis/pipeline.py` stays pure and never touches the filesystem.
+- `write_thumbnail` converts RGB→BGR before `cv2.imwrite`; skipping it tints every frame
+  blue, which is what the classifier reads as wet, so the bug would look like a model
+  failure. Tested with a red frame.
+- Served by `StaticFiles` at `/media` with `check_dir=False` — the directory is made in
+  the lifespan, which runs after import.
+- The filmstrip measures itself with a `ResizeObserver` and picks `floor(width / 104)`
+  cells. Each cell covers a range and shows its middle frame; a cell is degraded if *any*
+  frame inside it is, because a warning must not be averaged away.
+- Degraded cells are hatched **and** dimmed to 0.5. Hatching alone at 55% read as a warm
+  cast over bright spray. Verified at 1:1 — the downscaled screenshot was hiding it.
+- `next` is null on BOX, so the transition is read from `history.at(-2)`. Presentation,
+  not analysis, so it earned no schema field.
+
+## Phase 6 — the signature element
+- Hand-rolled SVG, not Recharts: the cone's three vertices are separate scalars, and the
+  stroke gradient's stops are computed from where the data crosses 25 and 65.
+- The line shifts hue at each band crossing; history and projection share one gradient.
+- The countdown interpolates at 60fps against wall time, and only while replay advances.
+- `projectionGap()` names the gate that actually failed. Verified again in Phase 7: the
+  ambiguous clip reads `R² 0.28 BELOW 0.40 THRESHOLD`, the drying clip past its boundary
+  reads `ALREADY BELOW THE SLICK THRESHOLD`.
 
 ## Rejected, do not revisit
-- Wikimedia thumbnail URLs without a User-Agent — HTTP 403.
-- A separate `/api/classify` endpoint — `POST /api/sessions/{id}/frames` is already in the contract.
+- Free-text Commons search as primary retrieval — 36% precision, measured.
+- Treating a search term or category as a label — the whole point is correcting it.
+- Wikimedia requests without a User-Agent — HTTP 403.
+- A 2s backoff on HTTP 429 — it just earns another 429. Needs ~30s.
+- A separate `/api/classify` endpoint — `POST /api/sessions/{id}/frames` covers it.
 - Arithmetic mean for frame quality — one catastrophic factor must not be averaged away.
-- An "unlit segment" ghost behind the TWI digits — at any readable opacity, 47.5 scanned as 47.8.
+- An "unlit segment" ghost behind the TWI digits — 47.5 scanned as 47.8.
 - A single stock reason for a missing projection — it misreports the common case.
 - Browser-direct calls to :8000 — replaced by the Next rewrite.
-- A second, smaller thumbnail size for the strip — one 480px JPEG serves both the monitor and the filmstrip, and the bandwidth it would save does not exist over localhost.
-- Preloading the next frame's thumbnail — measured, the monitor never blanks during replay.
-- Adding a `previous_compound` field to `Recommendation` — history already carries it.
+- A second, smaller thumbnail size for the strip — one 480px JPEG serves both.
+- Preloading the next frame's thumbnail — measured, the monitor never blanks.
+- A `previous_compound` field on `Recommendation` — history already carries it.
+- `datasets` as a dependency — `huggingface_hub.upload_folder` publishes an imagefolder.
 
 ## Known broken / deferred
-- **Rule 3 is the open gap.** No `build_dataset.py`, `label_tool.html`, `train_probe.py` or `push_to_hub.py`. Phase 9.
-- **The layout does not stack below 1024px.** SPEC-DESIGN D.3 calls for frame / readout / projection / call / timeline stacked, and D.7 wants 375px. The grid is a fixed `348px 1fr 324px` with no breakpoint, so at 800px the projection panel is clipped. Pre-dates this phase; belongs to a layout pass, not the filmstrip.
-- `docs/design/sample-frame.jpg` is CC BY-SA 4.0 (Berlin E-Prix, Steffen Prößdorf) and is used only in `docs/design/`. The live app does not ship it. Now called out explicitly in `LICENSE`, which this phase added.
-- Each upload is analysed as its own run; the Kalman filter restarts rather than resuming stored history. Every demo path is a single upload.
-- The 30-minute crossover horizon gate is unreachable through config (~26.7 min worst case). Kept as a guard, tested via the `horizon_s` parameter.
+- **Rule 3 is not closed.** Labelling and `HF_TOKEN` outstanding — see the top.
+- **Commons categories contain near-duplicate photo series** (the same driveway seconds
+  apart). Phase 9b's train/test split **must split by source photo**, or duplicates leak
+  across the split and the reported accuracy is fiction.
+- **The layout does not stack below 1024px.** SPEC-DESIGN D.3 asks for it, D.7 wants
+  375px. The grid is a fixed `348px 1fr 324px` with no breakpoint; at 800px the
+  projection panel is clipped. A layout pass, not a filmstrip change.
+- **The sample clips are one unlicensed photograph with its exposure ramped.** Measured:
+  structural correlation against frame 0 falls to −0.005 by frame 599 — the picture is
+  gone, leaving flat noise. Provenance was never recorded and `scripts/build_samples.py`
+  was never committed. They are fine as a *demo of the temporal layer* and must never
+  become training data or be published.
+- The synthetic `drying` clip therefore washes out to white at the end, in the monitor
+  and the last filmstrip cells.
+- `main.py` still names `scripts/build_samples.py` in an error string; that file does not
+  exist.
+- Each upload is analysed as its own run; the Kalman filter restarts rather than resuming.
+- The 30-minute crossover horizon gate is unreachable through config (~26.7 min worst
+  case). Kept as a guard, tested via the `horizon_s` parameter.
 - Zero-shot still cannot separate dry from damp. Demo the trend, not the label.
-- The synthetic `drying` sample ends on near-white frames, so the camera monitor and the last filmstrip cells wash out at the end of that clip. It is the generated footage, not the renderer.
-- The rail's `280 FRAMES · 01:10` label is clipped by the playhead when the playhead reaches the far right.
-- Two design variants remain in `docs/design/`; the workstation is the one built.
+- The rail's `280 FRAMES · 01:10` label is clipped by the playhead at the far right.
 
 ## Run it
 
@@ -82,10 +159,14 @@ cd backend && ../.venv/bin/python -m uvicorn app.main:app --port 8000 --reload
 cd frontend && npm run dev
 # open http://localhost:3000 and click a sample clip
 
-# regenerate the typed client after any backend schema change
-cd frontend && npm run gen:api
+# the dataset, in order — see docs/DATASET.md
+.venv/bin/python scripts/fetch_sources.py
+.venv/bin/python scripts/build_dataset.py
+open data/dataset/label_tool.html
+.venv/bin/python scripts/push_to_hub.py          # dry run
+HF_TOKEN=hf_... .venv/bin/python scripts/push_to_hub.py --push
 
 # checks
-cd backend && ../.venv/bin/python -m pytest tests/ -q
+cd backend  && ../.venv/bin/python -m pytest tests/ -q
 cd frontend && npm test && npx tsc --noEmit && npm run lint && npm run build
 ```

@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Weather Whiplash · label review</title>
+<!--
+  Keyboard-driven label corrector. Opened straight off disk — no server, no build step,
+  because a labelling session that needs infrastructure is a labelling session that
+  doesn't happen.
+
+  The manifest arrives via manifest.js (a script tag, since file:// blocks fetch of a
+  sibling JSON). Progress is written to localStorage on every keystroke, so closing the
+  tab two hours in costs nothing. `Save labels.json` downloads the result.
+
+  Keys: 1 dry · 2 damp · 3 wet · 4 standing water · 0 reject · ← → move · u undo
+-->
+<style>
+  :root {
+    --base: #0E1114; --panel: #161A1F; --rule: #262C33;
+    --text: #E8EBED; --muted: #7C8791; --sodium: #FF7A1A;
+    --dry: #C9D1D9; --damp: #E0A33E; --wet: #3D7DBF; --standing: #7B5CD6; --reject: #D4574E;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--base); color: var(--text);
+    font: 14px/1.4 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    display: grid; grid-template-rows: auto minmax(0, 1fr) auto; height: 100vh;
+  }
+  header, footer { background: var(--panel); border-color: var(--rule); border-style: solid; }
+  header { border-width: 0 0 1px; padding: 10px 16px; display: flex; align-items: center; gap: 18px; }
+  footer { border-width: 1px 0 0; padding: 12px 16px; }
+  h1 { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; margin: 0; font-weight: 700; }
+  .mono { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-variant-numeric: tabular-nums; }
+  .muted { color: var(--muted); }
+
+  #bar { flex: 1; height: 6px; background: #0A0D10; box-shadow: inset 0 1px 3px #000; }
+  #bar > i { display: block; height: 100%; background: var(--sodium); transition: width .18s ease-out; }
+
+  main { display: grid; grid-template-columns: minmax(0,1fr) 280px; min-height: 0; }
+  #stage { display: grid; place-items: center; padding: 16px; min-height: 0; background: #0A0D10; }
+  #stage img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  aside { border-left: 1px solid var(--rule); padding: 16px; overflow: auto; background: var(--panel); }
+  aside h2 { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 8px; font-weight: 600; }
+  .row { display: flex; justify-content: space-between; gap: 12px; padding: 3px 0; }
+  .prob { height: 4px; background: #0A0D10; margin: 2px 0 8px; }
+  .prob > i { display: block; height: 100%; }
+
+  .keys { display: flex; gap: 8px; flex-wrap: wrap; }
+  .key {
+    flex: 1 1 auto; min-width: 96px; text-align: left; cursor: pointer; color: var(--text);
+    background: #1C222A; border: 1px solid var(--rule); border-left-width: 3px; padding: 8px 10px;
+    font: inherit;
+  }
+  .key b { display: block; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
+  .key span { color: var(--muted); font-size: 11px; }
+  .key:focus-visible { outline: 2px solid var(--sodium); outline-offset: 2px; }
+  .tally { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 10px; }
+
+  #done { display: none; padding: 40px; text-align: center; }
+  button.save {
+    background: var(--sodium); color: #0A0D10; border: 0; padding: 8px 14px; cursor: pointer;
+    font-weight: 700; letter-spacing: .08em; text-transform: uppercase; font-size: 11px;
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Label review</h1>
+  <span id="count" class="mono muted">—</span>
+  <span id="bar"><i style="width:0"></i></span>
+  <span id="agree" class="mono muted">—</span>
+  <button class="save" id="save">Save labels.json</button>
+</header>
+
+<main>
+  <div id="stage"><img id="shot" alt="Frame awaiting a label" /></div>
+  <aside>
+    <h2>CLIP proposes</h2>
+    <div class="row"><span id="auto" class="mono">—</span><span id="conf" class="mono muted">—</span></div>
+    <div id="probs"></div>
+
+    <h2 style="margin-top:18px">Source</h2>
+    <div class="row"><span class="muted">Origin</span><span id="origin" class="mono" style="text-align:right;word-break:break-all">—</span></div>
+    <div class="row"><span class="muted">Searched as</span><span id="hint" class="mono">—</span></div>
+    <div class="row"><span class="muted">Quality</span><span id="quality" class="mono">—</span></div>
+
+    <h2 style="margin-top:18px">Your call</h2>
+    <div class="keys" id="keys"></div>
+    <div class="tally mono" id="tally"></div>
+  </aside>
+</main>
+
+<footer class="muted">
+  <span class="mono">1</span> dry ·
+  <span class="mono">2</span> damp ·
+  <span class="mono">3</span> wet ·
+  <span class="mono">4</span> standing water ·
+  <span class="mono">0</span> reject (not a road surface) ·
+  <span class="mono">←→</span> move ·
+  <span class="mono">u</span> undo last
+</footer>
+
+<script src="manifest.js"></script>
+<script>
+(() => {
+  "use strict";
+  const CLASSES = [
+    { key: "1", name: "dry",            label: "Dry",            color: "var(--dry)",      hint: "matte, uniform, no sheen" },
+    { key: "2", name: "damp",           label: "Damp",           color: "var(--damp)",     hint: "darkened, no reflections" },
+    { key: "3", name: "wet",            label: "Wet",            color: "var(--wet)",      hint: "specular, reflects light" },
+    { key: "4", name: "standing_water", label: "Standing water", color: "var(--standing)", hint: "pooled water, spray" },
+    { key: "0", name: "reject",         label: "Reject",         color: "var(--reject)",   hint: "not a road surface" },
+  ];
+  const STORE = "ww-labels-v1";
+
+  const items = window.MANIFEST || [];
+  if (!items.length) {
+    document.body.innerHTML =
+      '<p style="padding:40px">No manifest.js beside this file. Run scripts/build_dataset.py first, ' +
+      'then open the copy it writes into the dataset directory.</p>';
+    return;
+  }
+
+  // Reload-safe: two hours of clicking must survive a closed tab.
+  const saved = JSON.parse(localStorage.getItem(STORE) || "{}");
+  items.forEach(it => { if (saved[it.id]) it.label = saved[it.id]; });
+
+  const el = id => document.getElementById(id);
+  const history = [];
+  // Resume where the work stopped, not at the top.
+  let at = Math.max(0, items.findIndex(it => !it.label));
+  if (at === -1) at = 0;
+
+  el("keys").innerHTML = CLASSES.map(c =>
+    `<button class="key" data-name="${c.name}" style="border-left-color:${c.color}">
+       <b>${c.key} · ${c.label}</b><span>${c.hint}</span>
+     </button>`).join("");
+  el("keys").addEventListener("click", e => {
+    const button = e.target.closest("[data-name]");
+    if (button) assign(button.dataset.name);
+  });
+
+  function persist() {
+    const map = {};
+    items.forEach(it => { if (it.label) map[it.id] = it.label; });
+    localStorage.setItem(STORE, JSON.stringify(map));
+  }
+
+  function assign(name) {
+    history.push({ index: at, previous: items[at].label });
+    items[at].label = name;
+    persist();
+    move(1);
+  }
+
+  function undo() {
+    const last = history.pop();
+    if (!last) return;
+    items[last.index].label = last.previous;
+    at = last.index;
+    persist();
+    render();
+  }
+
+  function move(delta) {
+    at = Math.min(items.length - 1, Math.max(0, at + delta));
+    render();
+  }
+
+  function render() {
+    const it = items[at];
+    const done = items.filter(x => x.label).length;
+    const judged = items.filter(x => x.label && x.label !== "reject");
+    const agreed = judged.filter(x => x.label === x.auto_label).length;
+
+    el("shot").src = it.file;
+    el("count").textContent = `${at + 1} / ${items.length} · ${done} labelled`;
+    el("bar").firstElementChild.style.width = `${(done / items.length) * 100}%`;
+    el("agree").textContent = judged.length
+      ? `CLIP agrees ${Math.round((agreed / judged.length) * 100)}%`
+      : "—";
+
+    el("auto").textContent = it.auto_label.replace("_", " ");
+    el("conf").textContent = it.auto_confidence.toFixed(2);
+    el("origin").textContent = it.origin;
+    el("hint").textContent = it.query_hint || "—";
+    el("quality").textContent = it.quality.toFixed(2);
+
+    el("probs").innerHTML = CLASSES.slice(0, 4).map(c => `
+      <div class="row"><span class="muted">${c.label}</span>
+        <span class="mono">${(it.probabilities[c.name] ?? 0).toFixed(2)}</span></div>
+      <div class="prob"><i style="width:${(it.probabilities[c.name] ?? 0) * 100}%;background:${c.color}"></i></div>`
+    ).join("");
+
+    el("tally").innerHTML = CLASSES.map(c => {
+      const n = items.filter(x => x.label === c.name).length;
+      return `<span style="color:${c.color}">${c.label} ${n}</span>`;
+    }).join("");
+
+    document.querySelectorAll("[data-name]").forEach(b => {
+      b.style.background = b.dataset.name === it.label ? "#2A323A" : "#1C222A";
+    });
+  }
+
+  document.addEventListener("keydown", e => {
+    if (e.metaKey || e.ctrlKey) return;
+    const hit = CLASSES.find(c => c.key === e.key);
+    if (hit) { e.preventDefault(); assign(hit.name); return; }
+    if (e.key === "ArrowRight") { e.preventDefault(); move(1); }
+    if (e.key === "ArrowLeft")  { e.preventDefault(); move(-1); }
+    if (e.key === "u")          { e.preventDefault(); undo(); }
+  });
+
+  el("save").addEventListener("click", () => {
+    const payload = items
+      .filter(it => it.label)
+      .map(it => ({ id: it.id, label: it.label, auto_label: it.auto_label }));
+    const url = URL.createObjectURL(
+      new Blob([JSON.stringify(payload, null, 2) + "\n"], { type: "application/json" }));
+    const a = document.createElement("a");
+    a.href = url; a.download = "labels.json"; a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

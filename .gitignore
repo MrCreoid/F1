@@ -10,3 +10,12 @@ __pycache__/
 .DS_Store
 .remember/
 backend/data/
+
+# Dataset working area. The images are re-fetchable and the published copy lives on the
+# Hub; the JSON is the irreplaceable part — licences and human labels — so it stays.
+data/sources/*
+!data/sources/attribution.json
+data/dataset/images/
+data/dataset/manifest.js
+data/dataset/label_tool.html
+data/export/data/

@@ -203,12 +203,31 @@ body {
   animation: ww-rise 0.5s cubic-bezier(0.16, 1, 0.3, 1) backwards;
 }
 
+/* The chart line draws left to right, once per session. pathLength="1" normalises the
+   dash maths so it works whatever the real path length is. */
+@keyframes ww-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.ww-draw {
+  stroke-dasharray: 1;
+  animation: ww-draw 0.9s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
 /* Idle is genuinely still, and reduced motion keeps colour and layout while dropping
    every movement. */
 @media (prefers-reduced-motion: reduce) {
   .ww-breathe,
-  .ww-rise {
+  .ww-rise,
+  .ww-draw {
     animation: none;
+  }
+  .ww-draw {
+    stroke-dasharray: none;
   }
   .ww-arm {
     animation: none;

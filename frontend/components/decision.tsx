@@ -8,7 +8,52 @@
  * backend returns `crossover: null`, the panel says so rather than drawing a guess.
  */
 
+import { useEffect, useState } from "react";
 import { clock, trendColor, type TrackState } from "@/lib/api";
+import { conditionStops, interpolateEta, projectionGap } from "@/lib/chart";
+
+/**
+ * A countdown that ticks between server updates.
+ *
+ * The backend emits an ETA once per analysed frame — four times a second. Rendering
+ * that value directly makes the number step, which reads as a stale display. This
+ * interpolates against wall time on an animation frame, and re-syncs the moment a new
+ * value arrives, so the readout is live at the display's own refresh rate.
+ *
+ * It only runs while the data is advancing. Paused or scrubbing, the reading is frozen
+ * at exactly what the backend said for that frame — an instrument must not invent time
+ * that is not passing.
+ */
+function useLiveEta(etaSeconds: number | null, running: boolean): number | null {
+  // Tagged with the value it was derived from, so a frame left over from the previous
+  // sample can never be shown against a new one.
+  const [live, setLive] = useState<{ from: number; value: number } | null>(null);
+
+  useEffect(() => {
+    if (!running || etaSeconds === null) return;
+    const sampledAt = performance.now();
+    let frame = 0;
+    const loop = () => {
+      setLive({ from: etaSeconds, value: interpolateEta(etaSeconds, performance.now() - sampledAt) });
+      frame = requestAnimationFrame(loop);
+    };
+    frame = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(frame);
+  }, [etaSeconds, running]);
+
+  if (etaSeconds === null) return null;
+  if (!running) return etaSeconds;
+  return live?.from === etaSeconds ? live.value : etaSeconds;
+}
+
+/** mm:ss.d — the tenth is what makes the interpolation visible. */
+function preciseClock(seconds: number): string {
+  const total = Math.max(0, seconds);
+  const m = Math.floor(total / 60);
+  const s = Math.floor(total % 60);
+  const tenth = Math.floor((total * 10) % 10);
+  return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}.${tenth}`;
+}
 
 /* ────────────────────────────────── hero instrument ─────────────────────────────── */
 
@@ -153,7 +198,15 @@ const X1 = 540;
 const Y0 = 14;
 const Y1 = 272;
 
-export function CrossoverProjection({ state, history }: { state: TrackState; history: TrackState[] }) {
+export function CrossoverProjection({
+  state,
+  history,
+  running = false,
+}: {
+  state: TrackState;
+  history: TrackState[];
+  running?: boolean;
+}) {
   const now = new Date(state.timestamp).getTime();
   const elapsed = history.length ? (now - new Date(history[0].timestamp).getTime()) / 1000 : 0;
 
@@ -169,11 +222,12 @@ export function CrossoverProjection({ state, history }: { state: TrackState; his
   const xNow = x(0);
 
   const visible = history.filter((s) => (new Date(s.timestamp).getTime() - now) / 1000 >= -pastSpan);
-  const historyPath = visible
-    .map((s, i) => {
-      const t = (new Date(s.timestamp).getTime() - now) / 1000;
-      return `${i ? "L" : "M"}${x(t).toFixed(1)},${y(s.twi).toFixed(1)}`;
-    })
+  const points = visible.map((s) => ({
+    x: x((new Date(s.timestamp).getTime() - now) / 1000),
+    twi: s.twi,
+  }));
+  const historyPath = points
+    .map((p, i) => `${i ? "L" : "M"}${p.x.toFixed(1)},${y(p.twi).toFixed(1)}`)
     .join(" ");
 
   /* The projection is the backend's fitted slope drawn forward — not a refit. */
@@ -184,16 +238,31 @@ export function CrossoverProjection({ state, history }: { state: TrackState; his
   const coneOptimistic = cross ? x(cross.eta_optimistic_s) : 0;
   const conePessimistic = cross ? x(cross.eta_pessimistic_s) : 0;
 
+  /* D.4: the line shifts hue as it crosses threshold bands, because it is coloured by
+     the condition it describes. Stops are computed from where the series actually
+     crosses 25 and 65 — history and projection share one gradient so the colour carries
+     continuously across `now`. */
+  const stops = conditionStops(
+    [...points, { x: x(futureSpan), twi: projEnd }],
+    X0,
+    X1,
+  );
+
+  const liveEta = useLiveEta(cross ? cross.eta_s : null, running);
+  /* One key per session so the draw-in plays on load, not on every scrub. */
+  const drawKey = history.length > 0 ? history[0].timestamp : "empty";
+
   return (
     <div className="grid min-h-0 grid-rows-[auto_minmax(0,1fr)_auto] bg-mat-panel">
       <div className="panel-head">
         <span className="section-title">Crossover projection</span>
-        {cross ? (
+        {cross && liveEta !== null ? (
           <span
             className="tnum text-t20 font-semibold text-sodium"
             style={{ textShadow: "0 0 14px rgba(255,122,26,.4)" }}
+            aria-label={`Crossover in ${clock(cross.eta_s)}`}
           >
-            {clock(cross.eta_s)}
+            {preciseClock(liveEta)}
           </span>
         ) : (
           <span className="font-mono text-[10px] tracking-[.1em] text-text-muted">NO PROJECTION</span>
@@ -220,6 +289,12 @@ export function CrossoverProjection({ state, history }: { state: TrackState; his
             <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
               <line x1="0" y1="0" x2="0" y2="6" stroke="#FF7A1A" strokeWidth="1" strokeOpacity="0.16" />
             </pattern>
+            {/* the hue-shifting stroke */}
+            <linearGradient id="condition" gradientUnits="userSpaceOnUse" x1={X0} y1="0" x2={X1} y2="0">
+              {stops.map((s, i) => (
+                <stop key={i} offset={s.offset} stopColor={s.color} />
+              ))}
+            </linearGradient>
           </defs>
 
           {/* compound zones */}
@@ -265,15 +340,25 @@ export function CrossoverProjection({ state, history }: { state: TrackState; his
             </>
           )}
 
-          {/* history */}
-          <path d={historyPath} fill="none" stroke="var(--color-state-damp)" strokeWidth={2.25} strokeLinejoin="round" strokeLinecap="round" />
+          {/* history — solid, hue shifting at each band crossing, drawn in once */}
+          <path
+            key={drawKey}
+            className="ww-draw"
+            pathLength={1}
+            d={historyPath}
+            fill="none"
+            stroke="url(#condition)"
+            strokeWidth={2.25}
+            strokeLinejoin="round"
+            strokeLinecap="round"
+          />
 
           {/* projection, dashed past now — drawn only when the trend gate passed */}
           {state.trend.sufficient_signal && (
             <path
               d={`M${xNow},${y(state.twi)} L${x(futureSpan)},${y(projEnd)}`}
               fill="none"
-              stroke="var(--color-state-damp)"
+              stroke="url(#condition)"
               strokeWidth={4}
               strokeDasharray="9 7"
               opacity={0.55}
@@ -316,9 +401,12 @@ export function CrossoverProjection({ state, history }: { state: TrackState; his
                 NO RELIABLE PROJECTION
               </text>
               <text x={(xNow + X1) / 2} y={(Y0 + Y1) / 2 + 10} fill="#7C8791" fontSize="10">
-                {state.trend.r_squared < 0.4
-                  ? `R² ${state.trend.r_squared.toFixed(2)} BELOW THRESHOLD`
-                  : `RATE ${Math.abs(rate).toFixed(1)}/MIN BELOW THRESHOLD`}
+                {projectionGap({
+                  twi: state.twi,
+                  ratePerMin: rate,
+                  rSquared: state.trend.r_squared,
+                  sufficientSignal: state.trend.sufficient_signal,
+                }).toUpperCase()}
               </text>
             </g>
           )}

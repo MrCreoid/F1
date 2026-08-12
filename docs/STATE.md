@@ -1,10 +1,10 @@
 # STATE
 
-Last updated: 2026-08-12 · after Phase 5
+Last updated: 2026-08-12 · after Phase 6
 
 ## Position
-- Phases complete: 0 (scaffold + probe), 1 (backbone), 2 (intelligence layer), 3 (design proof), 5 (frontend shell)
-- Next phase: 6 — the signature element. The projection panel already renders threshold bands, the dashed projection, the shaded cone, the sodium crossing marker and the null state; Phase 6 owns the client-interpolated 60fps countdown and a polish pass on that panel.
+- Phases complete: 0 (scaffold + probe), 1 (backbone), 2 (intelligence layer), 3 (design proof), 5 (frontend shell), 6 (signature element)
+- Next phase: 7 — pit call and timeline: per-frame thumbnails, the wetness heat strip over real images, low-quality hatching, arrow-key stepping already works.
 - Phase 4 (WebSocket realtime) is **skipped**, per the cut list. `GET /api/sessions/{id}/states` plus client replay gives the same thing visually — PHASES.md says batch-and-replay is "visually identical during a demo".
 - Blockers: none.
 
@@ -17,7 +17,7 @@ Last updated: 2026-08-12 · after Phase 5
 ## Hard measurements
 - Device: mps. Single-frame classification 18.5 ms. Full 70s clip: 263 frames end to end in 2.0 s.
 - Kalman Q = 0.05 — settles a 10-point step in 3.0 s, holds plateau noise at 0.9 from 3.0 of measurement noise.
-- Backend suite: 54 passed in 14.4 s. Frontend: `tsc --noEmit` clean, `eslint` clean, `next build` succeeds.
+- Backend suite: 54 passed in 14.3 s. Frontend: 8 chart tests pass, `tsc --noEmit` clean, `eslint` clean, `next build` succeeds.
 
 ## Decisions made and why
 - **Next rewrites `/api/*` to FastAPI** rather than the browser calling :8000 directly. Same-origin means no CORS to configure and no backend host baked into client code; the boundary is still two processes over HTTP. `WW_BACKEND` splits them across machines.
@@ -29,11 +29,19 @@ Last updated: 2026-08-12 · after Phase 5
 - The event log is **derived from state transitions**, not authored. Every row is a real change the backend reported.
 - Sample clips are committed under `backend/samples/` (10 MB total), not generated at runtime. The demo must not depend on anything being produced on the night. Pixel grain was removed from the ambiguous clip — it was incompressible and pushed that file to 36 MB with no analytical benefit.
 
+## Phase 6 — the signature element
+- **Hand-rolled SVG, not Recharts.** The cone is a polygon whose three vertices come from `eta_s`, `eta_optimistic_s` and `eta_pessimistic_s` — three separate scalars, not a series Recharts can plot. The stroke needs a gradient whose stops are computed from where the data crosses 25 and 65. Neither is expressible without escape hatches, and it avoids a dependency.
+- **The line shifts hue at each band crossing** (D.4). `conditionStops()` finds the exact crossing x by linear interpolation and emits paired stops at the same offset, so the transition is a hard edge — the track is either side of a threshold, never smeared across it. History and projection share one gradient so colour carries continuously across *now*.
+- **The countdown interpolates at 60fps** against wall time and re-syncs on each new backend value. Verified in-browser: 02:58.2 → 02:58.1 → 02:58.1, then a jump to 02:31.5 as a new frame landed. It only runs while replay is advancing — paused, it shows exactly what the backend said for that frame, because an instrument must not invent time that is not passing.
+- **The null state names the gate that actually failed.** The first version printed "R² below threshold" whenever there was no crossover, which was a lie in the common case: a track already under 25 while drying has a fine R² and a steep rate. `projectionGap()` mirrors B.5's gates in order and distinguishes low fit, disagreeing estimators, a shallow rate, being past the last boundary, and the horizon. Caught by looking at the running app, which showed "R² 0.72 BELOW THRESHOLD" next to a readout saying R² 0.72 and Signal *Sufficient*.
+- `lib/chart.ts` is pure and covered by 8 node:test assertions — the only frontend logic with real branching.
+
 ## Rejected, do not revisit
 - Wikimedia thumbnail URLs without a User-Agent — HTTP 403.
 - A separate `/api/classify` endpoint — `POST /api/sessions/{id}/frames` is already in the contract.
 - Arithmetic mean for frame quality — one catastrophic factor must not be averaged away.
 - An "unlit segment" ghost behind the TWI digits — at any readable opacity, 47.5 scanned as 47.8.
+- A single stock reason for a missing projection — it misreports the common case.
 - Browser-direct calls to :8000 — replaced by the Next rewrite.
 
 ## Known broken / deferred

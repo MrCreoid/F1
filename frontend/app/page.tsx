@@ -172,7 +172,7 @@ export default function Workstation() {
         style={{ gridArea: "b", animationDelay: ".09s" }}
       >
         <HeroInstrument state={current} history={upTo} />
-        <CrossoverProjection state={current} history={upTo} />
+        <CrossoverProjection state={current} history={upTo} running={playing} />
       </section>
 
       <section

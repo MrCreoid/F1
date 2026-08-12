@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import uuid
 from contextlib import asynccontextmanager
+from pathlib import Path
 from typing import AsyncIterator
 
 from fastapi import Depends, FastAPI, File, HTTPException, UploadFile
@@ -21,6 +22,7 @@ from app.extraction import decode_image_bytes, extract_frames
 from app.schemas import (
     FrameClassification,
     HealthResponse,
+    Sample,
     SessionCreate,
     SessionDetail,
     SessionSummary,
@@ -28,6 +30,31 @@ from app.schemas import (
     VideoUploadResponse,
     WeatherResponse,
 )
+
+
+# Bundled demo footage. `story` is what a judge should watch for — the ambiguous clip is
+# demoed on purpose, because a system that admits it does not know is the hardest thing
+# to fake and the best answer to "what if it's wrong?".
+SAMPLES: list[dict[str, object]] = [
+    {
+        "id": "drying",
+        "name": "Drying line",
+        "story": "Wet track clears. Watch the crossover fire and the pit call arm.",
+        "duration_s": 75.0,
+    },
+    {
+        "id": "wetting",
+        "name": "Rain arriving",
+        "story": "Dry to wet to standing water. Conditions deteriorate.",
+        "duration_s": 75.0,
+    },
+    {
+        "id": "ambiguous",
+        "name": "Ambiguous",
+        "story": "A damp track that never commits, with spray on the lens. No reliable projection.",
+        "duration_s": 70.0,
+    },
+]
 
 
 @asynccontextmanager
@@ -165,6 +192,18 @@ def _analyse_and_store(
     return stored
 
 
+@app.get("/api/sessions/{session_id}/states", response_model=list[TrackState])
+def get_states(session_id: str, database: OrmSession = Depends(get_db)) -> list[TrackState]:
+    """Every analysed frame's full state, in order.
+
+    This is the replay path. With per-frame state on the client, the UI can step through
+    a session and show exactly what the system knew at each moment — which is what Phase
+    4's WebSocket would have delivered visually, without the socket.
+    """
+    record = _load_session(session_id, database)
+    return [TrackState.model_validate(f.state) for f in record.frames if f.state is not None]
+
+
 @app.delete("/api/sessions/{session_id}", status_code=204)
 def delete_session(session_id: str, database: OrmSession = Depends(get_db)) -> None:
     database.delete(_load_session(session_id, database))
@@ -197,6 +236,30 @@ async def upload_frames(
     return [_to_classification(f) for f in stored]
 
 
+@app.get("/api/samples", response_model=list[Sample])
+def list_samples() -> list[Sample]:
+    return [Sample(**s) for s in SAMPLES]
+
+
+@app.post("/api/sessions/{session_id}/sample/{sample_id}", response_model=VideoUploadResponse)
+def analyse_sample(
+    session_id: str, sample_id: str, database: OrmSession = Depends(get_db)
+) -> VideoUploadResponse:
+    """One-click demo path. Same pipeline as an upload, no file transfer."""
+    record = _load_session(session_id, database)
+    known = {s["id"] for s in SAMPLES}
+    if sample_id not in known:
+        raise HTTPException(status_code=404, detail=f"No sample {sample_id}")
+
+    path = config.SAMPLES_DIR / f"{sample_id}.mp4"
+    if not path.exists():
+        raise HTTPException(
+            status_code=500,
+            detail=f"Sample footage missing: {path.name}. Run scripts/build_samples.py",
+        )
+    return _run_video(record, database, path, job_id=str(uuid.uuid4()))
+
+
 @app.post("/api/sessions/{session_id}/video", response_model=VideoUploadResponse)
 async def upload_video(
     session_id: str,
@@ -216,8 +279,15 @@ async def upload_video(
     video_path = destination / f"{job_id}-{file.filename or 'clip.mp4'}"
     video_path.write_bytes(payload)
 
+    return _run_video(record, database, video_path, job_id=job_id)
+
+
+def _run_video(
+    record: db.Session, database: OrmSession, path: Path, *, job_id: str
+) -> VideoUploadResponse:
+    """Extract, classify, analyse, persist. The single path for uploads and samples alike."""
     try:
-        extraction = extract_frames(video_path)
+        extraction = extract_frames(path)
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 

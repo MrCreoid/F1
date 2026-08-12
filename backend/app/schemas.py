@@ -123,6 +123,15 @@ class VideoUploadResponse(BaseModel):
     duration_s: float
 
 
+class Sample(BaseModel):
+    """Bundled demo footage. `story` is what a judge should watch for."""
+
+    id: str
+    name: str
+    story: str
+    duration_s: float
+
+
 class WeatherResponse(BaseModel):
     """Normalised conditions plus the drying prior derived from them (B.7)."""
 

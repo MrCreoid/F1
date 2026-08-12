@@ -23,6 +23,10 @@ CACHE_DIR = Path(os.getenv("WW_CACHE_DIR", BACKEND_ROOT / ".cache"))
 # Everything the app writes at runtime. Overridable so tests never touch dev data.
 DATA_DIR = Path(os.getenv("WW_DATA_DIR", BACKEND_ROOT / "data"))
 UPLOAD_DIR = DATA_DIR / "uploads"
+
+# Bundled demo footage. Committed, not generated at runtime: the demo must not depend on
+# anything being downloaded or produced on the night.
+SAMPLES_DIR = BACKEND_ROOT / "samples"
 DATABASE_URL = f"sqlite:///{DATA_DIR / 'whiplash.db'}"
 
 # ---------------------------------------------------------------- model

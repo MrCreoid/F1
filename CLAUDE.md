@@ -77,9 +77,11 @@ are all secondary to it. If STATE.md and your recollection disagree, STATE.md is
 ## Every session starts like this
 
 1. Read @docs/STATE.md.
-2. Run `git log --oneline -10` to see what actually landed.
-3. State in one line: last phase completed, next phase, any open blocker.
-4. Then do what I asked.
+2. Read @docs/HANDOFF.md for the ordered plan and the traps that waste an hour each.
+   STATE.md is where we are; HANDOFF.md is where we're going. STATE.md wins on conflict.
+3. Run `git log --oneline -10` to see what actually landed.
+4. State in one line: last phase completed, next phase, any open blocker.
+5. Then do what I asked.
 
 ## Every phase ends like this
 

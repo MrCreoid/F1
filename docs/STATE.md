@@ -8,9 +8,14 @@ Last updated: 2026-08-12 · after Phase 3 (second pass)
 - Blockers: none technical. **Choose `design-proof.html` (restrained) or `design-proof-dense.html` (telemetry wall).**
 
 ## The two variants
-- `frontend/design-proof.html` — "instrument". The D.3 layout, restrained, one dominant reading. Rebuilt after the first pass was judged not premium.
-- `frontend/design-proof-dense.html` — "telemetry wall". Maximalism read as *information density*, not ornament: 3 columns, 11-field status bar, stacked class-probability history, quality meters, weather panel, fusion split, event log. Same six tokens, same three faces, same D.1 bans.
-- Decorative maximalism (ornament, layered texture, clashing colour) was rejected outright: it breaks D.1, which is project law, and fights the pit-wall concept. Density is the only reading of "maximalism" that is on-theme here.
+- `frontend/design-proof.html` — "instrument". The D.3 layout, restrained, one dominant reading.
+- `frontend/design-proof-dense.html` — **"engineering workstation"**, the current front-runner. Same information architecture as before, redesigned to a human brief: modern industrial skeuomorphism as the primary personality, Swiss/flat for all information, restrained neo-brutalist structure, micro-neumorphism confined to the transport controls, and glass used exactly once (the camera OSD, where layering is literal).
+- Decorative maximalism was rejected outright: it breaks D.1 and fights the pit-wall concept. Maximalism here means density of *information*.
+
+## SPEC-DESIGN amendment — human-approved 2026-08-12
+The workstation brief conflicts with two clauses of SPEC-DESIGN D.1. The human's instruction overrides; both are deliberate, not drift:
+- **"No drop shadows on flat dark surfaces"** — depth is now central to the design. Reconciled by using *inset* wells and edge-lighting (bright top lip, shadowed underside) rather than cards floating on outer shadows. The interface reads as machined, not layered.
+- **"Six palette tokens, no others"** — a structural **material ramp** was added (`--mat-well/chassis/panel/raised`, `--rule`). The six *semantic* tokens are untouched and still carry all meaning; material values are surface-only, exactly as `--hairline` always was. Density is the only reading of "maximalism" that is on-theme here.
 
 ## Hard measurements
 - Device: mps (Apple Silicon, torch 2.13.0, transformers 5.15.0). This Mac is the demo machine.
@@ -44,6 +49,8 @@ Last updated: 2026-08-12 · after Phase 3 (second pass)
 
 ## Known broken / deferred
 - **Phase 3 needs sign-off.** Look at it before Phase 5 builds on the direction.
+- The workstation redesign added three **transport controls** (step back / play / step forward) to the timeline. This is the only element on screen with no counterpart in the previous version. It is not new scope — PHASES.md Phase 7 already specifies "click to scrub, arrow keys to step" — but it is currently a visual affordance with no behaviour, and Phase 7 must wire it.
+- Content parity between the old and new dense variants was verified by diffing visible text: **every number and word survived**; the only delta is the `<title>` and added metadata labels (codec, resolution, REC, "recommended action", "time to transition", "fused rate").
 - Sample frame is Berlin E-Prix 2023 by Steffen Prößdorf, Wikimedia Commons, **CC BY-SA 4.0 — attribution required, and share-alike**. Fine for a hackathon demo with the credit that is in the HTML comment, but swap it for own footage or a CC0 image before publishing anything derived from it.
 - The impeccable design detector runs **degraded** on this machine (htmlparser2, css-select, css-tree, domutils missing). It returned no findings, which is an undercount, not a clean bill. Contrast and palette were checked by hand instead.
 - The 30-minute crossover horizon gate is unreachable through config — widest band at the minimum rate crosses in ~26.7 min. Kept as a guard, tested via the `horizon_s` parameter.

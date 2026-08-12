@@ -3,21 +3,29 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Weather Whiplash — telemetry wall</title>
+<title>Weather Whiplash — engineering workstation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&family=Inter+Tight:wght@400;500&display=swap" rel="stylesheet">
+<!-- Phase 5 self-hosts via next/font. CDN is acceptable for a static proof only. -->
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 /*
-  MAXIMALISM, redefined for this subject: density of information, not of decoration.
-  The reference is an FIA timing tower and a glass cockpit — surfaces that are maximal
-  because every square centimetre is carrying a measurement. Same six tokens, same three
-  faces, same bans. Nothing here is ornament; every element is a readout.
+  WEATHER WHIPLASH — race engineering workstation.
+
+  Material, not decoration. Depth comes from recessed wells, edge-lighting and value
+  steps between surfaces — the way a machined panel catches light — never from blur,
+  floating cards or glowing chrome. Every instrument here is set *into* the chassis.
+
+  Four languages, deliberately mixed:
+    · modern industrial skeuomorphism — bezels, wells, engraved labels, tick scales
+    · Swiss/flat                      — all typography, tables, logs, metadata
+    · restrained neo-brutalist        — structural rules, asymmetry, unapologetic density
+    · micro-neumorphism               — the transport controls only, nothing larger
+  Glass appears exactly once, on the camera overlay, where layering is literal.
 */
+
 :root {
-  --surface-base: #0E1114;
-  --surface-raised: #161A1F;
-  --hairline: #262C33;
+  /* ── semantic tokens: these carry meaning and are unchanged ── */
   --text-primary: #E8EBED;
   --text-muted: #7C8791;
   --sodium: #FF7A1A;
@@ -29,7 +37,17 @@
   --trend-improving: #4FB477;
   --trend-worsening: #D4574E;
 
-  --edge-top: rgba(232, 235, 237, 0.055);
+  /* ── material ramp: structural only, never semantic ── */
+  --mat-well: #070A0C;      /* instrument interior, deepest recess */
+  --mat-chassis: #0E1114;   /* the body everything is set into */
+  --mat-panel: #14181D;     /* panel face */
+  --mat-raised: #1A1F26;    /* bezels and rails, catching light */
+  --hairline: #262C33;
+  --rule: #2E353D;          /* structural divider, one step above hairline */
+
+  /* Edge lighting. A machined edge is bright on top, shadowed underneath. */
+  --edge-hi: rgba(255, 255, 255, 0.072);
+  --edge-lo: rgba(0, 0, 0, 0.66);
 
   --t-11: 11px; --t-13: 13px; --t-15: 15px; --t-20: 20px;
   --t-32: 32px; --t-64: 64px; --t-128: 128px;
@@ -40,10 +58,10 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { background: var(--surface-base); }
+html { background: var(--mat-chassis); }
 
 body {
-  background: var(--surface-base);
+  background: var(--mat-chassis);
   color: var(--text-primary);
   font-family: var(--body);
   font-size: var(--t-13);
@@ -51,326 +69,593 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-::selection { background: var(--sodium); color: var(--surface-base); }
-::-webkit-scrollbar { width: 9px; height: 9px; }
-::-webkit-scrollbar-track { background: var(--surface-base); }
-::-webkit-scrollbar-thumb { background: var(--hairline); }
-::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
-* { scrollbar-color: var(--hairline) var(--surface-base); scrollbar-width: thin; }
+::selection { background: var(--sodium); color: var(--mat-chassis); }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--mat-well); }
+::-webkit-scrollbar-thumb { background: var(--mat-raised); border: 1px solid var(--mat-well); }
+::-webkit-scrollbar-thumb:hover { background: #242A32; }
+* { scrollbar-color: var(--mat-raised) var(--mat-well); scrollbar-width: thin; }
 :focus-visible { outline: 2px solid var(--sodium); outline-offset: 2px; }
 
-.num { font-family: var(--mono); font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1; }
-.u { color: var(--text-muted); font-size: .82em; }
+/* ─────────────────────────────────────────────── material primitives */
 
-.k {
-  font-size: var(--t-11); letter-spacing: .13em; text-transform: uppercase;
-  color: var(--text-muted); font-weight: 500;
+/* A well: the instrument is set into the panel. Dark floor, shadow under the top lip,
+   light catching the bottom lip. This is the single most load-bearing effect here. */
+.well {
+  background: var(--mat-well);
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.92),
+    inset 0 1px 0 var(--edge-lo),
+    inset 0 -1px 0 var(--edge-hi);
 }
 
+/* A bezel: raised material, lit along its top edge. */
+.bezel {
+  background: linear-gradient(180deg, var(--mat-raised) 0%, var(--mat-panel) 100%);
+  box-shadow: inset 0 1px 0 var(--edge-hi), 0 1px 0 rgba(0, 0, 0, 0.45);
+}
+
+/* Chamfered corner: engineered, not rounded. Outer element is the cut edge, inner is
+   the face — the 1px difference reads as a machined bevel. */
+.chamfer { clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); }
+.chamfer-sm { clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px); }
+
+/* Engraved: cut into the surface, so it takes a highlight below the stroke. */
+.engraved { text-shadow: 0 1px 0 rgba(0, 0, 0, 0.85); }
+
+/* ─────────────────────────────────────────────── type roles */
+
+.mono, .n { font-family: var(--mono); font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1; }
+.u { color: var(--text-muted); font-size: .78em; letter-spacing: .01em; }
+
+/* Uppercase is reserved for technical section labels and units — not applied wholesale. */
+.tag {
+  font-family: var(--body);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.section {
+  font-family: var(--display);
+  font-variation-settings: "wdth" 112;
+  font-weight: 800;
+  font-size: var(--t-11);
+  letter-spacing: .17em;
+  text-transform: uppercase;
+  color: #B9C2CA;
+}
+
+/* Panel header: a machined strip across the top of each module. */
 .ph {
-  font-family: var(--display); font-variation-settings: "wdth" 118;
-  font-weight: 800; font-size: var(--t-11); letter-spacing: .15em; text-transform: uppercase;
   display: flex; align-items: center; justify-content: space-between; gap: 10px;
-  padding: 7px 12px;
-  border-bottom: 1px solid var(--hairline);
-  background: var(--surface-base);
+  padding: 8px 13px;
+  background: linear-gradient(180deg, #171C22 0%, #12161B 100%);
+  border-bottom: 1px solid var(--rule);
+  box-shadow: inset 0 1px 0 var(--edge-hi);
 }
-.ph .aux { font-family: var(--mono); font-weight: 400; letter-spacing: .04em; color: var(--text-muted); }
+.ph .aux { font-family: var(--mono); font-size: 10px; letter-spacing: .06em; color: var(--text-muted); }
 
-/* ───────────────────────────────────── shell */
+/* ─────────────────────────────────────────────── shell */
 
 .shell {
   display: grid;
-  grid-template-columns: 336px minmax(0, 1fr) 312px;
-  grid-template-rows: 28px minmax(0, 1fr) 96px;
+  grid-template-columns: 348px minmax(0, 1fr) 324px;
+  grid-template-rows: 30px minmax(0, 1fr) 112px;
   grid-template-areas: "bar bar bar" "a b c" "rail rail rail";
   height: 100vh;
+  background: var(--mat-chassis);
 }
 
-/* ───────────────────────────────────── status bar */
+/* ─────────────────────────────────────────────── status bar */
 
 .bar {
   grid-area: bar;
   display: flex; align-items: stretch;
-  border-bottom: 1px solid var(--hairline);
-  background: var(--surface-raised);
+  background: linear-gradient(180deg, #1B2028 0%, #12161B 100%);
+  border-bottom: 1px solid var(--rule);
+  box-shadow: inset 0 1px 0 var(--edge-hi), 0 1px 0 rgba(0,0,0,.5);
   overflow: hidden;
 }
 
-.brand { display: flex; align-items: center; gap: 9px; padding: 0 14px 0 16px; }
-.brand::before { content: ""; width: 3px; height: 12px; background: var(--sodium); }
+.brand { display: flex; align-items: center; gap: 10px; padding: 0 15px 0 16px; }
+.brand::before {
+  content: ""; width: 4px; height: 14px; background: var(--sodium);
+  box-shadow: 0 0 7px rgba(255, 122, 26, .5);
+}
 .brand span {
   white-space: nowrap;
-  font-family: var(--display); font-variation-settings: "wdth" 123; font-weight: 800;
-  font-size: var(--t-11); letter-spacing: .14em; text-transform: uppercase;
+  font-family: var(--display); font-variation-settings: "wdth" 120; font-weight: 800;
+  font-size: var(--t-11); letter-spacing: .15em; text-transform: uppercase;
 }
 
 .f {
   display: flex; align-items: center; gap: 7px;
-  padding: 0 11px;
-  border-left: 1px solid var(--hairline);
+  padding: 0 12px;
+  border-left: 1px solid rgba(0,0,0,.5);
+  box-shadow: inset 1px 0 0 var(--edge-hi);
   white-space: nowrap;
-  font-size: var(--t-11);
 }
-.f .n { font-family: var(--mono); font-variant-numeric: tabular-nums; }
-.f .t { color: var(--text-muted); letter-spacing: .12em; text-transform: uppercase; }
+.f .t { font-size: 9.5px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; color: var(--text-muted); }
+.f .n { font-size: var(--t-11); letter-spacing: .01em; }
 .f.push { margin-left: auto; }
 
-.dot { width: 5px; height: 5px; border-radius: 50%; background: var(--trend-improving); }
+.rec-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--trend-improving);
+  box-shadow: 0 0 6px rgba(79,180,119,.7), inset 0 -1px 1px rgba(0,0,0,.4);
+  animation: breathe 2.6s ease-in-out infinite;
+}
+@keyframes breathe { 0%,100% { opacity: 1; } 50% { opacity: .45; } }
 
-/* ───────────────────────────────────── columns */
+/* ─────────────────────────────────────────────── columns */
 
-.col-a { grid-area: a; border-right: 1px solid var(--hairline); display: grid; grid-template-rows: auto auto minmax(0, 1fr); min-height: 0; }
+.col-a { grid-area: a; border-right: 1px solid var(--rule); box-shadow: 1px 0 0 var(--edge-hi);
+         display: grid; grid-template-rows: auto auto minmax(0, 1fr); min-height: 0; background: var(--mat-panel); }
 .col-b { grid-area: b; display: grid; grid-template-rows: auto minmax(0, 1fr); min-width: 0; min-height: 0; }
-.col-c { grid-area: c; border-left: 1px solid var(--hairline); display: grid; grid-template-rows: auto auto auto minmax(0, 1fr); min-height: 0; }
+.col-c { grid-area: c; border-left: 1px solid rgba(0,0,0,.6); box-shadow: inset 1px 0 0 var(--edge-hi);
+         display: grid; grid-template-rows: auto auto auto minmax(0, 1fr); min-height: 0; background: var(--mat-panel); }
 
-/* frame */
+/* ─────────────────────────────────────────────── camera monitor */
 
-.viewport { position: relative; overflow: hidden; aspect-ratio: 16 / 9; background: var(--surface-base); }
-.viewport img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.viewport::after {
-  content: ""; position: absolute; inset: 0;
+.monitor { padding: 11px; background: var(--mat-panel); border-bottom: 1px solid var(--rule); }
+
+/* Thin bezel, then the tube. No giant rounded glass frame. */
+.tube {
+  position: relative; aspect-ratio: 16 / 9; overflow: hidden;
+  background: var(--mat-well);
+  box-shadow:
+    inset 0 0 0 1px rgba(0,0,0,.9),
+    0 0 0 1px var(--edge-hi),
+    inset 0 2px 8px rgba(0,0,0,.7);
+}
+.tube img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tube::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
   background:
-    radial-gradient(120% 80% at 50% 45%, rgba(14,17,20,0) 40%, rgba(14,17,20,.6) 100%),
-    linear-gradient(180deg, rgba(14,17,20,.45) 0%, rgba(14,17,20,0) 26%, rgba(14,17,20,.6) 100%);
+    radial-gradient(125% 85% at 50% 45%, rgba(7,10,12,0) 38%, rgba(7,10,12,.72) 100%),
+    linear-gradient(180deg, rgba(7,10,12,.5) 0%, rgba(7,10,12,0) 26%, rgba(7,10,12,.66) 100%);
 }
-.ticks { position: absolute; inset: 9px; z-index: 2; }
-.ticks i { position: absolute; width: 10px; height: 10px; opacity: .5; }
-.ticks i::before, .ticks i::after { content: ""; position: absolute; background: var(--text-primary); }
-.ticks i::before { width: 100%; height: 1px; }
-.ticks i::after { height: 100%; width: 1px; }
-.ticks i:nth-child(1) { top: 0; left: 0; }
-.ticks i:nth-child(2) { top: 0; right: 0; }
-.ticks i:nth-child(2)::after { right: 0; }
-.ticks i:nth-child(3) { bottom: 0; left: 0; }
-.ticks i:nth-child(3)::before { bottom: 0; }
-.ticks i:nth-child(4) { bottom: 0; right: 0; }
-.ticks i:nth-child(4)::before { bottom: 0; }
-.ticks i:nth-child(4)::after { right: 0; }
 
-.stamp {
-  position: absolute; z-index: 3; left: 20px; bottom: 14px;
-  display: flex; gap: 13px;
-  font-family: var(--mono); font-size: var(--t-11);
-  color: rgba(232,235,237,.85); letter-spacing: .04em;
+/* Framing marks, as on a broadcast monitor. */
+.marks { position: absolute; inset: 9px; z-index: 2; pointer-events: none; }
+.marks i { position: absolute; width: 11px; height: 11px; opacity: .55; }
+.marks i::before, .marks i::after { content: ""; position: absolute; background: var(--text-primary); }
+.marks i::before { width: 100%; height: 1px; }
+.marks i::after { height: 100%; width: 1px; }
+.marks i:nth-child(1) { top: 0; left: 0; }
+.marks i:nth-child(2) { top: 0; right: 0; } .marks i:nth-child(2)::after { right: 0; }
+.marks i:nth-child(3) { bottom: 0; left: 0; } .marks i:nth-child(3)::before { bottom: 0; }
+.marks i:nth-child(4) { bottom: 0; right: 0; }
+.marks i:nth-child(4)::before { bottom: 0; } .marks i:nth-child(4)::after { right: 0; }
+
+/* The one glass element in the app: an overlay laid over live video, where layering
+   is literally what is happening. */
+.osd {
+  position: absolute; z-index: 3; left: 11px; right: 11px; bottom: 10px;
+  display: flex; align-items: center; gap: 12px;
+  padding: 5px 9px;
+  background: rgba(7, 10, 12, .58);
+  backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px);
+  border-top: 1px solid rgba(255,255,255,.08);
+  font-family: var(--mono); font-size: 10px; letter-spacing: .04em;
+  color: rgba(232,235,237,.9);
 }
-.stamp em { font-style: normal; color: var(--text-muted); letter-spacing: .12em; }
+.osd em { font-style: normal; color: #79838C; letter-spacing: .13em; }
+.osd .live {
+  margin-left: auto; display: inline-flex; align-items: center; gap: 5px;
+  color: var(--trend-worsening); font-weight: 600; letter-spacing: .12em;
+}
+.osd .live::before {
+  content: ""; width: 5px; height: 5px; border-radius: 50%;
+  background: var(--trend-worsening); box-shadow: 0 0 5px rgba(212,87,78,.8);
+  animation: breathe 2.6s ease-in-out infinite;
+}
 
-/* stacked distribution history */
+.monitor-strip {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 8px; padding: 6px 9px;
+  background: var(--mat-well);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,.85), inset 0 -1px 0 var(--edge-hi);
+}
+.monitor-strip .n { font-size: 10px; }
 
-.stack { padding: 11px 12px 12px; border-bottom: 1px solid var(--hairline); }
-.stack svg { width: 100%; height: 112px; display: block; }
-.legend { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; margin-top: 9px; }
-.legend > div { border-top: 1px solid var(--hairline); padding-top: 6px; display: flex; flex-direction: column; gap: 3px; }
-.legend .sw { width: 100%; height: 3px; }
-.legend .lb { font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); }
+/* ─────────────────────────────────────────────── surface distribution */
+
+.stack { padding: 12px 13px 13px; border-bottom: 1px solid var(--rule); background: var(--mat-panel); }
+.plot-well { padding: 8px 8px 6px; margin-top: 9px; }
+.stack svg { width: 100%; height: 104px; display: block; }
+
+.legend { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 10px; }
+.legend > div { display: flex; flex-direction: column; gap: 4px; }
+.legend .sw { height: 3px; box-shadow: 0 0 5px currentColor; }
+.legend .lb { font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); }
 .legend .vl { font-family: var(--mono); font-size: var(--t-13); font-variant-numeric: tabular-nums; }
 
-/* quality meters */
+/* ─────────────────────────────────────────────── frame quality */
 
-.quality { padding: 11px 12px 12px; display: flex; flex-direction: column; gap: 10px; }
-.qrow { display: grid; grid-template-columns: 76px minmax(0, 1fr) 46px; gap: 10px; align-items: center; }
-.qrow .qk { font-size: 9px; letter-spacing: .11em; text-transform: uppercase; color: var(--text-muted); }
-.qrow .qv { font-family: var(--mono); font-size: var(--t-11); text-align: right; font-variant-numeric: tabular-nums; }
-.track { height: 4px; background: var(--hairline); position: relative; }
-.track i { position: absolute; inset: 0 auto 0 0; background: var(--state-dry); }
-.track.warn i { background: var(--state-damp); }
+.quality { padding: 12px 13px 14px; display: flex; flex-direction: column; gap: 12px; }
+.gauge { display: grid; grid-template-columns: 74px minmax(0, 1fr) 52px; gap: 11px; align-items: center; }
+.gauge .gk { font-size: 9px; letter-spacing: .13em; text-transform: uppercase; color: var(--text-muted); }
+.gauge .gv { font-family: var(--mono); font-size: var(--t-11); text-align: right; font-variant-numeric: tabular-nums; }
 
-.qtotal {
-  display: flex; align-items: baseline; justify-content: space-between;
-  border-top: 1px solid var(--hairline); padding-top: 10px; margin-top: 2px;
+/* Recessed gauge track with a tick scale printed on it — not a web progress bar. */
+.g-track { position: relative; height: 9px; background: var(--mat-well);
+           box-shadow: inset 0 1px 3px rgba(0,0,0,.9), inset 0 -1px 0 var(--edge-hi); }
+.g-track > i {
+  position: absolute; top: 1px; bottom: 1px; left: 1px;
+  background: linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,0) 55%), var(--state-dry);
 }
-.qtotal .big { font-family: var(--mono); font-size: var(--t-20); font-variant-numeric: tabular-nums; color: var(--state-damp); }
+.g-track.warn > i { background: linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,0) 55%), var(--state-damp); }
+/* minor ticks every 10% */
+.g-track::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: repeating-linear-gradient(90deg, rgba(0,0,0,.55) 0 1px, transparent 1px 10%);
+}
+/* threshold mark */
+.g-track .thr { position: absolute; top: -2px; bottom: -2px; width: 1px; background: var(--sodium); opacity: .8; }
 
-/* ───────────────────────────────────── hero */
+.q-total {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 2px; padding: 9px 11px;
+  background: var(--mat-well);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,.85), inset 0 -1px 0 var(--edge-hi);
+}
+.q-total .big {
+  font-family: var(--mono); font-weight: 600; font-size: var(--t-20);
+  font-variant-numeric: tabular-nums; color: var(--state-damp);
+  text-shadow: 0 0 12px rgba(224,163,62,.35);
+}
 
-.hero {
+/* ─────────────────────────────────────────────── hero instrument */
+
+.hero { padding: 14px 18px 16px; background: var(--mat-panel); border-bottom: 1px solid var(--rule); }
+
+.instrument-outer { background: var(--rule); padding: 1px; }
+.instrument {
   display: grid; grid-template-columns: auto minmax(0, 1fr);
-  gap: 0 28px; align-items: center;
-  padding: 14px 20px 16px;
-  border-bottom: 1px solid var(--hairline);
+  gap: 0 26px; align-items: center;
+  padding: 16px 20px 14px;
+  background:
+    radial-gradient(140% 120% at 22% 0%, #101419 0%, #090C0F 70%);
+  box-shadow:
+    inset 0 2px 6px rgba(0,0,0,.95),
+    inset 0 1px 0 rgba(0,0,0,.9),
+    inset 0 -1px 0 var(--edge-hi);
 }
 
-.twi {
-  font-family: var(--display); font-variation-settings: "wdth" 106; font-weight: 800;
-  font-size: var(--t-128); line-height: .76; letter-spacing: -0.045em;
-  font-variant-numeric: tabular-nums; display: block;
+/* No "unlit segment" ghost behind the digits. It was tried and cut: at any opacity high
+   enough to read as a display, the 8s bled through and 47.5 scanned as 47.8. The primary
+   measurement must be unambiguous — the well, the bezel and the tick scale carry the
+   instrument read on their own. */
+.readout { position: relative; }
+.digits {
+  font-family: var(--display);
+  font-variation-settings: "wdth" 104;
+  font-weight: 800;
+  font-size: var(--t-128);
+  line-height: .76;
+  letter-spacing: -0.048em;
+  font-variant-numeric: tabular-nums;
+  display: block;
+  color: var(--text-primary);
+  text-shadow: 0 0 26px rgba(232,235,237,.16);
 }
-.twi .dec { font-size: var(--t-32); letter-spacing: -.02em; color: var(--text-muted); }
-
-.hero-meta { display: flex; flex-direction: column; gap: 10px; }
-.hero-line { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-
-.big-state, .big-trend {
-  font-family: var(--display); font-variation-settings: "wdth" 113; font-weight: 800;
-  font-size: var(--t-20); letter-spacing: .04em; text-transform: uppercase;
+.digits .dec { font-size: var(--t-32); letter-spacing: -.02em; color: #8D969E; text-shadow: none; }
+.digits .unit {
+  font-family: var(--mono); font-size: var(--t-11); font-weight: 500;
+  letter-spacing: .18em; color: var(--text-muted); text-shadow: none;
+  vertical-align: 34px; margin-left: 10px;
 }
-.big-state { color: var(--state-damp); display: inline-flex; align-items: center; gap: 9px; }
-.big-state::before { content: ""; width: 9px; height: 9px; background: var(--state-damp); }
-.big-trend { color: var(--trend-improving); }
-.vr { width: 1px; height: 15px; background: var(--hairline); }
-.rate { font-family: var(--mono); font-size: var(--t-15); color: var(--trend-improving); }
 
-.deltas { display: flex; gap: 22px; }
-.deltas > div { display: flex; flex-direction: column; gap: 3px; }
-.deltas .dv { font-family: var(--mono); font-size: var(--t-13); font-variant-numeric: tabular-nums; }
+/* Precision scale beneath the digits: 0–100 with majors at the compound thresholds. */
+.scale { margin-top: 15px; position: relative; height: 22px; }
+.scale .band {
+  position: absolute; left: 0; right: 0; top: 0; height: 7px;
+  background-image: repeating-linear-gradient(90deg, #39414A 0 1px, transparent 1px 2.5%);
+}
+.scale .maj { position: absolute; top: 0; width: 1px; height: 11px; background: var(--text-muted); }
+.scale .lbl {
+  position: absolute; top: 13px; transform: translateX(-50%);
+  font-family: var(--mono); font-size: 9px; color: var(--text-muted);
+}
+.scale .needle { position: absolute; top: -3px; width: 1px; height: 14px; background: var(--sodium);
+                 box-shadow: 0 0 7px rgba(255,122,26,.85); }
+.scale .needle::before {
+  content: ""; position: absolute; top: -4px; left: -3.5px;
+  border-top: 5px solid var(--sodium);
+  border-left: 3.5px solid transparent; border-right: 3.5px solid transparent;
+}
 
-/* projection */
+.hero-state { display: flex; flex-direction: column; gap: 13px; }
+.state-row { display: flex; align-items: center; gap: 13px; flex-wrap: wrap; }
 
-.proj { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; min-height: 0; background: var(--surface-raised); border-top: 1px solid var(--edge-top); }
-.proj .chart { min-height: 0; display: flex; padding: 6px 16px 0; }
-.proj .chart svg { width: 100%; height: 100%; display: block; }
-.eta { font-family: var(--mono); font-size: var(--t-20); color: var(--sodium); font-variant-numeric: tabular-nums; letter-spacing: 0; }
+.chip-state, .chip-trend {
+  font-family: var(--display); font-variation-settings: "wdth" 112; font-weight: 800;
+  font-size: var(--t-20); letter-spacing: .045em; text-transform: uppercase;
+  display: inline-flex; align-items: center; gap: 9px;
+}
+.chip-state { color: var(--state-damp); }
+.chip-state::before {
+  content: ""; width: 10px; height: 10px; background: var(--state-damp);
+  box-shadow: 0 0 9px rgba(224,163,62,.6);
+}
+.chip-trend { color: var(--trend-improving); }
+/* A transition arrow, because DAMP → DRYING is an active instrument state. */
+.transition { display: inline-flex; align-items: center; gap: 9px; }
+.transition .arrow { width: 22px; height: 1px; background: #4A535C; position: relative; }
+.transition .arrow::after {
+  content: ""; position: absolute; right: 0; top: -3px;
+  border-left: 5px solid #4A535C; border-top: 3px solid transparent; border-bottom: 3px solid transparent;
+}
+.rate-val { font-family: var(--mono); font-size: var(--t-15); color: var(--trend-improving); }
 
-.readouts { display: flex; gap: 0; border-top: 1px solid var(--hairline); }
-.readouts > div { flex: 1 1 0; padding: 9px 12px; display: flex; flex-direction: column; gap: 3px; }
-.readouts > div + div { border-left: 1px solid var(--hairline); }
+/* telemetry strip: RAW / 60S AGO / Δ60S / PEAK */
+.tele {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  background: var(--mat-well);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,.9), inset 0 -1px 0 var(--edge-hi);
+}
+.tele > div { padding: 8px 11px; display: flex; flex-direction: column; gap: 3px; }
+.tele > div + div { border-left: 1px solid rgba(0,0,0,.65); box-shadow: inset 1px 0 0 rgba(255,255,255,.035); }
+.tele .tv { font-family: var(--mono); font-size: var(--t-13); font-variant-numeric: tabular-nums; }
+
+/* ─────────────────────────────────────────────── projection instrument */
+
+.proj { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; min-height: 0; background: var(--mat-panel); }
+.proj-well { margin: 10px 13px 0; padding: 6px 4px 0; min-height: 0; display: flex; }
+.proj-well svg { width: 100%; height: 100%; display: block; }
+.eta {
+  font-family: var(--mono); font-weight: 600; font-size: var(--t-20);
+  color: var(--sodium); font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 14px rgba(255,122,26,.4);
+}
+
+.readouts { display: flex; margin-top: 10px; border-top: 1px solid var(--rule); box-shadow: inset 0 1px 0 var(--edge-hi); }
+.readouts > div { flex: 1 1 0; padding: 9px 13px; display: flex; flex-direction: column; gap: 4px; }
+.readouts > div + div { border-left: 1px solid rgba(0,0,0,.55); box-shadow: inset 1px 0 0 rgba(255,255,255,.03); }
 .readouts .rv { font-family: var(--mono); font-size: var(--t-13); font-variant-numeric: tabular-nums; }
 
-/* ───────────────────────────────────── right column */
+/* ─────────────────────────────────────────────── pit call console */
 
-.call { border-bottom: 1px solid var(--hairline); position: relative; }
-.call .body { padding: 12px; }
-.call.arming::before {
-  content: ""; position: absolute; inset: 0; border: 1px solid var(--state-dry);
-  pointer-events: none; animation: arm 1.4s cubic-bezier(.4, 0, .2, 1) infinite;
+.call { border-bottom: 1px solid var(--rule); position: relative; background: var(--mat-panel); }
+.call-body { padding: 11px 12px 12px; }
+
+/* Current condition — recessed, secondary. */
+.condition {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 11px;
+  background: var(--mat-well);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,.85), inset 0 -1px 0 var(--edge-hi);
 }
-@keyframes arm { 0%, 100% { opacity: 0; } 45% { opacity: .55; } }
+.condition .cv { font-family: var(--mono); font-size: var(--t-13); color: var(--state-damp); }
 
+/* Recommended action — raised, primary. The most important element in the module. */
+.action-outer { margin-top: 9px; background: var(--rule); padding: 1px; }
+.action {
+  padding: 11px 13px 12px;
+  background: linear-gradient(180deg, #1C222A 0%, #12161B 100%);
+  box-shadow: inset 0 1px 0 var(--edge-hi), inset 0 -2px 6px rgba(0,0,0,.55);
+}
 .compound {
-  font-family: var(--display); font-variation-settings: "wdth" 114; font-weight: 800;
-  font-size: var(--t-20); text-transform: uppercase; line-height: 1;
-  display: flex; align-items: center; gap: 10px;
+  font-family: var(--display); font-variation-settings: "wdth" 112; font-weight: 800;
+  font-size: 27px; text-transform: uppercase; line-height: 1;
+  display: flex; align-items: center; gap: 11px;
 }
-.compound .from { color: var(--state-damp); }
-.compound .to { color: var(--state-dry); }
-.compound .arrow { width: 20px; height: 1px; background: var(--text-muted); position: relative; }
+.compound .from { color: #8D969E; }
+.compound .to { color: var(--state-dry); text-shadow: 0 0 16px rgba(201,209,217,.3); }
+.compound .arrow { width: 22px; height: 1px; background: var(--sodium); position: relative; }
 .compound .arrow::after {
-  content: ""; position: absolute; right: 0; top: -3px;
-  border-left: 5px solid var(--text-muted);
-  border-top: 3px solid transparent; border-bottom: 3px solid transparent;
+  content: ""; position: absolute; right: 0; top: -3.5px;
+  border-left: 6px solid var(--sodium); border-top: 3.5px solid transparent; border-bottom: 3.5px solid transparent;
 }
 
-.segments { display: flex; gap: 3px; margin-top: 11px; }
-.segments i { flex: 1 1 0; height: 6px; background: var(--hairline); }
-.segments i.held { background: var(--state-dry); }
-.segments i.next { background: repeating-linear-gradient(90deg, var(--hairline) 0 3px, transparent 3px 6px); }
+.segments { display: flex; gap: 4px; margin-top: 12px; }
+.segments i {
+  flex: 1 1 0; height: 8px; background: var(--mat-well);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.9), inset 0 -1px 0 var(--edge-hi);
+}
+.segments i.held {
+  background: linear-gradient(180deg, rgba(255,255,255,.28), rgba(255,255,255,0) 60%), var(--state-dry);
+  box-shadow: 0 0 8px rgba(201,209,217,.28);
+}
 
-.rationale { margin-top: 11px; font-size: var(--t-13); color: var(--text-primary); }
+/* Time to transition — its own field, separated from the action. */
+.ttt {
+  display: flex; align-items: baseline; justify-content: space-between;
+  margin-top: 9px; padding: 8px 10px;
+  background: var(--mat-well);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,.85), inset 0 -1px 0 var(--edge-hi);
+}
+.ttt .tv {
+  font-family: var(--mono); font-weight: 600; font-size: var(--t-20);
+  color: var(--sodium); font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 12px rgba(255,122,26,.35);
+}
 
-/* weather */
+.rationale { margin-top: 9px; line-height: 1.36; font-size: var(--t-13); color: #B9C2CA; }
 
-.wx { border-bottom: 1px solid var(--hairline); }
-.wx .grid { display: grid; grid-template-columns: 1fr 1fr; }
-.wx .grid > div { padding: 9px 12px; display: flex; flex-direction: column; gap: 3px; }
-.wx .grid > div:nth-child(odd) { border-right: 1px solid var(--hairline); }
-.wx .grid > div:nth-child(n+3) { border-top: 1px solid var(--hairline); }
-.wx .wv { font-family: var(--mono); font-size: var(--t-15); font-variant-numeric: tabular-nums; }
+.call.arming .action-outer { background: var(--state-dry); animation: arm 1.5s cubic-bezier(.4,0,.2,1) infinite; }
+@keyframes arm { 0%, 100% { background: var(--rule); } 45% { background: var(--state-dry); } }
+
+/* ─────────────────────────────────────────────── weather telemetry */
+
+.wx { border-bottom: 1px solid var(--rule); background: var(--mat-panel); }
+.wx-grid { display: grid; grid-template-columns: 1fr 1fr; }
+.wx-grid > div { padding: 7px 12px; display: flex; flex-direction: column; gap: 4px; }
+.wx-grid > div:nth-child(odd) { border-right: 1px solid rgba(0,0,0,.55); box-shadow: inset -1px 0 0 rgba(255,255,255,.03); }
+.wx-grid > div:nth-child(n+3) { border-top: 1px solid rgba(0,0,0,.5); box-shadow: inset 0 1px 0 rgba(255,255,255,.03); }
+.wx-grid > div:nth-child(3) { box-shadow: inset 0 1px 0 rgba(255,255,255,.03), inset -1px 0 0 rgba(255,255,255,.03); }
+.wx-grid .wv { font-family: var(--mono); font-size: var(--t-15); font-variant-numeric: tabular-nums; }
 
 .prior {
-  display: flex; align-items: baseline; justify-content: space-between;
-  padding: 10px 12px; border-top: 1px solid var(--hairline);
+  display: flex; align-items: center; justify-content: space-between;
+  margin: 0 12px 11px; padding: 7px 10px;
+  background: var(--mat-well);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,.85), inset 0 -1px 0 var(--edge-hi);
 }
 .prior .pv { font-family: var(--mono); font-size: var(--t-15); color: var(--trend-improving); }
 
-/* fusion */
+/* ─────────────────────────────────────────────── rate fusion */
 
-.fusion { border-bottom: 1px solid var(--hairline); padding: 11px 12px 13px; }
-.split { display: flex; height: 8px; margin: 10px 0 8px; }
-.split .vis { width: 62%; background: var(--state-dry); }
-.split .wx2 { width: 38%; background: var(--state-wet); }
-.split-keys { display: flex; justify-content: space-between; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); }
-.split-keys b { font-family: var(--mono); color: var(--text-primary); font-weight: 400; letter-spacing: 0; }
+.fusion { border-bottom: 1px solid var(--rule); padding: 10px 12px 11px; background: var(--mat-panel); }
 
-/* log */
+/* Segmented LED bargraph: two sources, discrete elements, one shared scale. */
+.bargraph {
+  display: flex; height: 14px; margin: 9px 0 6px;
+  background: var(--mat-well);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,.9), inset 0 -1px 0 var(--edge-hi);
+  padding: 2px;
+}
+.bargraph span { display: block; }
+.bargraph .vis {
+  width: 62%; color: var(--state-dry);
+  background-image: repeating-linear-gradient(90deg, currentColor 0 4px, transparent 4px 6px);
+}
+.bargraph .wxs {
+  width: 38%; color: var(--state-wet);
+  background-image: repeating-linear-gradient(90deg, currentColor 0 4px, transparent 4px 6px);
+}
+.fusion-keys { display: flex; justify-content: space-between; align-items: baseline; }
+.fusion-keys b { font-family: var(--mono); font-weight: 500; color: var(--text-primary); letter-spacing: 0; }
+.fusion-total {
+  display: flex; align-items: baseline; justify-content: space-between;
+  margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(0,0,0,.5);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.03);
+}
+.fusion-total .fv { font-family: var(--mono); font-size: var(--t-15); color: var(--trend-improving); }
 
-.log { display: grid; grid-template-rows: auto minmax(0, 1fr); min-height: 0; }
+/* ─────────────────────────────────────────────── event log */
+
+.log { display: grid; grid-template-rows: auto minmax(0, 1fr); min-height: 0; background: var(--mat-panel); }
 .log .rows { overflow: auto; }
 .log .r {
-  display: grid; grid-template-columns: 62px minmax(0, 1fr);
-  gap: 9px; padding: 7px 12px;
-  border-bottom: 1px solid var(--hairline);
-  font-size: var(--t-11);
+  display: grid; grid-template-columns: 8px 60px minmax(0, 1fr);
+  gap: 9px; align-items: baseline;
+  padding: 6px 12px;
+  border-bottom: 1px solid rgba(0,0,0,.45);
+  box-shadow: inset 0 -1px 0 rgba(255,255,255,.022);
+  font-size: 11px;
 }
-.log .ts { font-family: var(--mono); color: var(--text-muted); font-variant-numeric: tabular-nums; }
-.log .ev { letter-spacing: .04em; }
-.log .r.mark .ev { color: var(--sodium); }
+/* Severity glyph: a small square, filled by level. Never a giant red alert. */
+.log .g { width: 6px; height: 6px; background: #444C55; transform: translateY(-1px); }
+.log .r.info .g { background: #4A535C; }
+.log .r.good .g { background: var(--trend-improving); box-shadow: 0 0 5px rgba(79,180,119,.5); }
+.log .r.warn .g { background: var(--state-damp); box-shadow: 0 0 5px rgba(224,163,62,.5); }
+.log .r.act  .g { background: var(--sodium); box-shadow: 0 0 6px rgba(255,122,26,.65); }
+.log .ts { font-family: var(--mono); color: var(--text-muted); font-variant-numeric: tabular-nums; font-size: 10px; }
+.log .ev { letter-spacing: .02em; color: #B9C2CA; }
+.log .r.act .ev { color: var(--sodium); }
 .log .r.warn .ev { color: var(--state-damp); }
 
-/* ───────────────────────────────────── rail */
+/* ─────────────────────────────────────────────── timeline workstation */
 
 .rail {
   grid-area: rail;
-  border-top: 1px solid var(--hairline);
-  background: var(--surface-raised);
-  padding: 7px 16px 8px;
-  display: grid; grid-template-rows: 16px minmax(0, 1fr) 5px; gap: 5px;
-  position: relative; min-width: 0;
+  background: linear-gradient(180deg, #171C22 0%, #101419 100%);
+  border-top: 1px solid var(--rule);
+  box-shadow: inset 0 1px 0 var(--edge-hi);
+  display: grid; grid-template-columns: auto minmax(0, 1fr);
+  gap: 0; align-items: stretch;
 }
+
+/* Micro-neumorphism, used here and nowhere else: physical transport controls. */
+.transport {
+  display: flex; align-items: center; gap: 7px;
+  padding: 0 15px; border-right: 1px solid rgba(0,0,0,.6);
+  box-shadow: inset -1px 0 0 var(--edge-hi);
+}
+.tbtn {
+  width: 30px; height: 30px; display: grid; place-items: center;
+  background: linear-gradient(180deg, #1F252D 0%, #141A20 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.09), 0 1px 2px rgba(0,0,0,.6), 0 0 0 1px rgba(0,0,0,.5);
+  color: #A7B0B9; cursor: pointer; border: 0;
+}
+.tbtn:active { background: linear-gradient(180deg, #12171C 0%, #171D24 100%);
+               box-shadow: inset 0 2px 4px rgba(0,0,0,.75), 0 0 0 1px rgba(0,0,0,.5); }
+.tbtn svg { width: 11px; height: 11px; fill: currentColor; }
+.tbtn.primary { color: var(--sodium); }
+
+.rail-main { padding: 8px 16px 9px; display: grid; grid-template-rows: 15px minmax(0,1fr) 6px;
+             gap: 5px; position: relative; min-width: 0; }
+
 .ruler {
   position: relative;
   background-image:
-    repeating-linear-gradient(90deg, var(--hairline) 0 1px, transparent 1px 7.142%),
-    repeating-linear-gradient(90deg, var(--text-muted) 0 1px, transparent 1px 21.43%);
-  background-size: 100% 4px, 100% 7px;
+    repeating-linear-gradient(90deg, #39414A 0 1px, transparent 1px 3.571%),
+    repeating-linear-gradient(90deg, #6B747D 0 1px, transparent 1px 21.43%);
+  background-size: 100% 4px, 100% 8px;
   background-position: 0 100%, 0 100%;
   background-repeat: no-repeat;
 }
 .ruler span {
   position: absolute; top: 0; font-family: var(--mono); font-size: 9px;
-  letter-spacing: .08em; color: var(--text-muted); transform: translateX(-50%);
+  letter-spacing: .06em; color: var(--text-muted); transform: translateX(-50%);
 }
-.ruler .count { right: 0; left: auto; transform: none; letter-spacing: .11em; text-transform: uppercase; }
+.ruler .count { right: 0; left: auto; transform: none; letter-spacing: .13em; text-transform: uppercase; }
+/* Event markers sit on the ruler, aligned to the frames they describe. */
+.ruler .mk { position: absolute; bottom: 0; width: 1px; height: 9px; }
+.ruler .mk.warn { background: var(--state-damp); }
+.ruler .mk.act { background: var(--sodium); box-shadow: 0 0 5px rgba(255,122,26,.7); }
 
-.strip { display: flex; gap: 2px; min-width: 0; }
+.strip-well { padding: 2px; min-width: 0; }
+.strip { display: flex; gap: 1px; height: 100%; min-width: 0; }
 .strip .fr {
   flex: 1 1 0; min-width: 0; position: relative;
   background-image: url("sample-frame.jpg"); background-size: auto 100%;
-  border-top: 1px solid var(--edge-top);
 }
-.strip .fr.low { filter: saturate(.25) brightness(.5); }
+.strip .fr.low { filter: saturate(.2) brightness(.42); }
 .strip .fr.low::after {
-  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--state-damp);
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px;
+  background: var(--state-damp);
 }
+.strip .fr.cur { box-shadow: inset 0 0 0 2px var(--sodium); z-index: 2; }
 
-.playhead { position: absolute; top: 0; bottom: 0; left: 66.5%; width: 1px; background: var(--sodium); z-index: 3; }
+/* Aligned to the strip's content box, not the padded box — 16px in on each side. */
+.playhead { position: absolute; top: 8px; bottom: 9px; left: calc(16px + (100% - 32px) * 0.665);
+            width: 1px; background: var(--sodium); z-index: 4; pointer-events: none;
+            box-shadow: 0 0 8px rgba(255,122,26,.75); }
 .playhead::before {
-  content: ""; position: absolute; top: 0; left: -4px;
-  border-top: 5px solid var(--sodium);
-  border-left: 4.5px solid transparent; border-right: 4.5px solid transparent;
+  content: ""; position: absolute; top: -1px; left: -5px;
+  width: 11px; height: 7px; background: var(--sodium);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
 }
 
-/* ───────────────────────────────────── load */
+/* ─────────────────────────────────────────────── motion */
 
 @media (prefers-reduced-motion: no-preference) {
   .bar, .col-a, .col-b, .col-c, .rail { animation: rise .5s cubic-bezier(.16, 1, .3, 1) backwards; }
-  .col-a { animation-delay: .06s; } .col-b { animation-delay: .1s; }
-  .col-c { animation-delay: .14s; } .rail { animation-delay: .18s; }
+  .col-a { animation-delay: .05s; } .col-b { animation-delay: .09s; }
+  .col-c { animation-delay: .13s; } .rail { animation-delay: .17s; }
 }
 @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-@media (prefers-reduced-motion: reduce) { .call.arming::before { animation: none; opacity: .55; } }
-
-/* ───────────────────────────────────── responsive */
-
-@media (max-width: 1279px) {
-  .shell { grid-template-columns: 300px minmax(0, 1fr); grid-template-rows: 28px minmax(0,1fr) auto 96px;
-           grid-template-areas: "bar bar" "a b" "c c" "rail rail"; height: auto; }
-  .col-c { border-left: 0; border-top: 1px solid var(--hairline); grid-template-rows: auto auto auto auto; }
+@media (prefers-reduced-motion: reduce) {
+  .call.arming .action-outer { animation: none; background: var(--state-dry); }
+  .rec-dot, .osd .live::before { animation: none; }
 }
-@media (max-width: 860px) {
-  /* The status bar is a ticker: it scrolls inside itself rather than
-     forcing the page to scroll horizontally. */
+
+/* ─────────────────────────────────────────────── responsive */
+
+@media (max-width: 1319px) {
+  .shell { grid-template-columns: 320px minmax(0, 1fr); grid-template-rows: 30px minmax(0,1fr) auto 112px;
+           grid-template-areas: "bar bar" "a b" "c c" "rail rail"; height: auto; }
+  .col-c { border-left: 0; border-top: 1px solid var(--rule); grid-template-rows: auto auto auto auto; }
+}
+@media (max-width: 880px) {
+  .shell { grid-template-columns: minmax(0, 1fr);
+           grid-template-areas: "bar" "a" "b" "c" "rail"; grid-template-rows: 30px auto auto auto 112px; }
+  .col-a { border-right: 0; border-bottom: 1px solid var(--rule); }
   .bar { overflow-x: auto; scrollbar-width: none; }
   .bar::-webkit-scrollbar { display: none; }
   .f.push { margin-left: 0; }
-  .shell { grid-template-columns: minmax(0, 1fr);
-           grid-template-areas: "bar" "a" "b" "c" "rail"; grid-template-rows: 28px auto auto auto 96px; }
-  .col-a { border-right: 0; border-bottom: 1px solid var(--hairline); }
-  .proj { min-height: 300px; }
-  .twi { font-size: var(--t-64); }
-  .twi .dec { font-size: var(--t-20); }
-  .hero { grid-template-columns: minmax(0, 1fr); gap: 16px; align-items: start; }
-  .f.sm { display: none; }
+  .proj-well { min-height: 300px; }
+  .digits { font-size: var(--t-64); }
+  .digits .dec { font-size: var(--t-20); }
+  .digits .unit { vertical-align: 14px; }
+  .instrument { grid-template-columns: minmax(0, 1fr); gap: 20px; align-items: start; }
+  .compound { font-size: var(--t-20); }
 }
 </style>
 </head>
@@ -378,112 +663,165 @@ body {
 
 <div class="shell">
 
+  <!-- ══ status bar ══ -->
   <header class="bar">
     <div class="brand"><span>Weather Whiplash</span></div>
     <div class="f"><span class="t">Session</span><span class="n">SILVERSTONE FP3</span></div>
-    <div class="f sm"><span class="t">Elapsed</span><span class="n">00:41:18</span></div>
-    <div class="f sm"><span class="t">Air</span><span class="n">13.4<span class="u">°C</span></span></div>
-    <div class="f sm"><span class="t">Track</span><span class="n">17.2<span class="u">°C</span></span></div>
-    <div class="f sm"><span class="t">RH</span><span class="n">95<span class="u">%</span></span></div>
-    <div class="f sm"><span class="t">Wind</span><span class="n">6.1<span class="u">km/h</span></span></div>
-    <div class="f sm"><span class="t">Precip</span><span class="n">0.0<span class="u">mm/h</span></span></div>
-    <div class="f sm"><span class="t">Device</span><span class="n">MPS</span></div>
-    <div class="f sm"><span class="t">Infer</span><span class="n">18.5<span class="u">ms</span></span></div>
-    <div class="f sm"><span class="t">Dropped</span><span class="n">0</span></div>
-    <div class="f push"><span class="dot"></span><span class="t">Live</span><span class="n">24<span class="u">fps</span></span></div>
+    <div class="f"><span class="t">Elapsed</span><span class="n">00:41:18</span></div>
+    <div class="f"><span class="t">Air</span><span class="n">13.4<span class="u">°C</span></span></div>
+    <div class="f"><span class="t">Track</span><span class="n">17.2<span class="u">°C</span></span></div>
+    <div class="f"><span class="t">RH</span><span class="n">95<span class="u">%</span></span></div>
+    <div class="f"><span class="t">Wind</span><span class="n">6.1<span class="u">km/h</span></span></div>
+    <div class="f"><span class="t">Precip</span><span class="n">0.0<span class="u">mm/h</span></span></div>
+    <div class="f"><span class="t">Device</span><span class="n">MPS</span></div>
+    <div class="f"><span class="t">Infer</span><span class="n">18.5<span class="u">ms</span></span></div>
+    <div class="f"><span class="t">Dropped</span><span class="n">0</span></div>
+    <div class="f push"><span class="rec-dot"></span><span class="t">Live</span><span class="n">24<span class="u">fps</span></span></div>
   </header>
 
-  <!-- ── column A: what the camera sees ── -->
+  <!-- ══ column A — what the camera sees ══ -->
   <section class="col-a">
-    <div class="viewport">
-      <!-- Placeholder footage. Berlin E-Prix 2023 by Steffen Prößdorf (Wikimedia
-           Commons), CC BY-SA 4.0. Replaced by the real decoded frame in Phase 5. -->
-      <img src="sample-frame.jpg" alt="Trackside camera 4 — a car on a damp circuit surface">
-      <div class="ticks"><i></i><i></i><i></i><i></i></div>
-      <div class="stamp">
-        <span>14:03:22.480</span>
-        <span><em>FRAME</em> 128</span>
-        <span><em>CAM</em> 4</span>
+
+    <div class="monitor">
+      <div class="tube">
+        <!-- Placeholder footage. Berlin E-Prix 2023 by Steffen Prößdorf (Wikimedia
+             Commons), CC BY-SA 4.0. Replaced by the real decoded frame in Phase 5. -->
+        <img src="sample-frame.jpg" alt="Trackside camera 4 — a car on a damp circuit surface">
+        <div class="marks"><i></i><i></i><i></i><i></i></div>
+        <div class="osd">
+          <span>14:03:22.480</span>
+          <span><em>FRM</em> 128</span>
+          <span><em>CAM</em> 04</span>
+          <span class="live">REC</span>
+        </div>
+      </div>
+      <div class="monitor-strip">
+        <span class="tag">Signal</span>
+        <span class="n" style="color:var(--state-damp)">0.62</span>
+        <span class="tag">Codec</span><span class="n">H.264</span>
+        <span class="tag">Res</span><span class="n">1280×465</span>
       </div>
     </div>
 
     <div class="stack">
-      <div class="ph" style="padding:0 0 8px; border:0; background:none">
-        <span>Surface distribution</span><span class="aux">8 MIN</span>
+      <div style="display:flex;align-items:baseline;justify-content:space-between">
+        <span class="section">Surface distribution</span>
+        <span class="aux mono" style="font-size:10px;color:var(--text-muted)">8 MIN</span>
       </div>
-      <svg viewBox="0 0 304 110" preserveAspectRatio="none" role="img"
-           aria-label="Probability mass moving from wet to damp to dry over the last eight minutes.">
-        <path d="M8,102 L80,102 L152,101.1 L224,100.1 L296,98.2 L296,102 L8,102 Z" fill="#C9D1D9" opacity="0.9"/>
-        <path d="M8,97.3 L80,92.6 L152,80.4 L224,57.8 L296,39.9 L296,98.2 L224,100.1 L152,101.1 L80,102 L8,102 Z" fill="#E0A33E" opacity="0.9"/>
-        <path d="M8,17.4 L80,15.5 L152,13.6 L224,12.7 L296,11.7 L296,39.9 L224,57.8 L152,80.4 L80,92.6 L8,97.3 Z" fill="#3D7DBF" opacity="0.9"/>
-        <path d="M8,8 L296,8 L296,11.7 L224,12.7 L152,13.6 L80,15.5 L8,17.4 Z" fill="#7B5CD6" opacity="0.9"/>
-        <line x1="296" y1="8" x2="296" y2="102" stroke="#FF7A1A" stroke-width="1"/>
-      </svg>
+
+      <div class="well plot-well">
+        <svg viewBox="0 0 304 108" preserveAspectRatio="none" role="img"
+             aria-label="Probability mass moving from wet to damp to dry over the last eight minutes.">
+          <defs>
+            <linearGradient id="gDry" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#C9D1D9" stop-opacity="0.95"/><stop offset="1" stop-color="#C9D1D9" stop-opacity="0.72"/>
+            </linearGradient>
+            <linearGradient id="gDamp" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#E0A33E" stop-opacity="0.95"/><stop offset="1" stop-color="#E0A33E" stop-opacity="0.68"/>
+            </linearGradient>
+            <linearGradient id="gWet" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#3D7DBF" stop-opacity="0.95"/><stop offset="1" stop-color="#3D7DBF" stop-opacity="0.68"/>
+            </linearGradient>
+          </defs>
+          <!-- measurement scale behind the data -->
+          <g stroke="#2A323A" stroke-width="1">
+            <line x1="8" y1="30" x2="296" y2="30"/><line x1="8" y1="55" x2="296" y2="55"/><line x1="8" y1="80" x2="296" y2="80"/>
+            <line x1="80" y1="8" x2="80" y2="102"/><line x1="152" y1="8" x2="152" y2="102"/><line x1="224" y1="8" x2="224" y2="102"/>
+          </g>
+          <path d="M8,102 L80,102 L152,101.1 L224,100.1 L296,98.2 L296,102 L8,102 Z" fill="url(#gDry)"/>
+          <path d="M8,97.3 L80,92.6 L152,80.4 L224,57.8 L296,39.9 L296,98.2 L224,100.1 L152,101.1 L80,102 L8,102 Z" fill="url(#gDamp)"/>
+          <path d="M8,17.4 L80,15.5 L152,13.6 L224,12.7 L296,11.7 L296,39.9 L224,57.8 L152,80.4 L80,92.6 L8,97.3 Z" fill="url(#gWet)"/>
+          <path d="M8,8 L296,8 L296,11.7 L224,12.7 L152,13.6 L80,15.5 L8,17.4 Z" fill="#7B5CD6" fill-opacity="0.85"/>
+          <line x1="296" y1="8" x2="296" y2="102" stroke="#FF7A1A" stroke-width="1"/>
+        </svg>
+      </div>
+
       <div class="legend">
-        <div><span class="sw" style="background:var(--state-dry)"></span><span class="lb">Dry</span><span class="vl">0.04</span></div>
-        <div><span class="sw" style="background:var(--state-damp)"></span><span class="lb">Damp</span><span class="vl">0.62</span></div>
-        <div><span class="sw" style="background:var(--state-wet)"></span><span class="lb">Wet</span><span class="vl">0.30</span></div>
-        <div><span class="sw" style="background:var(--state-standing)"></span><span class="lb">Stand</span><span class="vl">0.04</span></div>
+        <div><span class="sw" style="background:var(--state-dry);color:var(--state-dry)"></span><span class="lb">Dry</span><span class="vl">0.04</span></div>
+        <div><span class="sw" style="background:var(--state-damp);color:var(--state-damp)"></span><span class="lb">Damp</span><span class="vl">0.62</span></div>
+        <div><span class="sw" style="background:var(--state-wet);color:var(--state-wet)"></span><span class="lb">Wet</span><span class="vl">0.30</span></div>
+        <div><span class="sw" style="background:var(--state-standing);color:var(--state-standing)"></span><span class="lb">Stand</span><span class="vl">0.04</span></div>
       </div>
     </div>
 
     <div>
-      <div class="ph"><span>Frame quality</span><span class="aux">GEOMETRIC</span></div>
+      <div class="ph"><span class="section">Frame quality</span><span class="aux">GEOMETRIC MEAN</span></div>
       <div class="quality">
-        <div class="qrow">
-          <span class="qk">Focus</span>
-          <span class="track"><i style="width:95%"></i></span>
-          <span class="qv">142.6</span>
+        <div class="gauge">
+          <span class="gk">Focus</span>
+          <span class="g-track"><i style="width:95%"></i><span class="thr" style="left:30%"></span></span>
+          <span class="gv">142.6</span>
         </div>
-        <div class="qrow">
-          <span class="qk">Exposure</span>
-          <span class="track"><i style="width:87%"></i></span>
-          <span class="qv">0.02</span>
+        <div class="gauge">
+          <span class="gk">Exposure</span>
+          <span class="g-track"><i style="width:87%"></i><span class="thr" style="left:30%"></span></span>
+          <span class="gv">0.02</span>
         </div>
-        <div class="qrow">
-          <span class="qk">Confidence</span>
-          <span class="track warn"><i style="width:34%"></i></span>
-          <span class="qv">0.66</span>
+        <div class="gauge">
+          <span class="gk">Confidence</span>
+          <span class="g-track warn"><i style="width:34%"></i><span class="thr" style="left:30%"></span></span>
+          <span class="gv">0.66</span>
         </div>
-        <div class="qtotal">
-          <span class="k">Signal</span>
+        <div class="q-total">
+          <span class="tag">Signal</span>
           <span class="big">0.62</span>
         </div>
       </div>
     </div>
+
   </section>
 
-  <!-- ── column B: the decision ── -->
+  <!-- ══ column B — the measurement and the projection ══ -->
   <section class="col-b">
+
     <div class="hero">
-      <div>
-        <span class="twi">47<span class="dec">.5</span></span>
-        <div class="k" style="margin-top:14px">Track Wetness Index</div>
-      </div>
-      <div class="hero-meta">
-        <div class="hero-line">
-          <span class="big-state">Damp</span>
-          <span class="vr"></span>
-          <span class="big-trend">Drying</span>
-          <span class="rate">−5.0<span class="u">/min</span></span>
-        </div>
-        <div class="deltas">
-          <div><span class="k">Raw</span><span class="dv">48.2</span></div>
-          <div><span class="k">60s ago</span><span class="dv">52.6</span></div>
-          <div><span class="k">Δ 60s</span><span class="dv" style="color:var(--trend-improving)">−5.1</span></div>
-          <div><span class="k">Peak</span><span class="dv">73.6</span></div>
+      <div class="instrument-outer chamfer">
+        <div class="instrument chamfer">
+          <div>
+            <div class="readout">
+              <span class="digits">47<span class="dec">.5</span><span class="unit">TWI</span></span>
+            </div>
+            <div class="scale">
+              <span class="band"></span>
+              <span class="maj" style="left:0"></span><span class="lbl" style="left:2%">0</span>
+              <span class="maj" style="left:25%"></span><span class="lbl" style="left:25%">25</span>
+              <span class="maj" style="left:65%"></span><span class="lbl" style="left:65%">65</span>
+              <span class="maj" style="left:calc(100% - 1px)"></span><span class="lbl" style="left:97%">100</span>
+              <span class="needle" style="left:47.5%"></span>
+            </div>
+          </div>
+
+          <div class="hero-state">
+            <div class="state-row">
+              <span class="transition">
+                <span class="chip-state">Damp</span>
+                <span class="arrow"></span>
+                <span class="chip-trend">Drying</span>
+              </span>
+              <span class="rate-val">−5.0<span class="u">/min</span></span>
+            </div>
+            <div class="tele">
+              <div><span class="tag">Raw</span><span class="tv">48.2</span></div>
+              <div><span class="tag">60s ago</span><span class="tv">52.6</span></div>
+              <div><span class="tag">Δ 60s</span><span class="tv" style="color:var(--trend-improving)">−5.1</span></div>
+              <div><span class="tag">Peak</span><span class="tv">73.6</span></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
     <div class="proj">
-      <div class="ph"><span>Crossover Projection</span><span class="eta">04:30</span></div>
+      <div class="ph">
+        <span class="section">Crossover projection</span>
+        <span class="eta">04:30</span>
+      </div>
 
-      <div class="chart">
-        <svg viewBox="0 0 560 320" preserveAspectRatio="xMidYMid meet" role="img"
+      <div class="well proj-well">
+        <svg viewBox="0 0 560 318" preserveAspectRatio="xMidYMid meet" role="img"
              aria-label="Track wetness index falling from 72 to 47.5 over the last eight minutes, projected to cross the slick threshold of 25 in four minutes thirty seconds, with an uncertainty range of three minutes thirty-eight to five minutes fifty-three.">
           <defs>
-            <linearGradient id="cond" gradientUnits="userSpaceOnUse" x1="52" y1="0" x2="540" y2="0">
+            <linearGradient id="cond" gradientUnits="userSpaceOnUse" x1="54" y1="0" x2="540" y2="0">
               <stop offset="0"      stop-color="#3D7DBF"/>
               <stop offset="0.2187" stop-color="#3D7DBF"/>
               <stop offset="0.2187" stop-color="#E0A33E"/>
@@ -492,167 +830,251 @@ body {
               <stop offset="1"      stop-color="#C9D1D9"/>
             </linearGradient>
             <linearGradient id="cone" gradientUnits="userSpaceOnUse" x1="296" y1="0" x2="540" y2="0">
-              <stop offset="0" stop-color="#FF7A1A" stop-opacity="0.32"/>
-              <stop offset="1" stop-color="#FF7A1A" stop-opacity="0.06"/>
+              <stop offset="0" stop-color="#FF7A1A" stop-opacity="0.30"/>
+              <stop offset="1" stop-color="#FF7A1A" stop-opacity="0.05"/>
             </linearGradient>
+            <!-- Hatching reads as "computed region", not as a filled quantity. -->
+            <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+              <line x1="0" y1="0" x2="0" y2="6" stroke="#FF7A1A" stroke-width="1" stroke-opacity="0.16"/>
+            </pattern>
           </defs>
 
-          <rect x="52" y="14"    width="488" height="90"  fill="#3D7DBF" opacity="0.05"/>
-          <rect x="52" y="104"   width="488" height="103" fill="#E0A33E" opacity="0.05"/>
-          <rect x="52" y="207"   width="488" height="65"  fill="#C9D1D9" opacity="0.05"/>
+          <!-- compound zones -->
+          <rect x="54" y="14"  width="486" height="90"  fill="#3D7DBF" opacity="0.055"/>
+          <rect x="54" y="104" width="486" height="103" fill="#E0A33E" opacity="0.055"/>
+          <rect x="54" y="207" width="486" height="65"  fill="#C9D1D9" opacity="0.055"/>
 
-          <g stroke="#262C33" stroke-width="1">
-            <line x1="113" y1="14" x2="113" y2="272"/>
-            <line x1="174" y1="14" x2="174" y2="272"/>
-            <line x1="235" y1="14" x2="235" y2="272"/>
-            <line x1="357" y1="14" x2="357" y2="272"/>
-            <line x1="418" y1="14" x2="418" y2="272"/>
-            <line x1="479" y1="14" x2="479" y2="272"/>
-            <line x1="52" y1="104" x2="540" y2="104"/>
-            <line x1="52" y1="207" x2="540" y2="207"/>
-            <line x1="52" y1="272" x2="540" y2="272"/>
-            <line x1="52" y1="14"  x2="52"  y2="272"/>
+          <!-- fine grid: minor every minute, major every two -->
+          <g stroke="#1D242B" stroke-width="1">
+            <line x1="84"  y1="14" x2="84"  y2="272"/><line x1="145" y1="14" x2="145" y2="272"/>
+            <line x1="205" y1="14" x2="205" y2="272"/><line x1="266" y1="14" x2="266" y2="272"/>
+            <line x1="327" y1="14" x2="327" y2="272"/><line x1="388" y1="14" x2="388" y2="272"/>
+            <line x1="449" y1="14" x2="449" y2="272"/><line x1="510" y1="14" x2="510" y2="272"/>
+          </g>
+          <g stroke="#252D35" stroke-width="1">
+            <line x1="114" y1="14" x2="114" y2="272"/><line x1="175" y1="14" x2="175" y2="272"/>
+            <line x1="235" y1="14" x2="235" y2="272"/><line x1="357" y1="14" x2="357" y2="272"/>
+            <line x1="418" y1="14" x2="418" y2="272"/><line x1="479" y1="14" x2="479" y2="272"/>
           </g>
 
-          <g stroke="#7C8791" stroke-width="1">
-            <line x1="46" y1="272" x2="52" y2="272"/>
-            <line x1="46" y1="207" x2="52" y2="207"/>
-            <line x1="46" y1="104" x2="52" y2="104"/>
-            <line x1="46" y1="14"  x2="52" y2="14"/>
+          <!-- threshold rules + frame -->
+          <line x1="54" y1="104" x2="540" y2="104" stroke="#39414A" stroke-dasharray="4 3"/>
+          <line x1="54" y1="207" x2="540" y2="207" stroke="#39414A" stroke-dasharray="4 3"/>
+          <line x1="54" y1="272" x2="540" y2="272" stroke="#4A535C"/>
+          <line x1="54" y1="14"  x2="54"  y2="272" stroke="#4A535C"/>
+
+          <!-- y ticks: majors at thresholds, minors every 12.5 -->
+          <g stroke="#4A535C" stroke-width="1">
+            <line x1="47" y1="272" x2="54" y2="272"/><line x1="47" y1="207" x2="54" y2="207"/>
+            <line x1="47" y1="104" x2="54" y2="104"/><line x1="47" y1="14"  x2="54" y2="14"/>
+          </g>
+          <g stroke="#333B43" stroke-width="1">
+            <line x1="50" y1="240" x2="54" y2="240"/><line x1="50" y1="175" x2="54" y2="175"/>
+            <line x1="50" y1="142" x2="54" y2="142"/><line x1="50" y1="72"  x2="54" y2="72"/>
+            <line x1="50" y1="43"  x2="54" y2="43"/>
           </g>
           <g fill="#7C8791" font-family="IBM Plex Mono, monospace" font-size="10" text-anchor="end">
-            <text x="41" y="275">0</text><text x="41" y="210">25</text>
-            <text x="41" y="108">65</text><text x="41" y="18">100</text>
+            <text x="42" y="275">0</text><text x="42" y="210">25</text>
+            <text x="42" y="108">65</text><text x="42" y="18">100</text>
           </g>
-          <g fill="#7C8791" font-family="IBM Plex Mono, monospace" font-size="9" text-anchor="end" letter-spacing="0.12em" opacity="0.85">
+          <g fill="#7C8791" font-family="IBM Plex Mono, monospace" font-size="9" text-anchor="end" letter-spacing="0.14em">
             <text x="535" y="28">FULL WET</text>
             <text x="535" y="118">INTERMEDIATE</text>
             <text x="535" y="221">SLICK</text>
           </g>
 
+          <!-- confidence envelope -->
           <path d="M296,151 L540,272 L540,228 Z" fill="url(#cone)"/>
+          <path d="M296,151 L540,272 L540,228 Z" fill="url(#hatch)"/>
+          <path d="M296,151 L540,272" stroke="#FF7A1A" stroke-width="1" stroke-opacity="0.35" fill="none"/>
+          <path d="M296,151 L540,228" stroke="#FF7A1A" stroke-width="1" stroke-opacity="0.35" fill="none"/>
 
-          <path d="M52,87 L82.5,91 L113,97.5 L143.5,101.4 L174,110.5 L204.5,118.3 L235,127.3 L265.5,139 L296,151"
-                fill="none" stroke="url(#cond)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+          <!-- history, solid -->
+          <path d="M54,87 L84,90.5 L114,97.5 L145,101.8 L175,110.8 L205,118.1 L235,127.3 L266,139.4 L296,151"
+                fill="none" stroke="url(#cond)" stroke-width="2.25" stroke-linejoin="round" stroke-linecap="round"/>
+          <!-- projected, dashed -->
           <path d="M296,151 L540,254" fill="none" stroke="url(#cond)" stroke-width="4"
-                stroke-dasharray="8 7" opacity="0.55" stroke-linecap="round"/>
+                stroke-dasharray="9 7" opacity="0.55" stroke-linecap="round"/>
 
-          <line x1="296" y1="14" x2="296" y2="272" stroke="#7C8791" opacity="0.55" stroke-dasharray="2 3"/>
-          <circle cx="296" cy="151" r="3" fill="#0E1114" stroke="#E8EBED" stroke-width="1.5"/>
+          <!-- now: crosshair on the current measurement -->
+          <line x1="296" y1="14" x2="296" y2="272" stroke="#6B747D" stroke-opacity="0.5" stroke-dasharray="2 3"/>
+          <line x1="286" y1="151" x2="306" y2="151" stroke="#E8EBED" stroke-width="1" stroke-opacity="0.55"/>
+          <circle cx="296" cy="151" r="4" fill="#0A0D10" stroke="#E8EBED" stroke-width="1.5"/>
+          <text x="296" y="139" text-anchor="middle" fill="#E8EBED"
+                font-family="IBM Plex Mono, monospace" font-size="10">47.5</text>
 
+          <!-- x axis -->
           <g fill="#7C8791" font-family="IBM Plex Mono, monospace" font-size="9" letter-spacing="0.1em">
-            <text x="52"  y="290" text-anchor="start">−8:00</text>
-            <text x="296" y="290" text-anchor="middle" fill="#E8EBED">NOW</text>
+            <text x="54"  y="290" text-anchor="start">−8:00</text>
+            <text x="175" y="290" text-anchor="middle">−4:00</text>
+            <text x="296" y="290" text-anchor="middle" fill="#B9C2CA">NOW</text>
+            <text x="418" y="290" text-anchor="middle">+4:00</text>
             <text x="540" y="290" text-anchor="end">+8:00</text>
           </g>
 
-          <line x1="433" y1="207" x2="433" y2="174" stroke="#FF7A1A" stroke-width="1"/>
-          <circle cx="433" cy="207" r="3.5" fill="#FF7A1A"/>
+          <!-- crossover marker -->
+          <line x1="433" y1="207" x2="433" y2="172" stroke="#FF7A1A" stroke-width="1"/>
+          <circle cx="433" cy="207" r="4.5" fill="#FF7A1A"/>
+          <circle cx="433" cy="207" r="8" fill="none" stroke="#FF7A1A" stroke-opacity="0.35"/>
+          <rect x="405" y="156" width="56" height="15" fill="#0A0D10" stroke="#FF7A1A" stroke-opacity="0.5"/>
           <text x="433" y="167" text-anchor="middle" fill="#FF7A1A"
-                font-family="IBM Plex Mono, monospace" font-size="12" font-weight="500">04:30</text>
+                font-family="IBM Plex Mono, monospace" font-size="11" font-weight="500">04:30</text>
         </svg>
       </div>
 
       <div class="readouts">
-        <div><span class="k">R²</span><span class="rv">0.81</span></div>
-        <div><span class="k">Window</span><span class="rv">45<span class="u">s</span></span></div>
-        <div><span class="k">Slope SE</span><span class="rv">0.60<span class="u">/min</span></span></div>
-        <div><span class="k">Optimistic</span><span class="rv">03:38</span></div>
-        <div><span class="k">Pessimistic</span><span class="rv">05:53</span></div>
-        <div><span class="k">Horizon</span><span class="rv">30:00</span></div>
+        <div><span class="tag">R²</span><span class="rv">0.81</span></div>
+        <div><span class="tag">Window</span><span class="rv">45<span class="u">s</span></span></div>
+        <div><span class="tag">Slope SE</span><span class="rv">0.60<span class="u">/min</span></span></div>
+        <div><span class="tag">Optimistic</span><span class="rv">03:38</span></div>
+        <div><span class="tag">Pessimistic</span><span class="rv">05:53</span></div>
+        <div><span class="tag">Horizon</span><span class="rv">30:00</span></div>
       </div>
     </div>
   </section>
 
-  <!-- ── column C: the call and its inputs ── -->
+  <!-- ══ column C — the call and its inputs ══ -->
   <section class="col-c">
 
     <div class="call arming" aria-live="polite">
-      <div class="ph"><span>Pit Call</span><span class="aux" style="color:var(--state-dry)">ARMING 2/3</span></div>
-      <div class="body">
-        <div class="compound"><span class="from">Inter</span><span class="arrow"></span><span class="to">Slick</span></div>
-        <div class="segments"><i class="held"></i><i class="held"></i><i class="next"></i></div>
+      <div class="ph"><span class="section">Pit call</span><span class="aux" style="color:var(--state-dry)">ARMING 2/3</span></div>
+      <div class="call-body">
+
+        <div class="condition">
+          <span class="tag">Current</span>
+          <span class="cv">INTERMEDIATE · TWI 47.5</span>
+        </div>
+
+        <div class="action-outer chamfer-sm">
+          <div class="action chamfer-sm">
+            <span class="tag" style="display:block;margin-bottom:9px">Recommended action</span>
+            <div class="compound"><span class="from">Inter</span><span class="arrow"></span><span class="to">Slick</span></div>
+            <div class="segments"><i class="held"></i><i class="held"></i><i></i></div>
+          </div>
+        </div>
+
+        <div class="ttt">
+          <span class="tag">Time to transition</span>
+          <span class="tv">04:30</span>
+        </div>
+
         <p class="rationale">TWI 47.5 falling at 5.0/min. Slick threshold in 4:30. Holding intermediates until the third window confirms.</p>
       </div>
     </div>
 
     <div class="wx">
-      <div class="ph"><span>Weather</span><span class="aux">OPEN-METEO · 41s</span></div>
-      <div class="grid">
-        <div><span class="k">Air</span><span class="wv">13.4<span class="u">°C</span></span></div>
-        <div><span class="k">Humidity</span><span class="wv">95<span class="u">%</span></span></div>
-        <div><span class="k">Wind</span><span class="wv">6.1<span class="u">km/h</span></span></div>
-        <div><span class="k">Cloud</span><span class="wv">0<span class="u">%</span></span></div>
+      <div class="ph"><span class="section">Weather</span><span class="aux">OPEN-METEO · 41s</span></div>
+      <div class="wx-grid">
+        <div><span class="tag">Air</span><span class="wv">13.4<span class="u">°C</span></span></div>
+        <div><span class="tag">Humidity</span><span class="wv">95<span class="u">%</span></span></div>
+        <div><span class="tag">Wind</span><span class="wv">6.1<span class="u">km/h</span></span></div>
+        <div><span class="tag">Cloud</span><span class="wv">0<span class="u">%</span></span></div>
       </div>
       <div class="prior">
-        <span class="k">Drying prior</span>
+        <span class="tag">Drying prior</span>
         <span class="pv">−2.66<span class="u">/min</span></span>
       </div>
     </div>
 
     <div class="fusion">
-      <div class="ph" style="padding:0 0 9px; border:0; background:none"><span>Rate fusion</span><span class="aux">−5.0/MIN</span></div>
-      <div class="split"><span class="vis"></span><span class="wx2"></span></div>
-      <div class="split-keys">
-        <span>Visual <b>62%</b></span>
-        <span>Weather <b>38%</b></span>
+      <div style="display:flex;align-items:baseline;justify-content:space-between">
+        <span class="section">Rate fusion</span>
+        <span class="aux mono" style="font-size:10px;color:var(--text-muted)">2 SOURCES</span>
+      </div>
+      <div class="bargraph"><span class="vis"></span><span class="wxs"></span></div>
+      <div class="fusion-keys">
+        <span class="tag">Visual <b>62%</b></span>
+        <span class="tag">Weather <b>38%</b></span>
+      </div>
+      <div class="fusion-total">
+        <span class="tag">Fused rate</span>
+        <span class="fv">−5.0<span class="u">/min</span></span>
       </div>
     </div>
 
     <div class="log">
-      <div class="ph"><span>Event log</span><span class="aux">6</span></div>
+      <div class="ph"><span class="section">Event log</span><span class="aux">6</span></div>
       <div class="rows">
-        <div class="r mark"><span class="ts">14:03:22</span><span class="ev">ARMING · SLICK · WINDOW 2/3</span></div>
-        <div class="r"><span class="ts">14:02:58</span><span class="ev">TREND DRYING · R² 0.81</span></div>
-        <div class="r warn"><span class="ts">14:02:31</span><span class="ev">SIGNAL DEGRADED · SPRAY ON LENS</span></div>
-        <div class="r"><span class="ts">14:01:44</span><span class="ev">R² RECOVERED · 0.62 → 0.81</span></div>
-        <div class="r"><span class="ts">13:59:07</span><span class="ev">STABLE · INSUFFICIENT SIGNAL</span></div>
-        <div class="r"><span class="ts">13:57:20</span><span class="ev">SESSION OPENED · CAM 4</span></div>
+        <div class="r act"><span class="g"></span><span class="ts">14:03:22</span><span class="ev">Arming · slick · window 2/3</span></div>
+        <div class="r good"><span class="g"></span><span class="ts">14:02:58</span><span class="ev">Trend drying · R² 0.81</span></div>
+        <div class="r warn"><span class="g"></span><span class="ts">14:02:31</span><span class="ev">Signal degraded · spray on lens</span></div>
+        <div class="r good"><span class="g"></span><span class="ts">14:01:44</span><span class="ev">R² recovered · 0.62 → 0.81</span></div>
+        <div class="r info"><span class="g"></span><span class="ts">13:59:07</span><span class="ev">Stable · insufficient signal</span></div>
+        <div class="r info"><span class="g"></span><span class="ts">13:57:20</span><span class="ev">Session opened · cam 04</span></div>
       </div>
     </div>
 
   </section>
 
+  <!-- ══ timeline workstation ══ -->
   <footer class="rail">
-    <div class="ruler">
-      <span style="left:0%">0:00</span>
-      <span style="left:21.43%">0:15</span>
-      <span style="left:42.86%">0:30</span>
-      <span style="left:64.29%">0:45</span>
-      <span style="left:85.71%">1:00</span>
-      <span class="count">263 frames · 70s</span>
+
+    <div class="transport">
+      <button class="tbtn" type="button" aria-label="Step back one frame">
+        <svg viewBox="0 0 12 12"><path d="M10 1 4 6l6 5zM3 1h1.4v10H3z"/></svg>
+      </button>
+      <button class="tbtn primary" type="button" aria-label="Play">
+        <svg viewBox="0 0 12 12"><path d="M2 1l9 5-9 5z"/></svg>
+      </button>
+      <button class="tbtn" type="button" aria-label="Step forward one frame">
+        <svg viewBox="0 0 12 12"><path d="M2 1l6 5-6 5zM7.6 1H9v10H7.6z"/></svg>
+      </button>
     </div>
-    <div class="strip">
-      <div class="fr" style="background-position:0%  50%; filter:brightness(.62) saturate(.85)"></div>
-      <div class="fr" style="background-position:4%  50%; filter:brightness(.63) saturate(.85)"></div>
-      <div class="fr" style="background-position:8%  50%; filter:brightness(.64) saturate(.86)"></div>
-      <div class="fr" style="background-position:12% 50%; filter:brightness(.65) saturate(.86)"></div>
-      <div class="fr" style="background-position:16% 50%; filter:brightness(.66) saturate(.87)"></div>
-      <div class="fr low" style="background-position:20% 50%"></div>
-      <div class="fr low" style="background-position:24% 50%"></div>
-      <div class="fr" style="background-position:28% 50%; filter:brightness(.70) saturate(.89)"></div>
-      <div class="fr" style="background-position:32% 50%; filter:brightness(.72) saturate(.90)"></div>
-      <div class="fr" style="background-position:36% 50%; filter:brightness(.74) saturate(.91)"></div>
-      <div class="fr" style="background-position:40% 50%; filter:brightness(.76) saturate(.92)"></div>
-      <div class="fr" style="background-position:44% 50%; filter:brightness(.79) saturate(.93)"></div>
-      <div class="fr" style="background-position:48% 50%; filter:brightness(.82) saturate(.94)"></div>
-      <div class="fr" style="background-position:52% 50%; filter:brightness(.85) saturate(.95)"></div>
-      <div class="fr" style="background-position:56% 50%; filter:brightness(.88) saturate(.96)"></div>
-      <div class="fr" style="background-position:60% 50%; filter:brightness(.91) saturate(.97)"></div>
-      <div class="fr" style="background-position:64% 50%; filter:brightness(.94) saturate(.98)"></div>
-      <div class="fr" style="background-position:68% 50%; filter:brightness(.97)"></div>
-      <div class="fr" style="background-position:72% 50%; filter:brightness(1)"></div>
-      <div class="fr" style="background-position:76% 50%; filter:brightness(1.02)"></div>
-      <div class="fr" style="background-position:80% 50%; filter:brightness(1.04)"></div>
-      <div class="fr" style="background-position:84% 50%; filter:brightness(1.05)"></div>
-      <div class="fr" style="background-position:88% 50%; filter:brightness(1.06)"></div>
-      <div class="fr" style="background-position:92% 50%; filter:brightness(1.07)"></div>
+
+    <div class="rail-main">
+      <div class="ruler">
+        <span style="left:0%">0:00</span>
+        <span style="left:21.43%">0:15</span>
+        <span style="left:42.86%">0:30</span>
+        <span style="left:64.29%">0:45</span>
+        <span style="left:85.71%">1:00</span>
+        <span class="count">263 frames · 70s · 4 fps</span>
+        <span class="mk warn" style="left:22%"></span>
+        <span class="mk warn" style="left:26%"></span>
+        <span class="mk act" style="left:66.5%"></span>
+      </div>
+
+      <div class="well strip-well">
+        <!-- Varied crops of the source so the strip reads as successive moments.
+             Phase 7 writes real per-frame thumbnails. -->
+        <div class="strip">
+          <div class="fr" style="background-position:0%  50%; filter:brightness(.60) saturate(.85)"></div>
+          <div class="fr" style="background-position:4%  50%; filter:brightness(.61) saturate(.85)"></div>
+          <div class="fr" style="background-position:8%  50%; filter:brightness(.62) saturate(.86)"></div>
+          <div class="fr" style="background-position:12% 50%; filter:brightness(.63) saturate(.86)"></div>
+          <div class="fr" style="background-position:16% 50%; filter:brightness(.64) saturate(.87)"></div>
+          <div class="fr low" style="background-position:20% 50%"></div>
+          <div class="fr low" style="background-position:24% 50%"></div>
+          <div class="fr" style="background-position:28% 50%; filter:brightness(.69) saturate(.89)"></div>
+          <div class="fr" style="background-position:32% 50%; filter:brightness(.71) saturate(.90)"></div>
+          <div class="fr" style="background-position:36% 50%; filter:brightness(.73) saturate(.91)"></div>
+          <div class="fr" style="background-position:40% 50%; filter:brightness(.75) saturate(.92)"></div>
+          <div class="fr" style="background-position:44% 50%; filter:brightness(.78) saturate(.93)"></div>
+          <div class="fr" style="background-position:48% 50%; filter:brightness(.81) saturate(.94)"></div>
+          <div class="fr" style="background-position:52% 50%; filter:brightness(.84) saturate(.95)"></div>
+          <div class="fr" style="background-position:56% 50%; filter:brightness(.87) saturate(.96)"></div>
+          <div class="fr cur" style="background-position:60% 50%; filter:brightness(.90) saturate(.97)"></div>
+          <div class="fr" style="background-position:64% 50%; filter:brightness(.93) saturate(.98)"></div>
+          <div class="fr" style="background-position:68% 50%; filter:brightness(.96)"></div>
+          <div class="fr" style="background-position:72% 50%; filter:brightness(.99)"></div>
+          <div class="fr" style="background-position:76% 50%; filter:brightness(1.01)"></div>
+          <div class="fr" style="background-position:80% 50%; filter:brightness(1.03)"></div>
+          <div class="fr" style="background-position:84% 50%; filter:brightness(1.04)"></div>
+          <div class="fr" style="background-position:88% 50%; filter:brightness(1.05)"></div>
+          <div class="fr" style="background-position:92% 50%; filter:brightness(1.06)"></div>
+        </div>
+      </div>
+
+      <!-- Continuous wetness, interpolated between the state tokens. -->
+      <div style="background: linear-gradient(90deg,
+        #3D7DBF 0%, #3D7DBF 9%, #4681BC 14%, #5788AE 19%, #6C8F9C 25%,
+        #8A9788 32%, #A69C74 38%, #BEA062 45%, #D2A252 52%, #E0A33E 60%,
+        #DCA652 66%, #D3AA6E 72%, #C9AE8A 79%, #C6BAA3 86%, #C9CCCB 93%, #C9D1D9 100%);
+        box-shadow: inset 0 1px 2px rgba(0,0,0,.5);"></div>
+
+      <div class="playhead"></div>
     </div>
-    <div style="background: linear-gradient(90deg,
-      #3D7DBF 0%, #3D7DBF 9%, #4681BC 14%, #5788AE 19%, #6C8F9C 25%,
-      #8A9788 32%, #A69C74 38%, #BEA062 45%, #D2A252 52%, #E0A33E 60%,
-      #DCA652 66%, #D3AA6E 72%, #C9AE8A 79%, #C6BAA3 86%, #C9CCCB 93%, #C9D1D9 100%);"></div>
-    <div class="playhead"></div>
+
   </footer>
 
 </div>

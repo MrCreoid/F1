@@ -1,0 +1,743 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weather Whiplash — design proof</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Phase 5 self-hosts these via next/font. The CDN is acceptable for a static proof only. -->
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=Inter+Tight:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --surface-base: #0E1114;
+  --surface-raised: #161A1F;
+  --hairline: #262C33;
+  --text-primary: #E8EBED;
+  --text-muted: #7C8791;
+  --sodium: #FF7A1A;
+
+  --state-dry: #C9D1D9;
+  --state-damp: #E0A33E;
+  --state-wet: #3D7DBF;
+  --state-standing: #7B5CD6;
+  --trend-improving: #4FB477;
+  --trend-worsening: #D4574E;
+
+  /* 11 / 13 / 15 / 20 / 32 / 64 / 128 — nothing between these steps */
+  --t-11: 11px; --t-13: 13px; --t-15: 15px; --t-20: 20px;
+  --t-32: 32px; --t-64: 64px; --t-128: 128px;
+
+  --display: "Archivo", system-ui, sans-serif;
+  --body: "Inter Tight", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { background: var(--surface-base); }
+
+body {
+  background: var(--surface-base);
+  color: var(--text-primary);
+  font-family: var(--body);
+  font-size: var(--t-15);
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* Browser surfaces belong to the design too. */
+::selection { background: var(--sodium); color: #0E1114; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--surface-base); }
+::-webkit-scrollbar-thumb { background: var(--hairline); border-radius: 0; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+* { scrollbar-color: var(--hairline) var(--surface-base); scrollbar-width: thin; }
+
+:focus-visible {
+  outline: 2px solid var(--sodium);
+  outline-offset: 2px;
+}
+
+/* Every changing number is tabular and monospaced. Digits must not shift as they update. */
+.num {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+.label {
+  font-family: var(--body);
+  font-size: var(--t-11);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.panel-title {
+  font-family: var(--display);
+  font-variation-settings: "wdth" 118;
+  font-weight: 800;
+  font-size: var(--t-13);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+/* ─────────────────────────────────────────────── shell */
+
+.shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(392px, 0.88fr);
+  grid-template-rows: 40px minmax(0, 1fr) 96px;
+  grid-template-areas:
+    "head head"
+    "frame side"
+    "rail rail";
+  height: 100vh;
+  max-height: 100vh;
+}
+
+/* ─────────────────────────────────────────────── header */
+
+.head {
+  grid-area: head;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 1px solid var(--hairline);
+  padding-right: 20px;
+}
+
+.mark {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 20px;
+}
+
+.mark::before {
+  content: "";
+  width: 3px;
+  height: 15px;
+  background: var(--sodium);
+}
+
+.wordmark {
+  font-family: var(--display);
+  font-variation-settings: "wdth" 122;
+  font-weight: 800;
+  font-size: var(--t-13);
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.meta {
+  display: flex;
+  gap: 18px;
+  font-size: var(--t-11);
+  color: var(--text-muted);
+  margin-left: 10px;
+}
+
+.meta b { color: var(--text-primary); font-weight: 500; }
+
+.live {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: var(--t-11);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--trend-improving);
+}
+
+/* ─────────────────────────────────────────────── left: frame + readout */
+
+/* Bleeds to the viewport edge — no outer margin this side. */
+.frame {
+  grid-area: frame;
+  position: relative;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  border-right: 1px solid var(--hairline);
+  min-width: 0;
+}
+
+.viewport {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-base);
+}
+
+.viewport img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.viewport::after {
+  /* Seats the frame into the panel instead of letting it glow at the seam. */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(14,17,20,.34) 0%, rgba(14,17,20,0) 26%, rgba(14,17,20,.62) 100%);
+}
+
+.stamp {
+  position: absolute;
+  z-index: 2;
+  left: 16px;
+  top: 14px;
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+  font-size: var(--t-11);
+  color: rgba(232,235,237,.72);
+  letter-spacing: 0.06em;
+}
+
+.quality-chip {
+  position: absolute;
+  z-index: 2;
+  right: 16px;
+  top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 9px;
+  border: 1px solid rgba(232,235,237,.16);
+  border-radius: 3px;
+  background: rgba(14,17,20,.66);
+  font-size: var(--t-11);
+  letter-spacing: .05em;
+}
+
+.quality-bar {
+  width: 44px;
+  height: 3px;
+  background: rgba(232,235,237,.18);
+  position: relative;
+}
+
+.quality-bar span {
+  position: absolute;
+  inset: 0 38% 0 0;
+  background: var(--state-damp);
+}
+
+/* readout */
+
+.readout {
+  border-top: 1px solid var(--hairline);
+  padding: 20px 24px 22px 20px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0 32px;
+  align-items: end;
+  background: var(--surface-base);
+}
+
+.twi {
+  font-family: var(--display);
+  font-variation-settings: "wdth" 108;
+  font-weight: 800;
+  font-size: var(--t-128);
+  line-height: .82;
+  letter-spacing: -0.035em;
+  font-variant-numeric: tabular-nums;
+  display: block;
+}
+
+.twi small {
+  font-size: var(--t-32);
+  letter-spacing: -0.02em;
+  color: var(--text-muted);
+}
+
+.twi-caption { margin-top: 12px; }
+
+.state-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 7px;
+  font-size: var(--t-15);
+}
+
+.swatch {
+  width: 8px;
+  height: 8px;
+  background: var(--state-damp);
+}
+
+.state-name {
+  font-family: var(--display);
+  font-variation-settings: "wdth" 112;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--state-damp);
+}
+
+.divider-dot { color: var(--hairline); }
+
+.trend-name {
+  font-family: var(--display);
+  font-variation-settings: "wdth" 112;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--trend-improving);
+}
+
+.rate { color: var(--trend-improving); font-size: var(--t-13); }
+
+/* the distribution — mass across four classes, not a winner */
+.dist { align-self: end; padding-bottom: 6px; }
+
+.dist-bar {
+  display: flex;
+  height: 6px;
+  width: 100%;
+  margin: 9px 0 11px;
+  gap: 1px;
+}
+
+.dist-bar i { display: block; }
+.dist-bar i:nth-child(1) { width: 4%;  background: var(--state-dry); }
+.dist-bar i:nth-child(2) { width: 62%; background: var(--state-damp); }
+.dist-bar i:nth-child(3) { width: 30%; background: var(--state-wet); }
+.dist-bar i:nth-child(4) { width: 4%;  background: var(--state-standing); }
+
+.dist-keys {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  font-size: var(--t-11);
+  color: var(--text-muted);
+}
+
+.dist-keys div { display: flex; flex-direction: column; gap: 3px; }
+.dist-keys b { color: var(--text-primary); font-weight: 400; font-size: var(--t-13); }
+
+/* ─────────────────────────────────────────────── right column */
+
+.side {
+  grid-area: side;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  min-width: 0;
+}
+
+.projection {
+  padding: 16px 20px 14px;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  min-height: 0;
+  background: var(--surface-raised);
+}
+
+.panel-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.eta {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--t-20);
+  color: var(--sodium);
+  letter-spacing: .01em;
+}
+
+.chart { min-height: 0; display: flex; }
+.chart svg { width: 100%; height: 100%; display: block; }
+
+.projection-foot {
+  display: flex;
+  gap: 20px;
+  padding-top: 10px;
+  margin-top: 8px;
+  border-top: 1px solid var(--hairline);
+  font-size: var(--t-11);
+  color: var(--text-muted);
+  letter-spacing: .05em;
+}
+
+.projection-foot b { color: var(--text-primary); font-weight: 400; }
+
+/* pit call */
+
+.call {
+  border-top: 1px solid var(--hairline);
+  padding: 16px 20px 18px;
+  background: var(--surface-base);
+  position: relative;
+}
+
+/* ARMING: the panel edge pulses in the target compound's colour. State-driven only —
+   nothing on this screen animates while the system is idle. */
+.call.arming::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--state-dry);
+  pointer-events: none;
+  animation: arm 1.4s cubic-bezier(.4, 0, .2, 1) infinite;
+}
+
+@keyframes arm {
+  0%, 100% { opacity: 0; }
+  45% { opacity: .5; }
+}
+
+.call-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.compound {
+  font-family: var(--display);
+  font-variation-settings: "wdth" 115;
+  font-weight: 800;
+  font-size: var(--t-32);
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.compound .from { color: var(--state-damp); }
+.compound .arrow { color: var(--text-muted); margin: 0 8px; font-weight: 400; }
+.compound .to { color: var(--state-dry); }
+
+.windows { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+
+.segments { display: flex; gap: 4px; }
+
+.segments i {
+  display: block;
+  width: 26px;
+  height: 5px;
+  background: var(--hairline);
+}
+
+.segments i.held { background: var(--state-dry); }
+
+.rationale {
+  margin-top: 12px;
+  font-size: var(--t-13);
+  color: var(--text-primary);
+  max-width: 62ch;
+}
+
+.call-state {
+  font-family: var(--display);
+  font-variation-settings: "wdth" 118;
+  font-weight: 800;
+  font-size: var(--t-11);
+  letter-spacing: .14em;
+  color: var(--state-dry);
+}
+
+/* ─────────────────────────────────────────────── timeline rail */
+
+.rail {
+  grid-area: rail;
+  border-top: 1px solid var(--hairline);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  padding: 8px 20px 10px;
+  gap: 6px;
+  background: var(--surface-base);
+  min-width: 0;
+}
+
+.rail-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--t-11);
+  color: var(--text-muted);
+  letter-spacing: .06em;
+}
+
+.frames { display: flex; gap: 2px; min-width: 0; overflow: hidden; }
+
+.frames .thumb {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 34px;
+  background-image: url("sample-frame.jpg");
+  background-size: 300% auto;
+  background-position: center;
+  position: relative;
+}
+
+.frames .thumb.degraded::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(45deg, rgba(14,17,20,.72) 0 2px, rgba(14,17,20,0) 2px 5px);
+}
+
+.frames .thumb.now { outline: 2px solid var(--sodium); outline-offset: -2px; z-index: 1; }
+
+.heat { display: flex; gap: 2px; height: 5px; min-width: 0; }
+.heat i { flex: 1 1 0; min-width: 0; display: block; }
+
+/* ─────────────────────────────────────────────── load sequence, once */
+
+@media (prefers-reduced-motion: no-preference) {
+  .head, .frame, .side, .rail { animation: rise .5s cubic-bezier(.16, 1, .3, 1) backwards; }
+  .frame { animation-delay: .06s; }
+  .side { animation-delay: .12s; }
+  .rail { animation-delay: .18s; }
+  .head { border-bottom-color: transparent; animation: rise .5s cubic-bezier(.16,1,.3,1) backwards, hairline .4s ease-out .25s forwards; }
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes hairline { to { border-bottom-color: var(--hairline); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .call.arming::before { animation: none; opacity: .5; }
+}
+
+/* ─────────────────────────────────────────────── stacked, below 1024 */
+
+@media (max-width: 1023px) {
+  .shell {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 40px auto auto auto;
+    grid-template-areas: "head" "frame" "side" "rail";
+    height: auto;
+    max-height: none;
+  }
+  .frame { border-right: 0; }
+  .viewport { aspect-ratio: 16 / 7; }
+  .projection { min-height: 300px; }
+  .rail { border-top: 1px solid var(--hairline); }
+}
+
+@media (max-width: 560px) {
+  .readout { grid-template-columns: minmax(0, 1fr); gap: 22px; padding: 18px 16px; }
+  .twi { font-size: var(--t-64); }
+  .twi small { font-size: var(--t-20); }
+  .compound { font-size: var(--t-20); }
+  .meta { display: none; }
+  .call-row { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .windows { align-items: flex-start; }
+  .projection-foot { flex-wrap: wrap; gap: 8px 16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <header class="head">
+    <div class="mark"><span class="wordmark">Weather Whiplash</span></div>
+    <div class="meta">
+      <span>SESSION <b>SILVERSTONE FP3</b></span>
+      <span>SOURCE <b>TRACKSIDE CAM 4</b></span>
+      <span>MODEL <b>CLIP-VIT-B/32 · ZERO-SHOT</b></span>
+    </div>
+    <div class="live"><span class="live-dot"></span><span>Live</span><span class="num">24</span>fps</div>
+  </header>
+
+  <section class="frame">
+    <div class="viewport">
+      <!-- Placeholder footage. Berlin E-Prix 2023 by Steffen Prößdorf (Wikimedia
+           Commons), CC BY-SA 4.0. Replaced by the real decoded frame in Phase 5. -->
+      <img src="sample-frame.jpg" alt="Trackside camera 4 — a car on a damp circuit surface">
+      <div class="stamp">
+        <span class="num">14:03:22</span>
+        <span>FRAME <span class="num">128</span></span>
+      </div>
+      <div class="quality-chip">
+        <span class="label" style="letter-spacing:.05em">Signal</span>
+        <span class="quality-bar"><span></span></span>
+        <span class="num">0.62</span>
+      </div>
+    </div>
+
+    <div class="readout">
+      <div>
+        <span class="twi">47<small>.5</small></span>
+        <div class="twi-caption label">Track Wetness Index</div>
+        <div class="state-line">
+          <span class="swatch"></span>
+          <span class="state-name">Damp</span>
+          <span class="divider-dot">·</span>
+          <span class="trend-name">Drying</span>
+          <span class="rate num">−5.0<span style="color:var(--text-muted)">/min</span></span>
+        </div>
+      </div>
+
+      <div class="dist">
+        <div class="label">Surface distribution</div>
+        <div class="dist-bar"><i></i><i></i><i></i><i></i></div>
+        <div class="dist-keys">
+          <div><span>Dry</span><b class="num">0.04</b></div>
+          <div><span>Damp</span><b class="num">0.62</b></div>
+          <div><span>Wet</span><b class="num">0.30</b></div>
+          <div><span>Standing</span><b class="num">0.04</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="side">
+
+    <div class="projection">
+      <div class="panel-head">
+        <h2 class="panel-title">Crossover Projection</h2>
+        <span class="eta">04:30</span>
+      </div>
+
+      <div class="chart">
+        <svg viewBox="0 0 520 330" preserveAspectRatio="xMidYMid meet" role="img"
+             aria-label="Track wetness index falling from 72 to 47.5 over the last eight minutes, projected to cross the slick threshold of 25 in four minutes thirty seconds, with an uncertainty range of three minutes thirty-eight to five minutes fifty-three.">
+          <defs>
+            <!-- The line is coloured by the condition it describes, shifting hue as it
+                 crosses each threshold band. -->
+            <linearGradient id="condition" gradientUnits="userSpaceOnUse" x1="44" y1="0" x2="500" y2="0">
+              <stop offset="0"      stop-color="#3D7DBF"/>
+              <stop offset="0.2187" stop-color="#3D7DBF"/>
+              <stop offset="0.2187" stop-color="#E0A33E"/>
+              <stop offset="0.781"  stop-color="#E0A33E"/>
+              <stop offset="0.781"  stop-color="#C9D1D9"/>
+              <stop offset="1"      stop-color="#C9D1D9"/>
+            </linearGradient>
+          </defs>
+
+          <!-- threshold zones: y maps TWI 100 → 16, TWI 0 → 290 -->
+          <rect x="44" y="16"    width="456" height="95.9"  fill="#3D7DBF" opacity="0.05"/>
+          <rect x="44" y="111.9" width="456" height="109.6" fill="#E0A33E" opacity="0.05"/>
+          <rect x="44" y="221.5" width="456" height="68.5"  fill="#C9D1D9" opacity="0.05"/>
+
+          <line x1="44" y1="111.9" x2="500" y2="111.9" stroke="#262C33" stroke-width="1"/>
+          <line x1="44" y1="221.5" x2="500" y2="221.5" stroke="#262C33" stroke-width="1"/>
+          <line x1="44" y1="290"   x2="500" y2="290"   stroke="#262C33" stroke-width="1"/>
+
+          <text x="38" y="115" text-anchor="end" fill="#7C8791" font-family="IBM Plex Mono, monospace" font-size="11">65</text>
+          <text x="38" y="225" text-anchor="end" fill="#7C8791" font-family="IBM Plex Mono, monospace" font-size="11">25</text>
+          <text x="497" y="32"  text-anchor="end" fill="#7C8791" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="0.09em">FULL WET</text>
+          <text x="497" y="128" text-anchor="end" fill="#7C8791" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="0.09em">INTERMEDIATE</text>
+          <text x="497" y="238" text-anchor="end" fill="#7C8791" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="0.09em">SLICK</text>
+
+          <!-- uncertainty cone: widens with time, because confidence decays with time -->
+          <path d="M272,159.9 L500,290 L500,243.7 Z" fill="#FF7A1A" opacity="0.13"/>
+
+          <!-- history, solid -->
+          <path d="M44,92.7 L72.5,96.8 L101,103.7 L129.5,107.8 L158,117.4 L186.5,125.6 L215,135.2 L243.5,147.5 L272,159.9"
+                fill="none" stroke="url(#condition)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+
+          <!-- projection, dashed, past now -->
+          <path d="M272,159.9 L500,269.5" fill="none" stroke="url(#condition)" stroke-width="4"
+                stroke-dasharray="7 6" opacity="0.5" stroke-linecap="round"/>
+
+          <!-- now -->
+          <line x1="272" y1="16" x2="272" y2="290" stroke="#7C8791" opacity="0.45" stroke-width="1" stroke-dasharray="2 3"/>
+          <text x="272" y="308" text-anchor="middle" fill="#7C8791" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="0.09em">NOW</text>
+          <text x="44"  y="308" text-anchor="start"  fill="#7C8791" font-family="IBM Plex Mono, monospace" font-size="10">−8:00</text>
+          <text x="500" y="308" text-anchor="end"    fill="#7C8791" font-family="IBM Plex Mono, monospace" font-size="10">+8:00</text>
+
+          <!-- the crossing -->
+          <circle cx="400" cy="221.5" r="3.5" fill="#FF7A1A"/>
+          <line x1="400" y1="221.5" x2="400" y2="197" stroke="#FF7A1A" stroke-width="1"/>
+          <text x="400" y="190" text-anchor="middle" fill="#FF7A1A" font-family="IBM Plex Mono, monospace" font-size="12" letter-spacing="0.02em">04:30</text>
+        </svg>
+      </div>
+
+      <div class="projection-foot">
+        <span>R² <b class="num">0.81</b></span>
+        <span>WINDOW <b class="num">45</b>s</span>
+        <span>RANGE <b class="num">03:38</b>–<b class="num">05:53</b></span>
+        <span>VISUAL <b class="num">62</b>% / WEATHER <b class="num">38</b>%</span>
+      </div>
+    </div>
+
+    <div class="call arming" aria-live="polite">
+      <div class="panel-head">
+        <h2 class="panel-title">Pit Call</h2>
+        <span class="call-state">Arming</span>
+      </div>
+
+      <div class="call-row">
+        <div class="compound">
+          <span class="from">Inter</span><span class="arrow">→</span><span class="to">Slick</span>
+        </div>
+        <div class="windows">
+          <span class="label">Windows held</span>
+          <div class="segments"><i class="held"></i><i class="held"></i><i></i></div>
+        </div>
+      </div>
+
+      <p class="rationale">TWI 47.5 falling at 5.0/min. Slick threshold in 4:30. Holding intermediates until the third window confirms.</p>
+    </div>
+
+  </section>
+
+  <footer class="rail">
+    <div class="rail-head">
+      <span>TIMELINE · <span class="num">263</span> FRAMES · <span class="num">70</span>s</span>
+      <span>WETNESS</span>
+    </div>
+    <div class="frames">
+      <div class="thumb" style="filter:brightness(.55) saturate(.8)"></div>
+      <div class="thumb" style="filter:brightness(.58) saturate(.8)"></div>
+      <div class="thumb" style="filter:brightness(.56) saturate(.8)"></div>
+      <div class="thumb" style="filter:brightness(.60) saturate(.8)"></div>
+      <div class="thumb" style="filter:brightness(.62) saturate(.85)"></div>
+      <div class="thumb" style="filter:brightness(.61) saturate(.85)"></div>
+      <div class="thumb degraded" style="filter:brightness(.64) saturate(.85)"></div>
+      <div class="thumb degraded" style="filter:brightness(.66) saturate(.85)"></div>
+      <div class="thumb" style="filter:brightness(.70) saturate(.9)"></div>
+      <div class="thumb" style="filter:brightness(.74) saturate(.9)"></div>
+      <div class="thumb" style="filter:brightness(.78) saturate(.95)"></div>
+      <div class="thumb" style="filter:brightness(.82) saturate(.95)"></div>
+      <div class="thumb" style="filter:brightness(.86)"></div>
+      <div class="thumb now" style="filter:brightness(.90)"></div>
+      <div class="thumb" style="filter:brightness(.94)"></div>
+      <div class="thumb" style="filter:brightness(.97)"></div>
+      <div class="thumb" style="filter:brightness(1)"></div>
+      <div class="thumb" style="filter:brightness(1.02)"></div>
+    </div>
+    <!-- The heat strip is the only place raw hex appears outside the tokens: these are
+         interpolations along --state-wet → --state-damp → --state-dry, encoding a
+         continuous index rather than three discrete states. Phase 7 computes them. -->
+    <div class="heat">
+      <i style="background:#3D7DBF"></i><i style="background:#3D7DBF"></i><i style="background:#3D7DBF"></i>
+      <i style="background:#4681BC"></i><i style="background:#5788AE"></i><i style="background:#6C8F9C"></i>
+      <i style="background:#8A9788"></i><i style="background:#A69C74"></i><i style="background:#BEA062"></i>
+      <i style="background:#D2A252"></i><i style="background:#E0A33E"></i><i style="background:#DCA652"></i>
+      <i style="background:#D3AA6E"></i><i style="background:#C9AE8A"></i><i style="background:#C6BAA3"></i>
+      <i style="background:#C7C4B9"></i><i style="background:#C9CCCB"></i><i style="background:#C9D1D9"></i>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>

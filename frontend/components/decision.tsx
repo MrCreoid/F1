@@ -8,9 +8,10 @@
  * backend returns `crossover: null`, the panel says so rather than drawing a guess.
  */
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { FALLBACK_THRESHOLDS, clock, trendColor, type Thresholds, type TrackState } from "@/lib/api";
 import { conditionStops, interpolateEta, projectionGap, ratePerMin } from "@/lib/chart";
+import { springStep, type SpringState } from "@/lib/spring";
 
 /**
  * A countdown that ticks between server updates.
@@ -46,6 +47,54 @@ function useLiveEta(etaSeconds: number | null, running: boolean): number | null 
   return live?.from === etaSeconds ? live.value : etaSeconds;
 }
 
+/**
+ * A numeral that springs to its target instead of snapping (D.5).
+ *
+ * It always converges exactly, so the reading ends on the number the backend actually
+ * reported — an instrument may take a moment to get there, but it must not stop
+ * somewhere else. Reduced motion gets the value directly, with no animation at all.
+ */
+function usePrefersReducedMotion(): boolean {
+  const subscribe = useCallback((onChange: () => void) => {
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    query.addEventListener("change", onChange);
+    return () => query.removeEventListener("change", onChange);
+  }, []);
+  return useSyncExternalStore(
+    subscribe,
+    () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+    () => false, // the server cannot know; assume motion and let the client correct it
+  );
+}
+
+function useSprungNumber(target: number): number {
+  const [shown, setShown] = useState(target);
+  const state = useRef<SpringState>({ value: target, velocity: 0 });
+  const reduced = usePrefersReducedMotion();
+
+  useEffect(() => {
+    if (reduced) return;
+    let frame = 0;
+    let last = performance.now();
+    const loop = (now: number) => {
+      const dt = (now - last) / 1000;
+      last = now;
+      state.current = springStep(state.current, target, dt);
+      setShown(state.current.value);
+      // Stop the loop once it has landed: D.5 — idle is genuinely still, and a rAF
+      // running on a settled value is exactly the ambient animation the spec bans.
+      if (state.current.velocity !== 0 || state.current.value !== target) {
+        frame = requestAnimationFrame(loop);
+      }
+    };
+    frame = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(frame);
+  }, [target, reduced]);
+
+  // Reduced motion reads the real value directly; no animation, no interpolated state.
+  return reduced ? target : shown;
+}
+
 /** mm:ss.d — the tenth is what makes the interpolation visible. */
 function preciseClock(seconds: number): string {
   const total = Math.max(0, seconds);
@@ -68,8 +117,9 @@ export function HeroInstrument({
 }) {
   /* The scale's majors are the compound boundaries the backend actually gates on. */
   const majors = [0, thresholds.compound_low, thresholds.compound_high, 100];
-  const whole = Math.floor(state.twi);
-  const decimal = (state.twi - whole).toFixed(1).slice(1); // ".5"
+  const sprung = useSprungNumber(state.twi);
+  const whole = Math.floor(sprung);
+  const decimal = (sprung - whole).toFixed(1).slice(1); // ".5"
 
   const minuteAgo = history.findLast(
     (s) => new Date(state.timestamp).getTime() - new Date(s.timestamp).getTime() >= 60_000,
@@ -127,8 +177,8 @@ export function HeroInstrument({
                 </span>
               ))}
               <span
-                className="absolute -top-[3px] h-[14px] w-px bg-sodium transition-[left] duration-300 ease-out"
-                style={{ left: `${Math.max(0, Math.min(100, state.twi))}%`, boxShadow: "0 0 7px rgba(255,122,26,.85)" }}
+                className="absolute -top-[3px] h-[14px] w-px bg-sodium"
+                style={{ left: `${Math.max(0, Math.min(100, sprung))}%`, boxShadow: "0 0 7px rgba(255,122,26,.85)" }}
               >
                 <span
                   className="absolute -top-1 -left-[3.5px] border-x-[3.5px] border-t-[5px] border-x-transparent"
@@ -144,6 +194,7 @@ export function HeroInstrument({
                 <span
                   className="inline-flex items-center gap-[9px] font-display text-t20 uppercase tracking-[.045em]"
                   style={{ fontVariationSettings: '"wdth" 112', fontWeight: 800, color: "var(--color-state-damp)" }}
+                  data-tint
                 >
                   <span
                     className="h-2.5 w-2.5"
@@ -157,6 +208,7 @@ export function HeroInstrument({
                 <span
                   className="font-display text-t20 uppercase tracking-[.045em]"
                   style={{ fontVariationSettings: '"wdth" 112', fontWeight: 800, color: trendColor(state.trend.direction) }}
+                  data-tint
                 >
                   {state.trend.direction}
                 </span>

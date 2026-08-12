@@ -1,10 +1,10 @@
 # STATE
 
-Last updated: 2026-08-12 · after Phase 10
+Last updated: 2026-08-12 · after Phase 8 (all phases complete)
 
 ## Position
-- Phases complete: 0 (scaffold + probe), 1 (backbone), 2 (intelligence layer), 3 (design proof), 5 (frontend shell), 6 (signature element), 7 (pit call + timeline), **9a (dataset pipeline — built, not yet published)**, **10 (hardening + DEMO.md + hostile pass)**
-- Next phase: 8 — motion, trimmed. Spring numerals and 400ms colour cross-fades only.
+- Phases complete: 0 (scaffold + probe), 1 (backbone), 2 (intelligence layer), 3 (design proof), 5 (frontend shell), 6 (signature element), 7 (pit call + timeline), **9a (dataset pipeline — built, not yet published)**, **10 (hardening + DEMO.md + hostile pass)**, **8 (motion, trimmed)**
+- **Every planned phase is complete.** Remaining work is the labelling pass and the push.
 - Phase 4 (WebSocket realtime) is **skipped**, per the cut list.
 - **Blocker on Rule 3: two things only a human can supply.** See below.
 
@@ -80,21 +80,46 @@ Nine findings, ranked by how badly they would embarrass us on stage. **1–4 are
 
 Deferred, with reasons:
 
-5. **Backend tunables are re-typed in the frontend** — `25`/`65` in `decision.tsx` (four
-   places) and `chart.ts:TWI_THRESHOLDS`; `150` and `0.15` in `observation.tsx`. Retune
-   `COMPOUND_THRESHOLDS` and the chart silently disagrees with the pit call. The honest
-   fix is serving them from `/api/health` or a `/api/config`, which is a schema change
-   plus a regeneration — worth doing, too large to bolt onto this phase.
-6. **A flat signal reports perfect confidence.** `trend.py:79` returns `R² = 1.0` on zero
-   variance and `sufficient_signal` True; 0.001 of noise drops it to 0.004. **Not
-   reachable end-to-end** — CLIP is not bit-identical across a batch on mps, so a frozen
-   feed lands at R² 0.11 and correctly reads *Insufficient*. Latent, not live, but it is a
-   public tested function whose comment argues the behaviour is correct.
-7. **`weather.py:96` catches `Exception` and never logs.** An Open-Meteo field rename
-   becomes a permanent silent fallback. The UI does say `offline-fallback`, so it is
-   honest on screen and invisible in the logs.
-8. Doc drift — fixed in this rewrite; the status bar now shows the live `warmup_ms`.
-9. **`Lighthouse accessibility ≥ 95` (D.7) has never been run.**
+5. **Fixed.** Backend tunables were re-typed in the frontend — compound boundaries in
+   four places in `decision.tsx` plus `chart.ts`, `BLUR_REFERENCE` and
+   `CLIPPING_TOLERANCE` in `observation.tsx`, the quality flag in three files.
+   `/api/health` now serves a `Thresholds` object and every band, tick, gauge reference
+   and gate label is drawn from it. Proven by setting `COMPOUND_THRESHOLDS` to (40, 80)
+   and restarting: the chart axis and hero scale moved to 0/40/80/100, then back.
+6. **Fixed.** A flat signal returned `R² = 1.0` with `sufficient_signal` True, so a
+   frozen feed would have been answered with maximum confidence — and it was
+   discontinuous, since 0.001 of noise scored 0.004. Zero variance is now 0.0 and
+   insufficient. Three tests, including one proving the gate is still reachable.
+7. **Fixed.** `weather.py` caught `Exception` and never logged, so a renamed upstream
+   field became a permanent fallback indistinguishable from bad Wi-Fi. It now warns once,
+   naming the exception, at the point it gives up.
+8. **Fixed.** Doc drift; the status bar shows the live `warmup_ms` rather than a constant.
+9. **Measured: Lighthouse accessibility 100, zero failing audits** — above D.7's ≥95
+   floor. That run covers the entry view, which is as far as Lighthouse gets on its own;
+   the session view was audited directly (aria-live present, the timeline is a labelled
+   `role="slider"` with `aria-valuetext`, no unlabelled interactive elements, no image
+   without `alt`, every state colour paired with a text label, global `:focus-visible`).
+
+## Phase 8 — motion, trimmed
+- **Spring numerals are hand-rolled**, not a motion library: one integrator and a hook
+  against a dependency for a file of maths. The physics live in `lib/spring.ts` apart
+  from React so the settling can be asserted without rendering.
+- **D.5's suggested stiffness ~120 / damping ~20 was measured and rejected.** That pair
+  takes 1.07s to land and overshoots by 0.00% — at 4fps replay it reads as a laggy fade,
+  and the numeral visibly trails the data. 180/20 lands in 0.72s with 1.12% overshoot.
+  The sweep is in the file. The spec says "~".
+- **The spring always converges exactly.** A readout that stopped near the value would be
+  an instrument showing a number the backend never reported. Verified in-browser on a
+  49-point jump: 25.3 → 52.5 → 71.8 → **75.5** (overshoot) → 74.7 → lands on 74.6.
+- **`dt` is clamped to 1/30.** A backgrounded tab delivers one enormous frame on return
+  and an unclamped step flings the value past its target.
+- **The rAF loop stops when it lands.** Measured: **0 animation frames requested over
+  1.5s of idle**. D.5 — ambient animation with nothing happening is the loudest tell
+  there is.
+- Reduced motion reads the true value with no animation, via `useSyncExternalStore` on
+  the media query rather than a `setState` inside an effect.
+- **One `transition: all` found and removed** (the sample-card arrow), the only D.1
+  violation in the codebase. No `linear` easing anywhere.
 
 ## Phase 9a — the dataset pipeline
 - **Categories, not free-text search.** Commons search matches the description page, not

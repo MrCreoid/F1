@@ -292,9 +292,20 @@ body {
   animation: ww-draw 0.9s cubic-bezier(0.16, 1, 0.3, 1) backwards;
 }
 
+/* D.5: state colour changes cross-fade rather than cutting. 400ms is long enough to
+   register as a change and short enough not to lag the frame it describes — a readout
+   that snapped from amber to green gave no sense that anything had *happened*. Only
+   `color` is animated: transitioning `all` here would drag layout and shadows with it. */
+[data-tint] {
+  transition: color 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* Idle is genuinely still, and reduced motion keeps colour and layout while dropping
    every movement. */
 @media (prefers-reduced-motion: reduce) {
+  [data-tint] {
+    transition: none;
+  }
   .ww-breathe,
   .ww-rise,
   .ww-draw {

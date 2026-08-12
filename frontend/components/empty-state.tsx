@@ -75,7 +75,7 @@ export function EmptyState({
               </span>
               <span className="tnum shrink-0 text-t11 text-text-muted">{s.duration_s.toFixed(0)}s</span>
               <span
-                className="relative h-px w-6 shrink-0 transition-all duration-200 group-hover:w-9"
+                className="relative h-px w-6 shrink-0 transition-[width] duration-200 ease-out group-hover:w-9"
                 style={{ background: "var(--color-sodium)" }}
               >
                 <span

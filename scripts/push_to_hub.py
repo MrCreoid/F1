@@ -30,9 +30,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "backend"))
 
 from app import config  # noqa: E402
 
-# Frames a reviewer marked as not showing a road surface. Keyword search over Commons
-# returns homonyms — a dry lake called Racetrack Playa, a "damping system", a satellite
-# image of a lake — and they are excluded here rather than silently mislabelled.
+# Frames a reviewer marked as not showing a judgeable road surface: resurfacing work
+# mid-pour, a close-up of a tyre, an animal filling the frame. Measured at 38% of a
+# category-sourced corpus, spread evenly across all four groups — the ordinary cost of
+# harvesting one visual property from a general-purpose image library. Excluded here
+# rather than forced into whichever of the four classes fits worst.
 REJECTED = "reject"
 
 
@@ -95,16 +97,39 @@ def build_export(
     credits = attribution_index(sources_dir)
     used: dict[str, dict[str, Any]] = {}
     uncredited = 0
+    # Keyed by the path the downloader actually receives, not by the source filename.
+    # Frames are renamed to their manifest id on export, so a credits list keyed on the
+    # original name is unresolvable to whoever has the dataset — and 219 of these images
+    # are under licences that require attributing the specific work. An attribution
+    # nobody can apply is not attribution.
+    per_image: list[dict[str, Any]] = []
     for row in kept:
         origin = row["origin"].split("#", 1)[0]
-        if origin in credits:
-            used[origin] = credits[origin]
-        else:
+        credit = credits.get(origin)
+        entry: dict[str, Any] = {
+            "file": f"data/{row['label']}/{row['id']}.jpg",
+            "label": row["label"],
+            "source_file": origin,
+        }
+        if credit is None:
             # Own footage, or the app's frame store. Counted rather than ignored: the
             # card must not claim every image came from Commons when some did not.
             uncredited += 1
+            entry["source"] = "own footage"
+        else:
+            used[origin] = credit
+            entry.update(
+                title=credit["title"],
+                artist=credit["artist"],
+                license=credit["license"],
+                license_url=credit["license_url"],
+                source_url=credit["source_url"],
+            )
+        per_image.append(entry)
 
-    (export_dir / "attribution.json").write_text(json.dumps(sorted(used.values(), key=lambda r: r["file_name"]), indent=2) + "\n")
+    (export_dir / "attribution.json").write_text(
+        json.dumps(sorted(per_image, key=lambda r: r["file"]), indent=2) + "\n"
+    )
 
     agreed = sum(1 for row in kept if row["label"] == row["auto_label"])
     stats = {
@@ -158,10 +183,9 @@ size_categories:
 # Weather Whiplash — road surface conditions
 
 {stats['kept']} photographs of road and track surfaces, each labelled by a human with
-one of four appearance classes. Built for [Weather
-Whiplash](https://github.com/), a live track-condition detector whose reasoning layer
-turns a per-frame surface classification into a stable wetness index, a trend, and a
-tyre-change recommendation.
+one of four appearance classes. Built for **Weather Whiplash**, a live track-condition
+detector whose reasoning layer turns a per-frame surface classification into a stable
+wetness index, a trend, and a tyre-change recommendation.
 
 ## The four classes
 
@@ -190,15 +214,28 @@ engineered prompts, and that proposal was recorded. A human then reviewed all
 weak at exactly the distinction that matters most here — dry versus damp asphalt — and
 the corrections concentrate there.
 
-A further {stats['rejected']} candidates were rejected outright as not showing a road
-surface. Keyword search over Commons returns homonyms: a dry lake bed named Racetrack
-Playa, a telescope "damping system", satellite imagery of a flood. None of them reached
-the labels.
+A further {stats['rejected']} candidates were rejected outright, because the surface in
+them could not honestly be judged: resurfacing work mid-pour, a close-up of a tyre, a
+lizard filling the frame, a vintage racing photograph. That is {stats['rejected'] / max(1, stats['reviewed']):.0%}
+of everything retrieved, spread almost evenly across all four source groups — so it is
+not a quirk of one search term but the ordinary cost of harvesting a specific visual
+property from a general-purpose image library. They are excluded rather than forced into
+whichever of the four classes fits worst.
 
 ## Provenance and licensing
 
-{provenance} Per-image author, licence and source page are in `attribution.json`, and no
-image was downloaded whose licence could not be read.
+{provenance} No image was downloaded whose licence could not be read.
+
+**`attribution.json` is keyed by the file you receive**, not by the original upload name —
+one record per image, carrying its title, author, licence, and a link to the source page:
+
+```json
+{{ "file": "data/wet/00278.jpg", "artist": "…", "license": "cc-by-sa-4.0",
+  "source_url": "https://commons.wikimedia.org/wiki/File:…" }}
+```
+
+Most of these licences require you to credit the individual photographer. Credit them
+from that file — not this repository.
 
 | licence | images |
 |---|---|
@@ -221,9 +258,12 @@ Read these before using it for anything.
 - **Not motorsport footage.** These are mostly public roads photographed from a
   standing position. A trackside broadcast camera sees a different angle, different
   optics, and spray the still images here do not contain.
-- **Retrieval bias.** Images were found by keyword, so they over-represent conditions
-  dramatic enough that somebody photographed and captioned them. Ordinary damp tarmac
-  is under-represented relative to how often it actually occurs.
+- **Retrieval bias.** Images come from curated Wikimedia Commons categories (`Asphalt`,
+  `Wet roads`, `Puddles`, `Flooded roads`, and others), with free-text search used only
+  for `damp`, which has no category — because nobody photographs a slightly wet road on
+  purpose. So the set over-represents conditions dramatic enough to be worth
+  photographing and captioning, and `damp` is both the smallest class here and the one
+  zero-shot is worst at. That is the honest shape of the problem, not an accident.
 - **Geographic and seasonal skew.** Commons road photography skews heavily towards
   Western Europe, and towards daylight. There is very little night footage, which is
   precisely the condition the parent project is designed for.

@@ -1,0 +1,2002 @@
+[
+  {
+    "id": "00000",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00001",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00002",
+    "label": "standing_water",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00003",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00004",
+    "label": "wet",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00005",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00006",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00007",
+    "label": "wet",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00008",
+    "label": "damp",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00009",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00011",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00012",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00013",
+    "label": "damp",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00014",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00015",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00016",
+    "label": "damp",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00017",
+    "label": "damp",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00018",
+    "label": "wet",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00019",
+    "label": "wet",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00020",
+    "label": "reject",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00022",
+    "label": "standing_water",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00023",
+    "label": "standing_water",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00024",
+    "label": "damp",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00025",
+    "label": "wet",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00026",
+    "label": "wet",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00027",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00028",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00029",
+    "label": "standing_water",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00030",
+    "label": "damp",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00031",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00032",
+    "label": "standing_water",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00033",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00034",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00035",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00036",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00037",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00038",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00039",
+    "label": "wet",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00040",
+    "label": "wet",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00041",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00042",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00043",
+    "label": "damp",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00044",
+    "label": "wet",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00045",
+    "label": "damp",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00046",
+    "label": "wet",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00047",
+    "label": "wet",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00048",
+    "label": "wet",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00049",
+    "label": "wet",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00051",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00052",
+    "label": "standing_water",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00053",
+    "label": "standing_water",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00054",
+    "label": "reject",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00055",
+    "label": "damp",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00056",
+    "label": "damp",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00057",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00058",
+    "label": "wet",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00059",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00060",
+    "label": "standing_water",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00061",
+    "label": "wet",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00062",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00063",
+    "label": "standing_water",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00064",
+    "label": "reject",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00065",
+    "label": "standing_water",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00066",
+    "label": "standing_water",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00067",
+    "label": "wet",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00068",
+    "label": "wet",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00069",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00070",
+    "label": "wet",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00071",
+    "label": "standing_water",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00072",
+    "label": "standing_water",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00073",
+    "label": "wet",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00074",
+    "label": "standing_water",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00075",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00076",
+    "label": "standing_water",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00077",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00078",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00079",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00080",
+    "label": "wet",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00081",
+    "label": "wet",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00082",
+    "label": "standing_water",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00083",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00084",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00085",
+    "label": "standing_water",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00086",
+    "label": "reject",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00087",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00088",
+    "label": "wet",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00089",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00090",
+    "label": "standing_water",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00091",
+    "label": "standing_water",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00092",
+    "label": "wet",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00093",
+    "label": "wet",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00094",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00095",
+    "label": "wet",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00096",
+    "label": "wet",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00097",
+    "label": "wet",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00098",
+    "label": "wet",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00099",
+    "label": "wet",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00100",
+    "label": "wet",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00101",
+    "label": "wet",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00102",
+    "label": "wet",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00103",
+    "label": "wet",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00104",
+    "label": "damp",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00105",
+    "label": "dry",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00106",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00107",
+    "label": "wet",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00108",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00109",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00110",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00111",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00112",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00113",
+    "label": "standing_water",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00114",
+    "label": "reject",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00115",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00116",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00117",
+    "label": "reject",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00118",
+    "label": "wet",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00119",
+    "label": "wet",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00120",
+    "label": "damp",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00121",
+    "label": "standing_water",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00122",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00123",
+    "label": "damp",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00124",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00125",
+    "label": "wet",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00126",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00127",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00128",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00129",
+    "label": "wet",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00130",
+    "label": "wet",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00131",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00132",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00133",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00134",
+    "label": "wet",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00135",
+    "label": "damp",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00136",
+    "label": "reject",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00137",
+    "label": "standing_water",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00138",
+    "label": "standing_water",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00140",
+    "label": "reject",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00141",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00142",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00143",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00144",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00145",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00146",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00147",
+    "label": "wet",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00148",
+    "label": "wet",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00149",
+    "label": "damp",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00150",
+    "label": "damp",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00151",
+    "label": "damp",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00152",
+    "label": "damp",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00153",
+    "label": "damp",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00154",
+    "label": "standing_water",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00155",
+    "label": "damp",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00156",
+    "label": "damp",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00158",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00159",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00160",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00161",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00162",
+    "label": "wet",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00163",
+    "label": "wet",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00164",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00165",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00166",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00167",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00168",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00169",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00170",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00174",
+    "label": "damp",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00176",
+    "label": "wet",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00177",
+    "label": "reject",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00178",
+    "label": "damp",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00179",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00180",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00181",
+    "label": "wet",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00182",
+    "label": "wet",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00186",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00187",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00188",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00189",
+    "label": "wet",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00190",
+    "label": "damp",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00191",
+    "label": "standing_water",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00192",
+    "label": "wet",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00193",
+    "label": "wet",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00194",
+    "label": "standing_water",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00195",
+    "label": "reject",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00196",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00197",
+    "label": "wet",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00198",
+    "label": "wet",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00199",
+    "label": "standing_water",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00200",
+    "label": "wet",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00201",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00202",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00203",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00204",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00205",
+    "label": "reject",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00206",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00207",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00208",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00210",
+    "label": "reject",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00212",
+    "label": "reject",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00213",
+    "label": "reject",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00214",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00215",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00216",
+    "label": "reject",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00217",
+    "label": "damp",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00218",
+    "label": "wet",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00219",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00220",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00221",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00222",
+    "label": "damp",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00223",
+    "label": "damp",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00224",
+    "label": "wet",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00225",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00226",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00227",
+    "label": "damp",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00228",
+    "label": "damp",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00230",
+    "label": "dry",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00231",
+    "label": "wet",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00232",
+    "label": "standing_water",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00233",
+    "label": "reject",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00234",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00235",
+    "label": "wet",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00236",
+    "label": "dry",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00237",
+    "label": "standing_water",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00238",
+    "label": "standing_water",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00239",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00240",
+    "label": "standing_water",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00241",
+    "label": "reject",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00242",
+    "label": "wet",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00243",
+    "label": "wet",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00244",
+    "label": "wet",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00245",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00246",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00247",
+    "label": "dry",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00248",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00249",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00250",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00251",
+    "label": "dry",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00252",
+    "label": "reject",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00253",
+    "label": "dry",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00254",
+    "label": "standing_water",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00255",
+    "label": "standing_water",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00256",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00257",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00258",
+    "label": "reject",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00259",
+    "label": "reject",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00261",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00262",
+    "label": "reject",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00263",
+    "label": "wet",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00264",
+    "label": "wet",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00265",
+    "label": "standing_water",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00266",
+    "label": "reject",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00267",
+    "label": "wet",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00268",
+    "label": "dry",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00269",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00270",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00271",
+    "label": "reject",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00272",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00273",
+    "label": "dry",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00274",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00275",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00277",
+    "label": "dry",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00278",
+    "label": "dry",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00279",
+    "label": "wet",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00280",
+    "label": "wet",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00281",
+    "label": "standing_water",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00282",
+    "label": "standing_water",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00283",
+    "label": "reject",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00284",
+    "label": "wet",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00285",
+    "label": "reject",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00286",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00287",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00288",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00289",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00290",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00291",
+    "label": "standing_water",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00292",
+    "label": "standing_water",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00293",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00294",
+    "label": "standing_water",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00295",
+    "label": "standing_water",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00296",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00297",
+    "label": "damp",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00298",
+    "label": "wet",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00299",
+    "label": "wet",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00300",
+    "label": "standing_water",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00301",
+    "label": "standing_water",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00302",
+    "label": "standing_water",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00303",
+    "label": "standing_water",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00304",
+    "label": "standing_water",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00306",
+    "label": "standing_water",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00307",
+    "label": "damp",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00308",
+    "label": "wet",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00309",
+    "label": "reject",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00310",
+    "label": "damp",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00311",
+    "label": "damp",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00312",
+    "label": "damp",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00313",
+    "label": "reject",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00314",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00315",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00316",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00318",
+    "label": "wet",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00322",
+    "label": "wet",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00324",
+    "label": "reject",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00325",
+    "label": "standing_water",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00326",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00328",
+    "label": "damp",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00329",
+    "label": "wet",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00330",
+    "label": "wet",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00331",
+    "label": "reject",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00332",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00333",
+    "label": "reject",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00334",
+    "label": "wet",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00335",
+    "label": "wet",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00336",
+    "label": "wet",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00337",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00338",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00339",
+    "label": "reject",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00340",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00341",
+    "label": "standing_water",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00342",
+    "label": "reject",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00343",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00345",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00346",
+    "label": "reject",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00347",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00348",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00349",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00350",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00351",
+    "label": "standing_water",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00352",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00353",
+    "label": "reject",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00354",
+    "label": "standing_water",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00358",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00359",
+    "label": "standing_water",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00360",
+    "label": "standing_water",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00361",
+    "label": "standing_water",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00362",
+    "label": "standing_water",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00363",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00364",
+    "label": "wet",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00365",
+    "label": "dry",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00366",
+    "label": "standing_water",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00367",
+    "label": "reject",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00368",
+    "label": "reject",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00369",
+    "label": "wet",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00370",
+    "label": "wet",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00371",
+    "label": "wet",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00372",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00373",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00374",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00375",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00376",
+    "label": "reject",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00377",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00378",
+    "label": "reject",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00379",
+    "label": "reject",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00380",
+    "label": "reject",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00381",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00382",
+    "label": "damp",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00383",
+    "label": "reject",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00384",
+    "label": "standing_water",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00385",
+    "label": "standing_water",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00386",
+    "label": "damp",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00387",
+    "label": "damp",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00388",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00389",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00390",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00391",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00392",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00393",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00394",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00395",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00396",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00397",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00398",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00399",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00400",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00401",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00402",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00403",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00404",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00405",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00406",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00407",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00408",
+    "label": "dry",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00409",
+    "label": "wet",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00410",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00411",
+    "label": "wet",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00412",
+    "label": "reject",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00413",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00414",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00415",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00416",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00417",
+    "label": "reject",
+    "auto_label": "dry"
+  },
+  {
+    "id": "00418",
+    "label": "reject",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00419",
+    "label": "wet",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00420",
+    "label": "reject",
+    "auto_label": "standing_water"
+  },
+  {
+    "id": "00422",
+    "label": "wet",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00423",
+    "label": "dry",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00424",
+    "label": "wet",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00425",
+    "label": "wet",
+    "auto_label": "wet"
+  },
+  {
+    "id": "00426",
+    "label": "wet",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00427",
+    "label": "reject",
+    "auto_label": "damp"
+  },
+  {
+    "id": "00428",
+    "label": "reject",
+    "auto_label": "dry"
+  }
+]

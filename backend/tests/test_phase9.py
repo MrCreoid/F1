@@ -307,9 +307,15 @@ def test_export_carries_attribution_for_every_image_it_ships(
     push_to_hub.build_export(rows, build_dir, export, sources)
 
     credits = json.loads((export / "attribution.json").read_text())
-    shipped = {p.stem for p in export.rglob("data/*/*.jpg")}
-    credited = {row["file_name"].split(".")[0] for row in credits}
-    assert shipped <= credited, "an image shipped with no author recorded"
+    shipped = {str(p.relative_to(export)) for p in export.rglob("data/*/*.jpg")}
+    credited = {row["file"] for row in credits}
+
+    # Keyed by the delivered path, not the upload's original name. A credits list the
+    # downloader cannot map onto the files they received is not attribution, and most of
+    # these licences require crediting the specific work.
+    assert shipped == credited, "an image shipped that cannot be traced to its author"
+    assert all(row.get("artist") or row.get("source") == "own footage" for row in credits)
+    assert all(row.get("source_url") or row.get("source") == "own footage" for row in credits)
 
 
 def test_card_numbers_match_the_files_on_disk(

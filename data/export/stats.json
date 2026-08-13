@@ -1,0 +1,27 @@
+{
+  "kept": 247,
+  "reviewed": 400,
+  "rejected": 153,
+  "counts": {
+    "damp": 38,
+    "dry": 65,
+    "standing_water": 57,
+    "wet": 87
+  },
+  "agreement": 0.46153846153846156,
+  "corrected": 133,
+  "licenses": {
+    "cc-by-2.0": 19,
+    "cc-by-2.5": 1,
+    "cc-by-3.0": 13,
+    "cc-by-4.0": 11,
+    "cc-by-sa-2.0": 40,
+    "cc-by-sa-2.5": 1,
+    "cc-by-sa-3.0": 23,
+    "cc-by-sa-4.0": 111,
+    "cc0": 20,
+    "pd": 8
+  },
+  "sources": 247,
+  "uncredited": 0
+}

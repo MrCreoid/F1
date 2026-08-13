@@ -41,6 +41,23 @@ Ending on "conditions deteriorating" leaves the product looking useful rather th
 
 Click **01 · DRYING LINE**. Analysis takes **3.0 seconds** for 300 frames.
 
+### Say this early, before anyone has to ask
+
+The brief lists the per-frame classes as *dry, damp, wet or **drying***. You classify
+`standing_water` instead and derive drying. **Raise it yourself in the first thirty
+seconds** — a judge holding the problem statement will notice, and it reads as a decision
+if you say it and as a miss if they spot it.
+
+> "One thing up front — the brief lists 'drying' as a fourth class. We don't classify it,
+> because you can't see drying in a photograph. A damp track that's drying and a damp
+> track about to get wetter look identical in one frame. So drying is still here — it's
+> right there — but it comes from the slope of the index over 45 seconds, not from a
+> model guessing. The fourth class is standing water instead, which you *can* see, and
+> which is the thing that actually causes aquaplaning."
+
+That is the strongest thirty seconds in the demo. It is the difference between "followed
+the spec" and "understood the problem".
+
 ### 0:10–0:30 — what it landed on
 
 The app opens on the **last** frame, not the first. That is deliberate: you are looking

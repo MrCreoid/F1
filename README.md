@@ -24,8 +24,26 @@ Whiplash treats appearance and trend as separate axes:
 - **Trend** is never predicted. It is *derived* from the time-derivative of a smoothed
   index, which means it can be inspected, cross-checked, and — crucially — refused.
 
-There is no "drying" class and there never will be one. Drying is a property of a
-sequence, not of a photograph.
+### A deliberate deviation from the brief
+
+The problem statement lists the per-frame classes as *dry, damp, wet or **drying***.
+This system does not classify "drying", and that is on purpose.
+
+**Drying is not visible in a photograph.** A damp track that is drying and a damp track
+that is about to get wetter look identical in a single frame — the difference is only
+which way the number is moving. Ask a classifier to output "drying" and you are asking
+it to guess at a time-derivative from one instant, and it will happily oblige with a
+confident answer it has no evidence for.
+
+So drying **is** delivered — as `DRYING`, `WETTING` or `STABLE`, computed from the slope
+of the smoothed index over a 45-second window, cross-checked against a second estimator,
+and suppressed entirely when the fit does not support it. You get the output the brief
+asks for, from the only place it can honestly come from. The fourth appearance class is
+`standing_water` instead, which *is* visible in one frame and is the condition that
+actually causes aquaplaning.
+
+That trade is the whole idea: appearance and trend are different axes, and keeping them
+apart is what makes the trend inspectable, cross-checkable, and refusable.
 
 ## Why this isn't a wrapper around CLIP
 

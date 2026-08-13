@@ -324,9 +324,11 @@ COMMONS_RATE_LIMIT_BACKOFF_S = 30.0
 # has no reason to contain one.
 DATASET_MIN_QUALITY = 0.35
 
-# Hub repo ids. Overridable so a fork does not have to edit code to publish its own.
-HF_DATASET_REPO = os.getenv("WW_HF_DATASET", "pratyushgarg/weather-whiplash-surfaces")
-HF_MODEL_REPO = os.getenv("WW_HF_MODEL", "pratyushgarg/weather-whiplash-probe")
+# Hub repo ids. The namespace must be one the token's owner can write to — a mismatch
+# fails at create_repo, after the export has already been built. Overridable so a fork
+# does not have to edit code to publish its own.
+HF_DATASET_REPO = os.getenv("WW_HF_DATASET", "mrcreoid/weather-whiplash-surfaces")
+HF_MODEL_REPO = os.getenv("WW_HF_MODEL", "mrcreoid/weather-whiplash-probe")
 
 # ---------------------------------------------------------------- runtime
 

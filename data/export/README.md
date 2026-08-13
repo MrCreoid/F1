@@ -115,7 +115,7 @@ Read these before using it for anything.
 ```python
 from datasets import load_dataset
 
-ds = load_dataset("pratyushgarg/weather-whiplash-surfaces")
+ds = load_dataset("mrcreoid/weather-whiplash-surfaces")
 ```
 
 The layout is standard `imagefolder`: `data/<label>/<id>.jpg`.

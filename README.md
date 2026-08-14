@@ -60,4 +60,4 @@ Face Spaces and GitHub Pages are in
 ## Licence
 
 [MIT](LICENSE). Dataset sources and attribution are documented in
-[docs/DATASET.md](docs/DATASET.md).
+[docs/DATASET.md](docs/DATASET.md). The compiled dataset is available on Hugging Face at [mrcreoid/weather-whiplash-surfaces](https://huggingface.co/datasets/mrcreoid/weather-whiplash-surfaces).

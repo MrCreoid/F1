@@ -15,7 +15,6 @@ __pycache__/
 *.pyc
 .next/
 .DS_Store
-.remember/
 backend/data/
 .pytest_cache/
 .mypy_cache/
@@ -28,9 +27,6 @@ coverage/
 .docker/
 
 # Local AI-editor metadata does not belong in the submission.
-.agents/
-.claude/
-.codex/
 
 # Editor-local files
 .idea/

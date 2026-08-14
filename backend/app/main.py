@@ -74,11 +74,11 @@ async def lifespan(application: FastAPI) -> AsyncIterator[None]:
 
 app = FastAPI(title="Weather Whiplash", version="0.1.0", lifespan=lifespan)
 
-# The Next.js dev server is a different origin. Locked to localhost — this never runs
-# anywhere but the demo machine.
+# The local dev server is a different origin. A static GitHub Pages build calls this
+# API directly, so its exact public origin is supplied through WW_CORS_ORIGINS.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
+    allow_origins=list(config.CORS_ORIGINS),
     allow_methods=["*"],
     allow_headers=["*"],
 )

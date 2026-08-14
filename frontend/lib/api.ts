@@ -33,6 +33,12 @@ export type Compound = Recommendation["current"];
  */
 export const API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? "";
 
+/** Resolve backend-served thumbnails when the static site calls the API directly. */
+export function mediaUrl(path: string | null): string | null {
+  if (!path || /^https?:\/\//.test(path)) return path;
+  return `${API_BASE}${path}`;
+}
+
 /** Errors name the failure and, where the backend gave one, the fix. */
 export class ApiError extends Error {
   constructor(

@@ -1,5 +1,12 @@
+# Secrets and local credentials. Commit only the empty template below.
 .env
 .env.*
+!.env.example
+*.key
+*.p12
+*.pfx
+secrets/
+credentials/
 .cache/
 node_modules/
 __pycache__/
@@ -10,6 +17,25 @@ __pycache__/
 .DS_Store
 .remember/
 backend/data/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+coverage/
+*.log
+
+# Local Hugging Face and Docker tooling
+.huggingface/
+.docker/
+
+# Local AI-editor metadata does not belong in the submission.
+.agents/
+.claude/
+.codex/
+
+# Editor-local files
+.idea/
+.vscode/
+*.swp
 
 # Dataset working area. The images are re-fetchable and the published copy lives on the
 # Hub; the JSON is the irreplaceable part — licences and human labels — so it stays.

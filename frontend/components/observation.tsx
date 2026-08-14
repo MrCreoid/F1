@@ -10,6 +10,7 @@ import {
   CLASS_LABEL,
   CLASS_ORDER,
   FALLBACK_THRESHOLDS,
+  mediaUrl,
   type Thresholds,
   type TrackState,
 } from "@/lib/api";
@@ -41,7 +42,7 @@ export function CameraMonitor({
         {state.thumbnail_url ? (
           // eslint-disable-next-line @next/next/no-img-element -- backend-served frame, not a static asset
           <img
-            src={state.thumbnail_url}
+            src={mediaUrl(state.thumbnail_url) ?? undefined}
             alt={`Frame ${state.frame_index}`}
             className="h-full w-full object-cover"
           />

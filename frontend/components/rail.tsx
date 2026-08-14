@@ -11,6 +11,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import {
   FALLBACK_THRESHOLDS,
   clock,
+  mediaUrl,
   twiColor,
   type HealthResponse,
   type Thresholds,
@@ -275,7 +276,7 @@ export function TimelineRail({
                 {cell.frame.thumbnail_url && (
                   // eslint-disable-next-line @next/next/no-img-element -- backend-served frame, not a static asset
                   <img
-                    src={cell.frame.thumbnail_url}
+                    src={mediaUrl(cell.frame.thumbnail_url) ?? undefined}
                     alt=""
                     draggable={false}
                     className="h-full w-full object-cover"

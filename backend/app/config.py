@@ -34,9 +34,18 @@ FRAMES_DIR = DATA_DIR / "frames"
 SAMPLES_DIR = BACKEND_ROOT / "samples"
 DATABASE_URL = f"sqlite:///{DATA_DIR / 'whiplash.db'}"
 
+# Comma-separated browser origins allowed to call the API directly. Local development
+# stays enabled; a GitHub Pages deployment adds its public URL in Space settings.
+_extra_cors_origins = os.getenv("WW_CORS_ORIGINS", "")
+CORS_ORIGINS: tuple[str, ...] = (
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    *(origin.strip().rstrip("/") for origin in _extra_cors_origins.split(",") if origin.strip()),
+)
+
 # ---------------------------------------------------------------- model
 
-# Pinned in CLAUDE.md. Never substitute; if it fails to resolve, report and stop.
+# Pinned for repeatable inference. Never substitute it silently.
 MODEL_ID = os.getenv("WW_MODEL_ID", "openai/clip-vit-base-patch32")
 
 # The four appearance classes. Ordering is load-bearing: it indexes the prompt tuple,
@@ -233,7 +242,7 @@ BUILD_DIR = DATASET_DIR / "dataset"
 # failure looks like a network fault rather than a policy one — an hour lost the first
 # time. The contact address is part of their published requirement, not decoration.
 COMMONS_API = "https://commons.wikimedia.org/w/api.php"
-COMMONS_USER_AGENT = "WeatherWhiplash/0.1 (hackathon project; pratyushgarg527@gmail.com)"
+COMMONS_USER_AGENT = "WeatherWhiplash/0.1 (+https://github.com/mrcreoid/F1)"
 
 # Machine-readable licence slugs we are willing to redistribute. Everything here permits
 # commercial use and redistribution with attribution; anything not on this list is

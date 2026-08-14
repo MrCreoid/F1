@@ -44,6 +44,7 @@ cd backend && ../.venv/bin/python -m uvicorn app.main:app --port 8000
 
 # Terminal 2
 cd frontend && npm run dev
+```
 
 Open http://localhost:3000. The first backend start downloads and warms the model.
 
